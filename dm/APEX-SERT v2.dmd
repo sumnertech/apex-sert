@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="APEX-SERT v2" id="F2C92ED4-18F3-1DA7-9E4C-538B9DD3DA97" version="3.5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 20:45:49 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>F2C92ED4-18F3-1DA7-9E4C-538B9DD3DA97</designId>
+</OSDM_Design>

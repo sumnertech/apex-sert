@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="10F32567-625A-177E-252D-A071B5311F61" name="CLASSIFICATIONS">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:05:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<ordsAlias>table_7</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CLASSIFICATION_ID" id="3A6A92B3-29E1-DB9C-99C9-0A76F39E6076">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLASSIFICATION_NAME" id="4867AD5C-5B14-1E61-602E-95A503F56B5C">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLASSIFICATION_KEY" id="09D84A30-06CC-BFD8-F195-1E59458A7D9C">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="BFCB0872-C930-B3A0-1755-F522185D36E2">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_ON" id="76E851EE-C216-4E76-127D-DF4C04C92C91">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<defaultValue>systimestamp</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_BY" id="8BD8E6B8-CD29-A29C-6C5C-60BED02BB0D4">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_ON" id="EE58025D-A678-492A-30D8-CDA8D29BDF88">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<defaultValue>systimestamp</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="67056D89-5626-8EC6-CC91-EACAD00A4445" name="CLASSIFICATIONS_PK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3A6A92B3-29E1-DB9C-99C9-0A76F39E6076"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8E4D0DF7-8509-0B7C-DBED-E463F05B7C86" name="CLASSIFICATIONS_UN">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:11:34 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="09D84A30-06CC-BFD8-F195-1E59458A7D9C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

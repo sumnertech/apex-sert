@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<StorageDesignOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.StorageDesignOraclev20c" name="Oracle Database 21c" id="1AB58054-3A0A-3435-72FC-98440ED5797B" siteID="01F6E6D1-21D0-CFBD-ABDD-3988D1813575" siteName="Oracle Database 21c" siteType="17">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 21:10:51 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</StorageDesignOraclev20c>

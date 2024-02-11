@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="6B86784E-786D-1C81-05BD-B4BF56D228FA">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-10 20:45:49 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>
