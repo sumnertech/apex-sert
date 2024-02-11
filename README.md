@@ -1,1 +1,3 @@
-# apex-sert
+# APEX-SERT
+
+Welcome to APEX-SERT! 
