@@ -3,24 +3,6 @@
 --   site:      Oracle Database 21c
 --   type:      Oracle Database 21c
 
-alter session set current_schema = wksp_sert;
-
-DROP TABLE categories CASCADE CONSTRAINTS;
-
-DROP TABLE classifications CASCADE CONSTRAINTS;
-
-DROP TABLE evals CASCADE CONSTRAINTS;
-
-DROP TABLE rule_set_rules CASCADE CONSTRAINTS;
-
-DROP TABLE rule_set_types CASCADE CONSTRAINTS;
-
-DROP TABLE rule_sets CASCADE CONSTRAINTS;
-
-DROP TABLE rule_severity CASCADE CONSTRAINTS;
-
-DROP TABLE rules CASCADE CONSTRAINTS;
-
 -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
 
 -- predefined type, no DDL - XMLTYPE
