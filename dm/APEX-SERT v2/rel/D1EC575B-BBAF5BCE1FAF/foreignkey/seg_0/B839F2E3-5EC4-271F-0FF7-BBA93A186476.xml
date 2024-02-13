@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B839F2E3-5EC4-271F-0FF7-BBA93A186476" containerWithKeyObject="6AE044C7-BCAB-45DB-CA14-06D227D97EBC" localFKIndex="CD8A232B-AEE3-1779-E838-59EC41AA740C" name="EVAL_RESULTS_EVALS_FK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-12 14:26:57 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<referredTableLongName>EVALS</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>0F8DAA40-887D-899B-C659-28C203804D82</referredTableID>
+<keyObject>A2025DA1-F968-7E75-8B68-EF12E99A282A</keyObject>
+<referredKeyID>A2025DA1-F968-7E75-8B68-EF12E99A282A</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>EVAL_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

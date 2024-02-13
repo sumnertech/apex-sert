@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="AB6B353B-2198-F88C-C7E8-4D486E0CACF0" containerWithKeyObject="0F8DAA40-887D-899B-C659-28C203804D82" localFKIndex="D1188742-C781-239F-CCAC-C1076CAC29F0" name="EVALS_RULE_SETS_FK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-12 14:53:57 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<referredTableLongName>RULE_SETS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E1D4738E-EC58-FF46-57CA-6466E9E7C3BE</referredTableID>
+<keyObject>4C7BD3CF-C373-8741-9EC7-FE418C03C67B</keyObject>
+<referredKeyID>4C7BD3CF-C373-8741-9EC7-FE418C03C67B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>RULE_SET_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

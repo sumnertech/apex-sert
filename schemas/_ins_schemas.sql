@@ -12,3 +12,6 @@ alter user sert_core quota unlimited on users
 
 alter user sert_pub quota unlimited on users
 /
+
+grant apex_administrator_read_role to sert_core
+/
