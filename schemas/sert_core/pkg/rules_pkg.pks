@@ -1,4 +1,4 @@
-create or replace package rules_pkg
+create or replace package sert_core.rules_pkg
 as
 
 procedure import

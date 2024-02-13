@@ -1,5 +1,7 @@
 create or replace package body sert_core.eval_pkg
 as
+  g_log_key varchar2(10) := log_pkg.get_log_key;
+  g_log_type varchar2(100) := 'EVAL';
 
 ----------------------------------------------------------------------------------------------------------------------------
 -- PROCEDURE: P R O C E S S _ R U L E S
@@ -117,7 +119,13 @@ open l_cursor;
     end if;
 
     -- run the sql, populating the eval_results table
+    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_sql);
+    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_result);
     execute immediate l_sql;
+
+    -- reset the variables
+    l_sql := null;
+    l_result := null;
 
   end loop;
 close l_cursor;
@@ -178,8 +186,9 @@ process_rules
   );
 
 exception
-  when others then dbms_output.put_line (dbms_utility.format_error_backtrace);
-  raise;
+  when others then
+    log_pkg.log(p_log => 'An unhandled error has occured', p_log_type => 'UNHANDLED');
+    raise;
 
 end eval;
 
