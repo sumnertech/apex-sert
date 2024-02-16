@@ -1,19 +1,17 @@
 alter session set current_schema = sert_core;
-set SERVEROUTPUT on;
+set SERVEROUTPUT off;
 
 begin
 delete from evals;
 eval_pkg.eval
   (
-   p_application_id => 2002
+   p_application_id => 2001
    ,p_debug => true
   );
 end;
 /
 
-
-select * from evals;
-select * from eval_results;
+select r.rule_name, er.* from eval_results er, rules_v r where er.rule_id = r.rule_id;
 
 delete from evals;
 delete from rule_sets;

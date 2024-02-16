@@ -27,6 +27,8 @@ procedure log
   ,p_log_type in varchar2 default 'GENERIC'
   ,p_log_key  in varchar2 default null
   ,p_log_clob in varchar2 default null
+  ,p_id       in varchar2 default null
+  ,p_id_col   in varchar2 default null
   )
 is
   pragma autonomous_transaction;
@@ -38,13 +40,17 @@ insert into logs
   ,log_type
   ,log
   ,log_clob
+  ,id
+  ,id_col
   )
 values
   (
-   p_log_key
+   nvl(p_log_key, apex_util.get_session_state('G_LOG_KEY'))
   ,p_log_type
   ,p_log
   ,dbms_utility.format_error_stack || dbms_utility.format_error_backtrace || p_log_clob
+  ,p_id
+  ,p_id_col
   );
 
 commit;
@@ -66,17 +72,19 @@ is
 begin
 
 -- capture the result
-l_result := apex_error.init_error_result (p_error => p_error );
+l_result := apex_error.init_error_result (p_error => p_error);
 
--- set the error message
+-- log the full stack
+-- //TODO determine how to pass Log Key here; not getting set
+log(p_log => l_result.message, p_log_key => apex_util.get_session_state('G_LOG_KEY'), p_log_type => 'ERROR');
 
-if l_result.message is null then
+-- set the error message if it does not start with "ORA"
+if l_result.message is null or substr(l_result.message, 1, 3) = 'ORA' then
   l_result.message := 'An unexpected error has occurred. Please review the log for details.';
 end if;
 
 -- return the result
 return l_result;
-
 
 end error;
 

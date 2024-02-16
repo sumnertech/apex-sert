@@ -4,8 +4,8 @@ select
   ,j.rule_key
   ,j.category_name
   ,j.category_key
-  ,j.classification_name
-  ,j.classification_key
+  ,j.risk_code
+  ,j.risk_name
   ,j.apex_version
   ,j.help_url
   ,j.builder_url
@@ -14,11 +14,15 @@ select
   ,j.internal_yn
   ,j.rule_type
   ,j.view_name
+  ,j.column_to_evaluate
+  ,j.component_id
   ,j.column_name
   ,j.operand
   ,j.val_char
   ,j.val_number
   ,j.case_sensitive_yn
+  ,j.additional_where
+  ,j.custom_query
   ,j.info
   ,j.fix
   ,j.time_to_fix
@@ -41,8 +45,8 @@ from
       ,rule_key            varchar path '$.ruleKey'
       ,category_name       varchar path '$.categoryName'
       ,category_key        varchar path '$.categoryKey'
-      ,classification_name varchar path '$.classificationName'
-      ,classification_key  varchar path '$.classificationKey'
+      ,risk_code           varchar path '$.riskCode'
+      ,risk_name           varchar path '$.riskName'
       ,apex_version        number  path '$.apexVersion'
       ,help_url            varchar path '$.helpUrl'
       ,builder_url         varchar path '$.builderUrl'
@@ -51,11 +55,15 @@ from
       ,internal_yn         varchar path '$.internalYN'
       ,rule_type           varchar path '$.ruleType'
       ,view_name           varchar path '$.viewName'
+      ,column_to_evaluate  varchar path '$.columnToEvaluate'
+      ,component_id        varchar path '$.componentId'
       ,column_name         varchar path '$.columnName'
       ,operand             varchar path '$.operand'
       ,val_char            varchar path '$.valChar'
       ,val_number          number  path '$.valNumber'
       ,case_sensitive_yn   varchar path '$.caseSensitiveYN'
+      ,additional_where    varchar path '$.additionalWhere'
+      ,custom_query        varchar path '$.customQuery'
       ,info                varchar path '$.info'
       ,fix                 varchar path '$.fix'
       ,time_to_fix         varchar path '$.timeToFix'
@@ -67,3 +75,4 @@ from
       ,updated_on          date    path '$.updatedOn'
       )
     ) j
+/

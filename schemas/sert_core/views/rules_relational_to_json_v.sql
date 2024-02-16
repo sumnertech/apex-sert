@@ -10,8 +10,8 @@ select
       ,'ruleKey'            is rule_key
       ,'categoryName'       is category_name
       ,'categoryKey'        is category_key
-      ,'classificationName' is classification_name
-      ,'classificationKey'  is classification_key
+      ,'riskCode'           is risk_code
+      ,'riskName'           is risk_name
       ,'apexVersion'        is apex_version
       ,'helpUrl'            is help_url
       ,'builderUrl'         is builder_url
@@ -20,11 +20,15 @@ select
       ,'internalYN'         is internal_yn
       ,'ruleType'           is rule_type
       ,'viewName'           is view_name
+      ,'columnToEvaluate'   is column_to_evaluate
+      ,'componentId'        is component_id
       ,'columnName'         is column_name
       ,'operand'            is operand
       ,'valChar'            is val_char
       ,'valNumber'          is val_number
       ,'caseSensitiveYN'    is case_sensitive_yn
+      ,'additionalWhere'    is additional_where
+      ,'customQuery'        is custom_query
       ,'info'               is info
       ,'fix'                is fix
       ,'timeToFix'          is time_to_fix

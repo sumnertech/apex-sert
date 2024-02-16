@@ -15,11 +15,6 @@
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <defaultValue>systimestamp</defaultValue>
 </ColumnProxy>
-<ColumnProxy name="CLASSIFICATION_ID" id="234A0502-B182-11DC-08B5-1D2960F2BFC3">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:10:54 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-</ColumnProxy>
 <ColumnProxy name="CATEGORY_ID" id="348D291F-EBFD-D1EB-CD0B-D6F2EF2D7CB8">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 21:10:54 UTC</createdTime>
@@ -55,13 +50,6 @@
 <defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 </ColumnProxy>
 </columnProxies>
-<foreignKeys>
-<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="CATEGORIES_CLASSIFICATIONS_FK" id="7FD63FDA-4BAF-74E3-19D9-18A2EF99439B">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:10:54 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-</ForeignKey>
-</foreignKeys>
 <primaryKeys>
 <PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="CATEGORIES_PK" id="F3D7EF4A-17B3-3624-7881-36C421F70E43">
 <createdBy>scspend</createdBy>

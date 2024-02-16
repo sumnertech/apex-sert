@@ -55,16 +55,19 @@
 <colAssociation fkAssociation="84A52A80-DB53-6FCC-E269-6294ECA53391" referredColumn="348D291F-EBFD-D1EB-CD0B-D6F2EF2D7CB8"/>
 </associations>
 </Column>
-<Column name="RULE_TYPE" id="8A6249F2-E751-B7C7-DF59-1233B83806D4">
+<Column name="RISK_ID" id="695EE318-ABB0-95D5-948D-9363F8EE0469">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-11 03:05:08 UTC</createdTime>
+<createdTime>2024-02-15 13:06:23 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="798F062A-A812-4F7D-D4F6-842B612205D4" referredColumn="B851E3C9-6C61-1DCF-BA16-EA5AA20EA68E"/>
+</associations>
 </Column>
 <Column name="RULE_SEVERITY_ID" id="59BE4AEF-50B9-40C4-58F3-274F767939BC">
 <createdBy>scspend</createdBy>
@@ -78,6 +81,17 @@
 <associations>
 <colAssociation fkAssociation="02C3E75F-7A47-0887-8CB2-2E1C6941B26F" referredColumn="54FE0601-D834-6012-D016-5098ED7C69FE"/>
 </associations>
+</Column>
+<Column name="RULE_TYPE" id="8A6249F2-E751-B7C7-DF59-1233B83806D4">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-11 03:05:08 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="IMPACT" id="A8F08DDD-0CB8-9D0D-353B-01528BEE63FE">
 <createdBy>scspend</createdBy>
@@ -104,6 +118,30 @@
 <Column name="VIEW_NAME" id="86D56F20-A841-F725-9DDF-2B1297D59F5C">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-11 03:05:08 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COLUMN_TO_EVALUATE" id="A5091975-3C0D-A52E-1530-8443F42DE71D">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 04:45:38 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMPONENT_ID" id="0837D06B-F7E7-DE1C-5FF3-ABA59FAA1625">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 02:48:17 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -177,6 +215,30 @@
 <defaultValue>N</defaultValue>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ADDITIONAL_WHERE" id="B5EA39D1-526A-0CFE-234D-5B95AFA82392">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 13:21:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOM_QUERY" id="D281B217-0CE6-901D-E7A3-802CC9E938E0">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 13:12:28 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ACTIVE_YN" id="4A80EF5F-7E9F-83D1-D6E2-67B4446A89F3">
@@ -366,6 +428,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="59BE4AEF-50B9-40C4-58F3-274F767939BC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2A888774-A48A-92B4-694C-667A2ADC338E" name="RULES_RISKS_FK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 13:07:52 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="695EE318-ABB0-95D5-948D-9363F8EE0469"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

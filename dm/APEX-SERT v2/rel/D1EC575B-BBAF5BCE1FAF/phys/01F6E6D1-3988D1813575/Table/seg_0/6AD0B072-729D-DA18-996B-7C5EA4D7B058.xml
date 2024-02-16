@@ -1,0 +1,66 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="RISKS" directorySegmentName="seg_0" id="6AD0B072-729D-DA18-996B-7C5EA4D7B058">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:54:59 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="RISK_NAME" id="108C7AAA-2880-0D5A-6E8D-BE844BCEF54A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 13:10:06 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_BY" id="49E03C13-A756-DA74-CC2A-DB51ECF05195">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="CREATED_ON" id="55E478D7-A105-7209-B531-6D641DA7788B">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_ON" id="6EC5B44C-84A5-1CFB-0A65-DC97EED129E0">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="URL" id="6F3AA114-4816-FA4C-6410-6B00A3ADE14B">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RISK_CODE" id="B13B0C2A-70C5-E24E-FE7D-E0ACD75F0C08">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RISK_ID" id="B851E3C9-6C61-1DCF-BA16-EA5AA20EA68E">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_BY" id="F81BDD56-73C4-6B22-E08D-049B0CCE2494">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="RISKS_PK" id="345D027D-8C01-6679-500F-251B811E3B04">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 13:07:34 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

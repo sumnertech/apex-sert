@@ -14,6 +14,7 @@
 <createdTime>2024-02-13 03:28:35 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+<notnullConstraintnameChanged>true</notnullConstraintnameChanged>
 </ColumnProxy>
 <ColumnProxy name="CREATED_ON" id="3CCDD23C-C105-4F15-95CF-545393420BD5">
 <createdBy>scspend</createdBy>
@@ -21,9 +22,34 @@
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <defaultValue>systimestamp</defaultValue>
 </ColumnProxy>
+<ColumnProxy name="LOG_CLOB" id="3D566CBA-6F47-DE60-5EF4-602016FAFF65">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 13:21:28 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
 <ColumnProxy name="LOG_TYPE" id="3DC01D7B-2465-1ACE-09CC-5F110C63E8C5">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-13 03:29:13 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_TABLE" id="615004FE-5FDA-545E-3011-176A22FD2E1D">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 20:51:40 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG_KEY" id="6BD48CD9-63A3-9C48-1B71-234BCE02D0C4">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 13:21:28 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG" id="968B667C-9506-7EDF-5440-3B7D5249D202">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 13:21:28 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_COL" id="A9B9A782-DD6A-0255-48C1-415B646AC8DC">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 14:27:36 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="CREATED_BY" id="B2F6DDC1-7E4D-851C-3483-096B11984DB9">
@@ -31,6 +57,11 @@
 <createdTime>2024-02-13 03:29:25 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ID" id="F24A9ADF-B5CB-B495-42A2-615A7645CDB6">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-14 14:27:36 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 </columnProxies>
 <primaryKeys>

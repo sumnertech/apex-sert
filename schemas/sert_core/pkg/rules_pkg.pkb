@@ -13,14 +13,18 @@ procedure import
   p_name in varchar2
   )
 is
-  l_classification_id classifications.classification_id%type;
   l_category_id       categories.category_id%type;
   l_rule_severity_id  rule_severity.rule_severity_id%type;
+  l_risk_id           risks.risk_id%type;
   l_cnt               number;
 begin
 
+-- set the log_key
+apex_util.set_session_state('G_LOG_KEY', g_log_key);
+
 log_pkg.log(p_log_key => g_log_key, p_log => 'Import Started', p_log_type => g_log_type);
 
+-- create a collection to store the parsed JSON file
 apex_collection.create_or_truncate_collection(p_collection_name => 'RULES');
 
 -- loop through the JSON file and add each rule, when able
@@ -32,21 +36,12 @@ loop
 
   if l_cnt = 0 then
 
-    -- determine if the classification exists; create it if not
-    begin
-    select classification_id into l_classification_id from classifications where classification_key = x.classification_key;
-    exception
-      when no_data_found then
-        insert into classifications (classification_name, classification_key) values (x.classification_name, x.classification_key) returning classification_id into l_classification_id;
-        log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Classification: ' || x.classification_name, p_log_type => g_log_type);
-    end;
-
     -- determine if the category exists; create it if not
     begin
     select category_id into l_category_id from categories where category_key = x.category_key;
     exception
       when no_data_found then
-        insert into categories (category_name, category_key, classification_id) values (x.category_name, x.category_key, l_classification_id) returning category_id into l_category_id;
+        insert into categories (category_name, category_key) values (x.category_name, x.category_key) returning category_id into l_category_id;
         log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Category: ' || x.category_name, p_log_type => g_log_type);
     end;
 
@@ -60,22 +55,30 @@ loop
 
     end;
 
+    -- get the risk; these should not be created on the fly, as they are based on OWASP Top 10
+    select risk_id into l_risk_id from risks where risk_code = x.risk_code;
+
     -- all checks cleared - insert the rule
     insert into rules
       (
-      rule_name
+       rule_name
       ,rule_key
       ,category_id
+      ,risk_id
       ,rule_type
       ,rule_severity_id
       ,impact
       ,apex_version
       ,view_name
+      ,column_to_evaluate
+      ,component_id
       ,column_name
       ,operand
       ,val_char
       ,val_number
       ,case_sensitive_yn
+      ,additional_where
+      ,custom_query
       ,active_yn
       ,internal_yn
       ,help_url
@@ -89,16 +92,21 @@ loop
        x.rule_name
       ,x.rule_key
       ,l_category_id
+      ,l_risk_id
       ,x.rule_type
       ,l_rule_severity_id
       ,x.impact
       ,x.apex_version
       ,x.view_name
+      ,x.column_to_evaluate
+      ,x.component_id
       ,x.column_name
       ,x.operand
       ,x.val_char
       ,x.val_number
       ,x.case_sensitive_yn
+      ,x.additional_where
+      ,x.custom_query
       ,x.active_yn
       ,x.internal_yn
       ,x.help_url
@@ -108,12 +116,12 @@ loop
       ,x.time_to_fix
       );
 
-    apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'SUCCESS', p_c002 => null, p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.classification_name);
+    apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'SUCCESS', p_c002 => null, p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.risk_code || '-' || x.risk_name);
     log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Rule: ' || x.rule_name, p_log_type => g_log_type);
 
   else
     -- rule not uploaded as a rule key with the same name exists
-    apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'FAIL', p_c002 => 'Rule already exists', p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.classification_name);
+    apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'FAIL', p_c002 => 'Rule already exists', p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.risk_code || '-' || x.risk_name);
     log_pkg.log(p_log_key => g_log_key, p_log => 'Rule NOT Created because it already exists: ' || x.rule_name || ' / ' || x.rule_key, p_log_type => g_log_type);
   end if;
 
@@ -124,7 +132,7 @@ exception
 
   -- handle unanticipated errors
   when others then
-    log_pkg.log(p_log_key => g_log_key, p_log => 'An unhandled error has occured', p_log_type => 'UNHANDLED');--, p_log_clob => dbms_utility.FORMAT_ERROR_STACK || DBMS_UTILITY.format_error_backtrace);
+    log_pkg.log(p_log_key => g_log_key, p_log => 'An unhandled error has occured', p_log_type => 'UNHANDLED');
     raise;
 
 end import;
@@ -139,6 +147,10 @@ is
   l_blob blob;
 begin
 
+-- set the log_key
+apex_util.set_session_state('G_LOG_KEY', g_log_key);
+
+-- log the start point
 log_pkg.log(p_log_key => g_log_key, p_log => 'Export Started', p_log_type => 'EXPORT');
 
 -- generate the json file from the view
@@ -155,11 +167,37 @@ sys.htp.p('content-disposition: attachment; filename="APEX-SERT Rules ' || to_ch
 sys.owa_util.http_header_close;
 sys.wpg_docload.download_file(l_blob);
 
+-- log the end point
 log_pkg.log(p_log_key => g_log_key, p_log => 'Export Completed', p_log_type => 'EXPORT');
 
 apex_application.stop_apex_engine;
 
 end export;
+
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: A D D _ R U L E _ T O _ R U L E _ S E T S
+----------------------------------------------------------------------------------------------------------------------------
+-- Adds a rule to a rule set or sets
+----------------------------------------------------------------------------------------------------------------------------
+procedure add_rule_to_rule_set
+  (
+  p_rule_id    in number
+  ,p_rule_sets in varchar2
+  )
+is
+  l_rule_set_arr apex_application_global.vc_arr2;
+begin
+
+-- convert the rule sets to an array
+l_rule_set_arr := apex_string.string_to_table(p_rule_sets,':');
+
+-- loop through them and assign the rule
+for x in 1..l_rule_set_arr.count
+loop
+  insert into rule_set_rules (rule_set_id, rule_id) values (l_rule_set_arr(x), p_rule_id);
+end loop;
+
+end add_rule_to_rule_set;
 
 
 ----------------------------------------------------------------------------------------------------------------------------

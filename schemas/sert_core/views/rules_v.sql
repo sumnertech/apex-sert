@@ -5,11 +5,13 @@ select
   ,r.rule_name
   ,r.rule_key
   ,r.category_id
+  ,r.risk_id
+  ,k.risk_code
+  ,k.risk_name
+  ,k.risk_code || ' - ' || k.risk_name as risk
+  ,k.url as risk_url
   ,c.category_name
   ,c.category_key
-  ,c.classification_id
-  ,c.classification_name
-  ,c.classification_key
   ,r.apex_version
   ,r.help_url
   ,r.builder_url
@@ -22,10 +24,12 @@ select
   ,r.internal_yn
   ,r.rule_type
   ,r.view_name
+  ,r.column_to_evaluate
+  ,r.component_id
   ,r.column_name
   ,r.operand
   ,case
-     when r.rule_type = 'FUNCTION' then 'Function'
+     when r.rule_type = 'CUSTOM_QUERY' then 'Custom Query'
      when r.operand = 'SQLI' then 'Valid SQL'
      when r.operand = 'XSS' then 'Valid HTML'
      else initcap(replace(r.operand,'_', ' '))
@@ -38,6 +42,8 @@ select
   ,r.val_char
   ,r.val_number
   ,r.case_sensitive_yn
+  ,r.additional_where
+  ,r.custom_query
   ,r.info
   ,r.fix
   ,r.time_to_fix
@@ -59,7 +65,9 @@ from
   rules r
   ,categories_v c
   ,rule_severity rs
+  ,risks k
 where
   r.category_id = c.category_id
   and r.rule_severity_id = rs.rule_severity_id
+  and r.risk_id = k.risk_id
 /

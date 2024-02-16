@@ -1,16 +1,16 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="10F32567-625A-177E-252D-A071B5311F61" name="CLASSIFICATIONS">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6712569E-F740-163D-FAEF-E5F3C2D94A9E" name="PREFS">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:05:19 UTC</createdTime>
+<createdTime>2024-02-15 16:27:15 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<ordsAlias>table_7</ordsAlias>
+<ordsAlias>table_12</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="CLASSIFICATION_ID" id="3A6A92B3-29E1-DB9C-99C9-0A76F39E6076">
+<Column name="PREF_ID" id="DF5874E9-2FC8-78E8-1595-3525ECF9C78F">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -20,9 +20,9 @@
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CLASSIFICATION_NAME" id="4867AD5C-5B14-1E61-602E-95A503F56B5C">
+<Column name="PREF_NAME" id="E1DFB75E-E02C-D433-0FD3-54D614E85E53">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -31,9 +31,9 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CLASSIFICATION_KEY" id="09D84A30-06CC-BFD8-F195-1E59458A7D9C">
+<Column name="PREF_KEY" id="ADDC9715-0E4E-550E-8438-B25CD7B67DF2">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -42,9 +42,20 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CREATED_BY" id="BFCB0872-C930-B3A0-1755-F522185D36E2">
+<Column name="PREF_VALUE" id="B0CB9F02-9420-643E-1AE2-1E489D10FB2B">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<createdTime>2024-02-15 16:28:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="47089457-D037-1512-6FD6-87FC4AAF4EA5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 16:28:28 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -55,9 +66,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CREATED_ON" id="76E851EE-C216-4E76-127D-DF4C04C92C91">
+<Column name="CREATED_ON" id="F72573C6-99DB-7394-A5A5-71F0E7214A2E">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<createdTime>2024-02-15 16:28:28 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -67,9 +78,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UPDATED_BY" id="8BD8E6B8-CD29-A29C-6C5C-60BED02BB0D4">
+<Column name="UPDATED_BY" id="D55CA71E-B5A6-C94D-605E-3F3389109895">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<createdTime>2024-02-15 16:28:28 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -81,9 +92,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UPDATED_ON" id="EE58025D-A678-492A-30D8-CDA8D29BDF88">
+<Column name="UPDATED_ON" id="61B63609-F731-4D52-445C-B9F8ABA658F5">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:20:31 UTC</createdTime>
+<createdTime>2024-02-15 16:28:28 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -96,25 +107,15 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="67056D89-5626-8EC6-CC91-EACAD00A4445" name="CLASSIFICATIONS_PK">
+<ind_PK_UK id="EFB1FE72-6056-BC91-ECC8-9B77350D765F" name="PREFS_PK">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:08:12 UTC</createdTime>
+<createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="3A6A92B3-29E1-DB9C-99C9-0A76F39E6076"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="8E4D0DF7-8509-0B7C-DBED-E463F05B7C86" name="CLASSIFICATIONS_UN">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-10 21:11:34 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<indexState>Unique Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="09D84A30-06CC-BFD8-F195-1E59458A7D9C"/>
+<colUsage columnID="DF5874E9-2FC8-78E8-1595-3525ECF9C78F"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

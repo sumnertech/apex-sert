@@ -10,6 +10,8 @@ procedure log
   ,p_log_type in varchar2 default 'GENERIC'
   ,p_log_key  in varchar2 default null
   ,p_log_clob in varchar2 default null
+  ,p_id       in varchar2 default null
+  ,p_id_col   in varchar2 default null
   );
 
 function error

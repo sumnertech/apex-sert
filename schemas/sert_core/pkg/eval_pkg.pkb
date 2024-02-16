@@ -3,6 +3,7 @@ as
   g_log_key varchar2(10) := log_pkg.get_log_key;
   g_log_type varchar2(100) := 'EVAL';
 
+
 ----------------------------------------------------------------------------------------------------------------------------
 -- PROCEDURE: P R O C E S S _ R U L E S
 ----------------------------------------------------------------------------------------------------------------------------
@@ -22,14 +23,23 @@ is
   l_sql    varchar2(10000);
 begin
 
+-- start the evaluation
+log_pkg.log(p_log => 'Evaluation started', p_log_key => g_log_key, p_log_type => g_log_type);
+
 -- open the rules cursor
 open l_cursor;
   loop
     fetch l_cursor into l_row;
     exit when l_cursor%notfound;
 
+    -- record which rule is being evaluated
+    log_pkg.log(p_log => 'Evaluating rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_id => l_row.rule_id, p_id_col => 'rule_id', p_log_key => g_log_key, p_log_type => g_log_type);
+
     -- process each rule for the application
-    l_sql :=
+    case
+      when l_row.rule_type = 'APEX_VIEW' then
+
+      l_sql :=
          'select '
       -- include the corresponding eval_id
       || '  ' || p_eval_id     || ' as eval_id'
@@ -42,11 +52,11 @@ open l_cursor;
 
       -- include page_id if the impact is not Application or Shared Components
       || case when l_row.impact in ('APP', 'SC') then ',null as page_id' else ',page_id' end
-      || ' ,null as component_id'
+      || ' ,' || nvl(l_row.component_id, 'null') || ' as component_id'
       || ' ,null as column_name'
 
       -- display the current value of the column being investigated
-      || ' ,' || l_row.column_name || ' as current_value'
+      || ' ,' || l_row.column_to_evaluate || ' as current_value'
 
       -- display the list of value values for this rule
       || ' ,''' || initcap(replace(l_row.operand,'_',' ')) || ' ' || nvl(replace(l_row.val_char,':',', '),l_row.val_number) || ''' as valid_values';
@@ -56,34 +66,34 @@ open l_cursor;
         -- EQUALS
         when l_row.operand = 'EQUALS' then
           if l_row.case_sensitive_yn = 'Y' then
-            l_result := l_result || ', case when '|| l_row.column_name || ' in (''' || l_row.val_char || ''') then ''PASS'' else ''FAIL''';
+            l_result := l_result || ', case when '|| l_row.column_to_evaluate || ' in (''' || l_row.val_char || ''') then ''PASS'' else ''FAIL''';
           else
-            l_result := l_result || ', case when upper(' || l_row.column_name || ') in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''PASS'' else ''FAIL''';
+            l_result := l_result || ', case when upper(' || l_row.column_to_evaluate || ') in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''PASS'' else ''FAIL''';
           end if;
 
         -- NOT_EQUALS
         when l_row.operand = 'DOES_NOT_EQUAL' then
           if l_row.case_sensitive_yn = 'Y' then
-            l_result := l_result || ', case when '|| l_row.column_name || ' in (''' || l_row.val_char || ''') then ''PASS'' else ''FAIL''';
+            l_result := l_result || ', case when '|| l_row.column_to_evaluate || ' not in (''' || l_row.val_char || ''') then ''PASS'' else ''FAIL''';
           else
-            l_result := l_result || ', case when upper(' || l_row.column_name || ') not in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''PASS'' else ''FAIL''';
+            l_result := l_result || ', case when upper(' || l_row.column_to_evaluate || ') not in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''PASS'' else ''FAIL''';
           end if;
 
         -- GREATER_THAN
         when l_row.operand = 'GREATER_THAN' then
-          l_result := ', case when ' || l_row.column_name || ' > ' || l_row.val_number || ' then ''PASS'' else ''FAIL''';
+          l_result := ', case when ' || l_row.column_to_evaluate || ' > ' || l_row.val_number || ' then ''PASS'' else ''FAIL''';
 
         -- LESS_THAN
         when l_row.operand = 'LESS_THAN' then
-          l_result := ', case when ' || l_row.column_name || ' < ' || l_row.val_number || ' then ''PASS'' else ''FAIL''';
+          l_result := ', case when ' || l_row.column_to_evaluate || ' < ' || l_row.val_number || ' then ''PASS'' else ''FAIL''';
 
         -- IS_NOT_NULL
         when l_row.operand = 'IS_NOT_NULL' then
-          l_result := ', case when ' || l_row.column_name || ' is not null then ''PASS'' else ''FAIL''';
+          l_result := ', case when ' || l_row.column_to_evaluate || ' is not null then ''PASS'' else ''FAIL''';
 
         -- IS_NULL
         when l_row.operand = 'IS_NULL' then
-          l_result := ', case when ' || l_row.column_name || ' is null then ''PASS'' else ''FAIL''';
+          l_result := ', case when ' || l_row.column_to_evaluate || ' is null then ''PASS'' else ''FAIL''';
 
         -- SQL
         when l_row.operand = 'SQLI' then
@@ -98,18 +108,34 @@ open l_cursor;
 
       end case;
 
-    -- close the case statement
-    l_sql := l_sql || l_result || ' end as result';
+      -- close the case statement
+      l_sql := l_sql || l_result || ' end as result';
 
-    -- add the from and where clause
-    l_sql := l_sql
-      || ' ,null as result_details'
-      || ' from ' || l_row.view_name
-      || ' where 1=1'
-      || ' and application_id = ' || p_application_id;
+      -- add the from and where clause
+      l_sql := l_sql
+        || ' ,null as result_details'
+        || ' from ' || l_row.view_name
+        || ' where 1=1'
+        || ' and application_id = ' || p_application_id;
 
-    -- add the optional where clause
-    --l_sql := l_sql || l_row.where_clause;
+      -- add the optional where clause
+      l_sql := l_sql || ' ' || l_row.additional_where;
+
+    when l_row.rule_type = 'CUSTOM_QUERY' then
+      -- replace the EVAL_ID
+      l_sql := replace(l_row.custom_query, '#EVAL_ID#', p_eval_id);
+
+      -- replace the APP_ID in case its used in a with or subquery
+      l_sql := replace(l_sql, '#APP_ID#', p_application_id);
+
+      -- replace the RULE_ID with the current one
+      l_sql := replace(l_sql, '#RULE_ID#', l_row.rule_id);
+
+      -- select the application_id from a outer query in case it has an alias on it
+      l_sql := ' select * from (' || l_sql || ' ) where application_id = ' || p_application_id;
+
+    end case;
+
 
     -- add the insert statement
     l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, current_value, valid_values, result, result_details) ' || l_sql;
@@ -119,8 +145,8 @@ open l_cursor;
     end if;
 
     -- run the sql, populating the eval_results table
-    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_sql);
-    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_result);
+    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
+    -- log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_result);
     execute immediate l_sql;
 
     -- reset the variables
@@ -128,7 +154,11 @@ open l_cursor;
     l_result := null;
 
   end loop;
+
 close l_cursor;
+
+-- end the evaluation
+log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type);
 
 end process_rules;
 
@@ -150,6 +180,9 @@ is
   l_eval_id      evals.eval_id%type;
   l_workspace_id number;
 begin
+
+-- set the log_key
+apex_util.set_session_state('G_LOG_KEY', g_log_key);
 
 -- get the rule_set_id
 select rule_set_id into l_rule_set_id from rule_sets where rule_set_key = p_rule_set_key;
@@ -187,7 +220,7 @@ process_rules
 
 exception
   when others then
-    log_pkg.log(p_log => 'An unhandled error has occured', p_log_type => 'UNHANDLED');
+    log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
     raise;
 
 end eval;

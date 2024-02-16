@@ -1,16 +1,16 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6F65E377-CA97-DC4D-3FEB-67C778FF7A6D" name="LOGS">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6AD0B072-729D-DA18-996B-7C5EA4D7B058" name="RISKS">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:27:33 UTC</createdTime>
+<createdTime>2024-02-15 12:54:59 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <ordsAlias>table_11</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="LOG_ID" id="08EAF008-EFED-8BFA-8943-75E56403BFD1">
+<Column name="RISK_ID" id="B851E3C9-6C61-1DCF-BA16-EA5AA20EA68E">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:28:35 UTC</createdTime>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -20,22 +20,10 @@
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="LOG_TYPE" id="3DC01D7B-2465-1ACE-09CC-5F110C63E8C5">
+<Column name="RISK_CODE" id="B13B0C2A-70C5-E24E-FE7D-E0ACD75F0C08">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:29:13 UTC</createdTime>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="LOG_KEY" id="6BD48CD9-63A3-9C48-1B71-234BCE02D0C4">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:35:45 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -43,34 +31,10 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="LOG" id="968B667C-9506-7EDF-5440-3B7D5249D202">
+<Column name="RISK_NAME" id="108C7AAA-2880-0D5A-6E8D-BE844BCEF54A">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:36:07 UTC</createdTime>
+<createdTime>2024-02-15 13:10:06 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="LOG_CLOB" id="3D566CBA-6F47-DE60-5EF4-602016FAFF65">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:36:07 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT028</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="ID" id="F24A9ADF-B5CB-B495-42A2-615A7645CDB6">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-14 14:27:36 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -78,11 +42,10 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ID_COL" id="A9B9A782-DD6A-0255-48C1-415B646AC8DC">
+<Column name="URL" id="6F3AA114-4816-FA4C-6410-6B00A3ADE14B">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-14 14:27:36 UTC</createdTime>
+<createdTime>2024-02-15 12:55:59 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -90,21 +53,9 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ID_TABLE" id="615004FE-5FDA-545E-3011-176A22FD2E1D">
+<Column name="CREATED_BY" id="49E03C13-A756-DA74-CC2A-DB51ECF05195">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-14 20:51:40 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>250</dataTypeSize>
-<ownDataTypeParameters>250,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="CREATED_BY" id="B2F6DDC1-7E4D-851C-3483-096B11984DB9">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:29:25 UTC</createdTime>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -115,10 +66,37 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CREATED_ON" id="3CCDD23C-C105-4F15-95CF-545393420BD5">
+<Column name="CREATED_ON" id="55E478D7-A105-7209-B531-6D641DA7788B">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:29:25 UTC</createdTime>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<defaultValue>systimestamp</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_BY" id="F81BDD56-73C4-6B22-E08D-049B0CCE2494">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_ON" id="6EC5B44C-84A5-1CFB-0A65-DC97EED129E0">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-15 12:56:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT047</logicalDatatype>
@@ -129,15 +107,15 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="E08541BD-F917-595B-FED5-21A27A1CC652" name="LOGS_PK">
+<ind_PK_UK id="345D027D-8C01-6679-500F-251B811E3B04" name="RISKS_PK">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-13 03:28:35 UTC</createdTime>
+<createdTime>2024-02-15 13:07:34 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="08EAF008-EFED-8BFA-8943-75E56403BFD1"/>
+<colUsage columnID="B851E3C9-6C61-1DCF-BA16-EA5AA20EA68E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
