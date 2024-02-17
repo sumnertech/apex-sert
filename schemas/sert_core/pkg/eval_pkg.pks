@@ -1,6 +1,20 @@
 create or replace package sert_core.eval_pkg
 as
 
+function sqli
+  (
+   p_column_to_evaluate in varchar2
+  ,p_return_details     in varchar2 default 'Y'
+  )
+return varchar2;
+
+function xss
+  (
+   p_column_to_evaluate in varchar2
+  ,p_return_details     in varchar2 default 'N'
+  )
+return varchar2;
+
 procedure eval
   (
    p_application_id in number
@@ -14,3 +28,6 @@ procedure eval
 ----------------------------------------------------------------------------------------------------------------------------
 end eval_pkg;
 /
+
+
+select * from apex_application_page_rpt;

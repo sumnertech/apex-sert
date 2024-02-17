@@ -16,11 +16,19 @@ select
   ,r.help_url
   ,r.builder_url
   ,r.impact
+  ,r.active_yn
   ,case
     when r.impact = 'SC' then 'Shared Component'
     else initcap(r.impact)
     end as impact_rpt
-  ,r.active_yn
+  ,case
+    when r.active_yn = 'Y' then 'success'
+    else 'danger'
+   end active_color
+  ,case
+    when r.active_yn = 'Y' then 'Active'
+    else 'Inactive'
+   end active_value
   ,r.internal_yn
   ,r.rule_type
   ,r.view_name
