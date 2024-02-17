@@ -199,6 +199,91 @@ end loop;
 
 end add_rule_to_rule_set;
 
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: C O P Y _ R U L E
+----------------------------------------------------------------------------------------------------------------------------
+-- Makes a copy of an existing rule
+----------------------------------------------------------------------------------------------------------------------------
+procedure copy_rule
+  (
+   p_rule_id   in out number
+  ,p_rule_name in varchar2
+  ,p_rule_key  in varchar2
+  ,p_rule_sets in varchar2
+  )
+is
+begin
+
+-- copy the rule
+for x in (select * from rules where rule_id = p_rule_id)
+loop
+  insert into rules
+  (
+     rule_name
+    ,rule_key
+    ,category_id
+    ,risk_id
+    ,rule_severity_id
+    ,rule_type
+    ,impact
+    ,apex_version
+    ,view_name
+    ,column_to_evaluate
+    ,component_id
+    ,column_name
+    ,operand
+    ,val_char
+    ,val_number
+    ,case_sensitive_yn
+    ,additional_where
+    ,custom_query
+    ,active_yn
+    ,internal_yn
+    ,help_url
+    ,builder_url
+    ,info
+    ,fix
+    ,time_to_fix
+  )
+  values
+  (
+     p_rule_name
+    ,p_rule_key
+    ,x.category_id
+    ,x.risk_id
+    ,x.rule_severity_id
+    ,x.rule_type
+    ,x.impact
+    ,x.apex_version
+    ,x.view_name
+    ,x.column_to_evaluate
+    ,x.component_id
+    ,x.column_name
+    ,x.operand
+    ,x.val_char
+    ,x.val_number
+    ,x.case_sensitive_yn
+    ,x.additional_where
+    ,x.custom_query
+    ,x.active_yn
+    ,x.internal_yn
+    ,x.help_url
+    ,x.builder_url
+    ,x.info
+    ,x.fix
+    ,x.time_to_fix
+  )
+returning rule_id into p_rule_id;
+end loop;
+
+-- next, add to any rule sets that were selected
+if p_rule_sets is not null then
+  null;
+
+end if;
+
+end copy_rule;
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
