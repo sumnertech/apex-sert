@@ -15,6 +15,11 @@
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 </ColumnProxy>
+<ColumnProxy name="COLUMN_NAME" id="1B870A4C-16C6-A70A-4722-8649C651A5F0">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-17 18:37:53 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
 <ColumnProxy name="APPLICATION_ID" id="3DE5B3FF-6FB7-24B7-552C-B2AC65AF7458">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:27:50 UTC</createdTime>
@@ -31,6 +36,11 @@
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
 </ColumnProxy>
+<ColumnProxy name="VALID_VALUES" id="6765D007-3366-B4B7-A292-F39E32FF4DDB">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-17 18:37:53 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
 <ColumnProxy name="CREATED_ON" id="910780BC-C7B0-0452-FC4A-28008E5C70C4">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:31:13 UTC</createdTime>
@@ -42,9 +52,9 @@
 <createdTime>2024-02-12 14:28:42 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="RESULT_DETAILS" id="AD2CEAD3-3DDA-A7FD-627B-F1409DA54D15">
+<ColumnProxy name="CURRENT_VALUE" id="A5ED1F3A-80BF-CB9E-7B78-984EB32B398C">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:32:58 UTC</createdTime>
+<createdTime>2024-02-17 18:37:53 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="RESULT" id="C8CA0EB9-0816-3EE4-E379-2C7EE11613F7">

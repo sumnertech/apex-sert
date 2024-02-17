@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BU_RULES" directorySegmentName="seg_0" id="1FFC35E5-134D-B98B-53C0-E98C6E5D7D56">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-16 18:23:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<actions>UPDATE</actions>
+<body><![CDATA[begin
+:new.updated_by := coalesce(sys_context('APEX$SESSION','APP_USER'),user);
+:new.updated_on := systimestamp;
+end;
+]]></body>
+<triggerTime>BEFORE</triggerTime>
+<table>5099643C-87D5-C45A-1FD5-B82E95AF7866</table>
+</TriggerOraclev10g>
