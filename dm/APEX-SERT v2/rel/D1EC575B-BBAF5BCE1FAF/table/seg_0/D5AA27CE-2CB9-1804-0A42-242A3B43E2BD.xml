@@ -42,6 +42,18 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="DESCRIPTION" id="CD40A63E-3ACD-F8A3-BFEE-17745A925004">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 17:04:17 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="CREATED_BY" id="F789EED3-C09E-A53F-D390-07C1B01833A3">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 21:31:15 UTC</createdTime>

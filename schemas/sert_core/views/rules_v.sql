@@ -65,6 +65,7 @@ select
     when rs.rule_severity_key = 'LOW' then 'success'
     else null
    end as rule_severity_badge
+  ,r.description
   ,r.created_by
   ,r.created_on
   ,r.updated_by
