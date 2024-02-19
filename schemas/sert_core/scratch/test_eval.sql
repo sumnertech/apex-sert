@@ -19,7 +19,7 @@ select r.rule_name, er.page_id, ap.page_name, er.component_id, er.column_name, e
  from eval_results_v er, rules_v r, ap where er.rule_id = r.rule_id and er.page_id = ap.page_id(+)  order by  er.page_id, r.rule_name;
 
 
-
+delete from evals;
 delete from eval_results;
 delete from rule_sets;
 delete from rules;

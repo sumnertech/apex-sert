@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="RULE_CRITERIA" directorySegmentName="seg_0" id="597005C1-D6D8-B783-4292-5D80E6C736F5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:12:53 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="DESCRIPTION" id="0B5A8448-F0D7-F72A-6ABA-DB5E5EE107CC">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 14:35:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RULE_CRITERIA_KEY" id="11DB9561-5F71-F51B-FF4D-9D1AF95707E3">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_BY" id="147889AB-4265-2C0D-CC66-C5431583F591">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="CREATED_BY" id="30365CE9-0A78-A0A0-4E57-BC7655608ADB">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="RULE_CRITERIA_TYPE" id="4E55BDA5-EFAF-0442-9180-CCA101A21E2E">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RULE_CRITERIA_ID" id="5452B534-9A7D-76ED-2FD0-41FBE54A6E4C">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="RULE_CRITERIA_NAME" id="669ADCFF-1140-AB3B-A225-7D1FBDB21C31">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="INTERNAL_YN" id="81F5037B-2D45-B141-9F4B-4EA9D2FF0B07">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:30:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>N</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="CREATED_ON" id="8779A499-81C0-7572-4DFD-386858F56626">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="REASON" id="C20D6F56-CA8F-44E6-E274-4E9C29644D4B">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ACTIVE_YN" id="D7B6B883-740D-B613-39AF-D857DB2F489A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:29:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>Y</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_ON" id="E340B7B2-1D07-AFBC-CF06-9AFEE311559C">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="RULE_CRITERIA_SQL" id="EE13B7CA-175F-ADEE-35D5-54D07E316FE1">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="RULE_CRITERIA_PK" id="0D2BEB35-4988-545A-70D5-B15C3EAAD39A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:15:00 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="RULE_CRITERIA_UN" id="5E23B1EE-F23C-E5B0-FF8C-B314428BB8E2">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 14:44:34 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev20c>

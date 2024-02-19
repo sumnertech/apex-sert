@@ -63,4 +63,12 @@
 <indexSort>SORTED</indexSort>
 </PrimaryKey>
 </primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="RULE_SEVERITY_UN" id="4B4F84A7-58D2-C590-2DC2-81EE476149F3">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 16:05:16 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
 </TableProxyOraclev20c>

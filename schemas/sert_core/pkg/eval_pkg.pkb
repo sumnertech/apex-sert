@@ -8,69 +8,47 @@ as
 ----------------------------------------------------------------------------------------------------------------------------
 -- Evaluates a column for a SQLi risk
 ----------------------------------------------------------------------------------------------------------------------------
-function sqli
+function eval_criteria
   (
    p_column_to_evaluate in varchar2
   ,p_return_details     in varchar2 default 'Y'
+  ,p_rule_criteria_type in varchar2
   )
 return varchar2
 is
   l_return  varchar2(100)  := 'PASS';
   l_source  varchar2(4000) := upper(p_column_to_evaluate);
+  l_sql     varchar2(4000);
+  l_cnt     number;
 begin
+
+log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type, p_log_key => g_log_key, p_log_type => g_log_type);
 
 -- initialize the JSON document
 apex_json.initialize_clob_output;
 apex_json.open_object; -- {
 apex_json.open_array('reasons'); -- "reasons": [
 
--- &ITEM. syntax
-
 -- Remove built-in substitution strings to avoid false positives
-l_source := REPLACE(l_source, '&APP_ID.', NULL);
-l_source := REPLACE(l_source, '&FLOW_ID.', NULL);
-l_source := REPLACE(l_source, '&FLOW_PAGE_ID.', NULL);
-l_source := REPLACE(l_source, '&APP_ALIAS.', NULL);
-l_source := REPLACE(l_source, '&APP_PAGE_ID.', NULL);
-l_source := REPLACE(l_source, '&APP_USER.', NULL);
-l_source := REPLACE(l_source, '&SESSION.', NULL);
-l_source := REPLACE(l_source, '&APP_SESSION.', NULL);
-l_source := REPLACE(l_source, '&DEBUG.', NULL);
-l_source := REPLACE(l_source, '&APP_SECURITY_GROUP_ID.', NULL);
-
-for x in (select 1 from dual where REGEXP_LIKE((l_source), '&[[:alnum:]]+.', 'ix'))
+for x in (select * from reserved_strings_v where active_yn = 'Y' and reserved_string_type = 'SUBSTITUTION_STRING')
 loop
-  l_return := 'FAIL';
-  apex_json.open_object; -- {
-  apex_json.write('reason', 'Wrong item format'); -- 1
-  apex_json.close_object; -- }
+  l_source := REPLACE(l_source, x.reserved_string, NULL);
 end loop;
 
--- EXECUTE IMMEDIATE
-for x in (select 1 from dual where REGEXP_LIKE((p_column_to_evaluate), 'EXECUTE+[ ]+IMMEDIATE', 'i'))
+-- loop through all rule criteria
+for x in (select * from rule_criteria_v where rule_criteria_type = p_rule_criteria_type and active_yn = 'Y')
 loop
-  l_return := 'FAIL';
-  apex_json.open_object; -- {
-  apex_json.write('reason', 'EXECUTE IMMEDIATE found; please investigage'); -- 1
-  apex_json.close_object; -- }
-end loop;
 
--- DBMS_SQL
-for x in (select 1 from dual where REGEXP_LIKE((p_column_to_evaluate), 'dbms_sql', 'i'))
-loop
-  l_return := 'FAIL';
-  apex_json.open_object; -- {
-  apex_json.write('reason', 'DBMS_SQL found; please investigage'); -- 1
-  apex_json.close_object; -- }
-end loop;
+  log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type);
 
--- htp without SYS prefix
-for x in (select 1 from dual where REGEXP_LIKE((p_column_to_evaluate), '[ ]htp.', 'ix') or lower(p_column_to_evaluate) like 'htp.%')
-loop
-  l_return := 'FAIL';
-  apex_json.open_object; -- {
-  apex_json.write('reason', 'HTP without SYS prefix found'); -- 1
-  apex_json.close_object; -- }
+  execute immediate x.rule_criteria_sql into l_cnt using l_source;
+  if l_cnt > 0 then
+    l_return := 'FAIL';
+    apex_json.open_object; -- {
+    apex_json.write('reason', x.reason); -- 1
+    apex_json.close_object; -- }
+  end if;
+
 end loop;
 
 -- //TODO: this is parity to existing APEX-SERT rules; consider adding more rules
@@ -80,36 +58,13 @@ apex_json.close_array; -- ]
 apex_json.write('result', l_return); -- 1
 apex_json.close_object; -- }
 
+log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type, p_log_key => g_log_key, p_log_type => g_log_type);
+
 -- return the JSON
 return apex_json.get_clob_output;
 
-end sqli;
+end eval_criteria;
 
-----------------------------------------------------------------------------------------------------------------------------
--- FUNCTION: X S S
-----------------------------------------------------------------------------------------------------------------------------
--- Evaluates a column for an XSS risk
-----------------------------------------------------------------------------------------------------------------------------
-function xss
-  (
-   p_column_to_evaluate in varchar2
-  ,p_return_details     in varchar2 default 'N'
-  )
-return varchar2
-is
-begin
-
-if p_return_details = 'Y' then
-  return 'details';
-end if;
-
-if p_column_to_evaluate is not null then
-  return '{"result":"PASS"}';
-else
-  return '{"result":"FAIL"}';
-end if;
-
-end xss;
 
 ----------------------------------------------------------------------------------------------------------------------------
 -- PROCEDURE: P R O C E S S _ R U L E S
@@ -204,11 +159,11 @@ open l_cursor;
 
         -- SQL
         when l_row.operand = 'SQLI' then
-          l_result := ', eval_pkg.sqli(' || l_row.column_to_evaluate || ') as result';
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type => ''SQLI'') as result';
 
         -- HTML
         when l_row.operand = 'XSS' then
-          l_result := ', eval_pkg.xss(' || l_row.column_to_evaluate || ') as result';
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type => ''XSS'') as result';
 
         -- No match
         else null;
@@ -216,15 +171,10 @@ open l_cursor;
       end case;
 
       -- close the case statement
-      l_sql := l_sql || l_result;-- || ' end as result';
+      l_sql := l_sql || l_result;
 
       -- add the from and where clause
       l_sql := l_sql
-        --|| case
-        --     when l_row.operand = 'XXSQLI' then ' ,eval_pkg.sqli(' || l_row.column_to_evaluate || ', ''Y'') as result_details'
-        --     when l_row.operand = 'XXXSS' then '  ,eval_pkg.xss('  || l_row.column_to_evaluate || ', ''Y'') as result_details'
-        --     else ' ,null as result_details'
-        --   end
         || ' from ' || l_row.view_name
         || ' where 1=1'
         || ' and application_id = ' || p_application_id;
@@ -248,13 +198,8 @@ open l_cursor;
 
     end case;
 
-
     -- add the insert statement
     l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, current_value, valid_values, result) ' || l_sql;
-
-    if p_debug = true then
-      dbms_output.put_line(l_sql);
-    end if;
 
     -- run the sql, populating the eval_results table
     log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');

@@ -26,7 +26,7 @@
 <createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="PREF_VALUES" id="B0CB9F02-9420-643E-1AE2-1E489D10FB2B">
+<ColumnProxy name="PREF_VALUE" id="B0CB9F02-9420-643E-1AE2-1E489D10FB2B">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-15 16:28:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
@@ -64,4 +64,12 @@
 <indexSort>SORTED</indexSort>
 </PrimaryKey>
 </primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="PREFS_UN" id="2CF7D465-A3F6-EC87-1896-9E7C14A4C4A8">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 16:04:31 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
 </TableProxyOraclev20c>

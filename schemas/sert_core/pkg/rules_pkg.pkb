@@ -40,6 +40,7 @@ loop
     begin
     select category_id into l_category_id from categories where category_key = x.category_key;
     exception
+      -- category does not exist; create it
       when no_data_found then
         insert into categories (category_name, category_key) values (x.category_name, x.category_key) returning category_id into l_category_id;
         log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Category: ' || x.category_name, p_log_type => g_log_type);
@@ -49,10 +50,10 @@ loop
     begin
     select rule_severity_id into l_rule_severity_id from rule_severity where rule_severity_key = x.rule_severity_key;
     exception
+      -- severity does not exist; create it
       when no_data_found then
         insert into rule_severity (rule_severity_name, rule_severity_key) values (x.rule_severity_name, x.rule_severity_key) returning rule_severity_id into l_rule_severity_id;
         log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Rule Severity: ' || x.rule_severity_name, p_log_type => g_log_type);
-
     end;
 
     -- get the risk; these should not be created on the fly, as they are based on OWASP Top 10
@@ -123,6 +124,7 @@ loop
     -- rule not uploaded as a rule key with the same name exists
     apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'FAIL', p_c002 => 'Rule already exists', p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.risk_code || '-' || x.risk_name);
     log_pkg.log(p_log_key => g_log_key, p_log => 'Rule NOT Created because it already exists: ' || x.rule_name || ' / ' || x.rule_key, p_log_type => g_log_type);
+
   end if;
 
 end loop;
@@ -189,7 +191,7 @@ is
 begin
 
 -- convert the rule sets to an array
-l_rule_set_arr := apex_string.string_to_table(p_rule_sets,':');
+l_rule_set_arr := apex_string.string_to_table(p_rule_sets, ':');
 
 -- loop through them and assign the rule
 for x in 1..l_rule_set_arr.count
@@ -209,9 +211,10 @@ procedure copy_rule
    p_rule_id   in out number
   ,p_rule_name in varchar2
   ,p_rule_key  in varchar2
-  ,p_rule_sets in varchar2
+  ,p_rule_sets in varchar2 default null
   )
 is
+  l_rule_set_arr apex_application_global.vc_arr2;
 begin
 
 -- copy the rule
@@ -273,12 +276,17 @@ loop
     ,x.fix
     ,x.time_to_fix
   )
-returning rule_id into p_rule_id;
+  returning rule_id into p_rule_id;
 end loop;
 
 -- next, add to any rule sets that were selected
 if p_rule_sets is not null then
-  null;
+
+  l_rule_set_arr := apex_string.string_to_table(p_rule_sets,':');
+  for x in 1..l_rule_set_arr.count
+  loop
+    insert into rule_set_rules (rule_set_id, rule_id) values (l_rule_set_arr(x), p_rule_id);
+  end loop;
 
 end if;
 

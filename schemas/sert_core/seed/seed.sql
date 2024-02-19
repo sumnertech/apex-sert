@@ -1,4 +1,5 @@
 alter session set current_schema = admin;
+set define off;
 
 begin
 
@@ -7,6 +8,9 @@ delete from sert_core.rule_severity;
 delete from sert_core.rule_sets;
 delete from sert_core.rule_set_types;
 delete from sert_core.risks;
+delete from sert_core.prefs;
+delete from sert_core.reserved_strings;
+delete from sert_core.rule_criteria;
 
 -- insert severities
 insert into sert_core.rule_severity (rule_severity_name, rule_severity_key, seq) values ('Low', 'LOW', 1);
@@ -37,6 +41,34 @@ insert into sert_core.categories (category_name, category_key) values ('Page Set
 insert into sert_core.categories (category_name, category_key) values ('Application Items',	'APPLICATION_ITEMS');
 insert into sert_core.categories (category_name, category_key) values ('Application Settings',	'APPLICATION_SETTINGS');
 insert into sert_core.categories (category_name, category_key) values ('Region Settings',	'REGION_SETTINGS');
+
+-- insert preferences
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Evaluations', 'LOG_EVALUATIONS', 'Y');
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Imports', 'LOG_IMPORTS', 'Y');
+
+-- insert reserved_strings
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_ID.', 'APP_ID', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&FLOW_ID.', 'FLOW_ID', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&FLOW_PAGE_ID.', 'FLOW_PAGE_ID', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_ALIAS.', 'APP_ALIAS', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_PAGE_ID.', 'APP_PAGE_ID', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_USER.', 'APP_USER', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&SESSION.', 'SESSION', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_SESSION.', 'APP_SESSION', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&DEBUG.', 'DEBUG', 'SUBSTITUTION_STRING');
+insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_SECURITY_GROUP_ID.', 'APP_SECURITY_GROUP_ID', 'SUBSTITUTION_STRING');
+
+-- insert rule_criteria
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
+  ('Incorrect Item Substitution Syntax', 'INCORRECT_ITEM_SUBSTITUTION_SYNTAX', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''&[[:alnum:]]+.'', ''ix'')','Incorrect item substitution syntax');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
+  ('Usage of EXECUTE IMMEDIATE', 'USAGE_OF_EXECUTE_IMMEDIATE', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''EXECUTE+[ ]+IMMEDIATE'', ''i'')','EXECUTE IMMEDIATE found; please investigate');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
+  ('Usage of DBMS_SQL', 'USAGE_OF_DBMS_SQL', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''dbms_sql'', ''i'')','DBMS_SQL found; please investigate');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
+  ('Usage of HTP without SYS prefix', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''[ ]htp.'', ''ix'')', 'Be sure to include the SYS prefix when making calls to HTP');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
+  ('Usage of HTP without SYS prefix - First Character', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX_-_FIRST_CHARACTER', 'SQLI' , 'select count(*) from dual where lower(:l_source) like ''htp.%''', 'Be sure to include the SYS prefix when making calls to HTP');
 
 commit;
 end;

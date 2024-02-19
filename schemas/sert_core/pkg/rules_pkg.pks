@@ -19,7 +19,7 @@ procedure copy_rule
    p_rule_id   in out number
   ,p_rule_name in varchar2
   ,p_rule_key  in varchar2
-  ,p_rule_sets in varchar2
+  ,p_rule_sets in varchar2 default null
   );
 
 end rules_pkg;

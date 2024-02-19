@@ -117,5 +117,15 @@
 <colUsage columnID="54FE0601-D834-6012-D016-5098ED7C69FE"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="4B4F84A7-58D2-C590-2DC2-81EE476149F3" name="RULE_SEVERITY_UN">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 16:05:16 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B2A90F16-47D8-6BD0-1451-4382882E93E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>

@@ -1,16 +1,16 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6AE044C7-BCAB-45DB-CA14-06D227D97EBC" name="EVAL_RESULTS">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="597005C1-D6D8-B783-4292-5D80E6C736F5" name="RULE_CRITERIA">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:26:20 UTC</createdTime>
+<createdTime>2024-02-18 18:12:53 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<ordsAlias>table_9</ordsAlias>
+<ordsAlias>table_12</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="EVAL_RESULT_ID" id="653364A8-8F9F-2478-74CF-FDFDCFBDB7EF">
+<Column name="RULE_CRITERIA_ID" id="5452B534-9A7D-76ED-2FD0-41FBE54A6E4C">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:26:42 UTC</createdTime>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -20,59 +20,10 @@
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EVAL_ID" id="4ACA1C94-2F3D-0345-66A8-497D81D31D12">
+<Column name="RULE_CRITERIA_NAME" id="669ADCFF-1140-AB3B-A225-7D1FBDB21C31">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:26:42 UTC</createdTime>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="B839F2E3-5EC4-271F-0FF7-BBA93A186476" referredColumn="D7C6C09D-037C-3B73-B4D1-336459DA59F9"/>
-</associations>
-</Column>
-<Column name="RULE_ID" id="A4537FBE-C9D3-153D-90CA-4039EE93701F">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:28:42 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="D4DB6535-8538-E9BC-545E-C97FC7821AE1" referredColumn="A28A8E5C-98E9-1618-E143-7B1D9B8FD1F9"/>
-</associations>
-</Column>
-<Column name="APPLICATION_ID" id="3DE5B3FF-6FB7-24B7-552C-B2AC65AF7458">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:27:50 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="PAGE_ID" id="F61CA548-7CDD-786F-7AD8-9235A16F28A2">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:27:50 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="COMPONENT_ID" id="DE5FC5AE-67C9-2147-1BDE-D92C622A19C3">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:28:42 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -80,11 +31,10 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="COLUMN_NAME" id="1B870A4C-16C6-A70A-4722-8649C651A5F0">
+<Column name="RULE_CRITERIA_KEY" id="11DB9561-5F71-F51B-FF4D-9D1AF95707E3">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:53:17 UTC</createdTime>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -92,19 +42,31 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="RESULT" id="C8CA0EB9-0816-3EE4-E379-2C7EE11613F7">
+<Column name="RULE_CRITERIA_TYPE" id="4E55BDA5-EFAF-0442-9180-CCA101A21E2E">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:28:42 UTC</createdTime>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT028</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CURRENT_VALUE" id="A5ED1F3A-80BF-CB9E-7B78-984EB32B398C">
+<Column name="RULE_CRITERIA_SQL" id="EE13B7CA-175F-ADEE-35D5-54D07E316FE1">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:06:07 UTC</createdTime>
+<createdTime>2024-02-18 18:13:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REASON" id="C20D6F56-CA8F-44E6-E274-4E9C29644D4B">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:03 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -114,9 +76,9 @@
 <ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="VALID_VALUES" id="6765D007-3366-B4B7-A292-F39E32FF4DDB">
+<Column name="DESCRIPTION" id="0B5A8448-F0D7-F72A-6ABA-DB5E5EE107CC">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:06:07 UTC</createdTime>
+<createdTime>2024-02-19 14:35:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -126,9 +88,45 @@
 <ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CREATED_BY" id="E1DC2B12-D0AB-505E-788B-3DB57D9C5DCD">
+<Column name="ACTIVE_YN" id="D7B6B883-740D-B613-39AF-D857DB2F489A">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:31:13 UTC</createdTime>
+<createdTime>2024-02-18 18:29:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<constraintName>RULE_CRITERIA_ACTIVE_YN</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<listOfValues>
+<valueDef value="N" description=""/>
+<valueDef value="Y" description=""/>
+</listOfValues>
+<defaultValue>Y</defaultValue>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="INTERNAL_YN" id="81F5037B-2D45-B141-9F4B-4EA9D2FF0B07">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:30:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<constraintName>RULE_CRITERIA_INTERNAL_YN</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<listOfValues>
+<valueDef value="N" description=""/>
+<valueDef value="Y" description=""/>
+</listOfValues>
+<defaultValue>N</defaultValue>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="30365CE9-0A78-A0A0-4E57-BC7655608ADB">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -139,9 +137,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CREATED_ON" id="910780BC-C7B0-0452-FC4A-28008E5C70C4">
+<Column name="CREATED_ON" id="8779A499-81C0-7572-4DFD-386858F56626">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:31:13 UTC</createdTime>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -151,9 +149,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UPDATED_BY" id="0E161F41-4DAC-A28C-138D-5054A198F454">
+<Column name="UPDATED_BY" id="147889AB-4265-2C0D-CC66-C5431583F591">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:31:13 UTC</createdTime>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -165,9 +163,9 @@
 <defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UPDATED_ON" id="CD286D43-B80B-452C-8F66-E3F0B83B90C8">
+<Column name="UPDATED_ON" id="E340B7B2-1D07-AFBC-CF06-9AFEE311559C">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:31:13 UTC</createdTime>
+<createdTime>2024-02-18 18:14:11 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -180,35 +178,26 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="13CBB096-21AF-156C-2987-A7E675649560" name="EVAL_RESULTS_PK">
+<ind_PK_UK id="0D2BEB35-4988-545A-70D5-B15C3EAAD39A" name="RULE_CRITERIA_PK">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:26:42 UTC</createdTime>
+<createdTime>2024-02-18 18:15:00 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="653364A8-8F9F-2478-74CF-FDFDCFBDB7EF"/>
+<colUsage columnID="5452B534-9A7D-76ED-2FD0-41FBE54A6E4C"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="CD8A232B-AEE3-1779-E838-59EC41AA740C" name="EVAL_RESULTS_EVALS_FK">
+<ind_PK_UK id="5E23B1EE-F23C-E5B0-FF8C-B314428BB8E2" name="RULE_CRITERIA_UN">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:26:57 UTC</createdTime>
+<createdTime>2024-02-19 14:44:34 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<indexState>Foreign Key</indexState>
+<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="4ACA1C94-2F3D-0345-66A8-497D81D31D12"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="D78BB8F2-F29B-E11E-F579-8DAD910F70C3" name="EVAL_RESULTS_RULES_FK">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 14:29:16 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="A4537FBE-C9D3-153D-90CA-4039EE93701F"/>
+<colUsage columnID="11DB9561-5F71-F51B-FF4D-9D1AF95707E3"/>
+<colUsage columnID="4E55BDA5-EFAF-0442-9180-CCA101A21E2E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

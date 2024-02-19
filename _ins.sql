@@ -21,7 +21,5 @@ alter session set current_schema = sert_core;
 -- install grants
 @@schemas/sert_core/grants/_ins_grants.sql
 
-
 -- SERT_PUB
 alter session set current_schema = sert_pub;
-
