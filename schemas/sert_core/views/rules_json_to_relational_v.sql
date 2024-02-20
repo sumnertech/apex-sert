@@ -17,6 +17,7 @@ select
   ,j.column_to_evaluate
   ,j.component_id
   ,j.column_name
+  ,j.item_name
   ,j.operand
   ,j.val_char
   ,j.val_number
@@ -58,6 +59,7 @@ from
       ,column_to_evaluate  varchar path '$.columnToEvaluate'
       ,component_id        varchar path '$.componentId'
       ,column_name         varchar path '$.columnName'
+      ,item_name           varchar path '$.itemName'
       ,operand             varchar path '$.operand'
       ,val_char            varchar path '$.valChar'
       ,val_number          number  path '$.valNumber'

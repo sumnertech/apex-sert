@@ -3,11 +3,13 @@ as
 select
    jt.result
   ,listagg(jt.reason, ', ') as reason
+  ,er.eval_id
   ,er.eval_result_id
   ,er.application_id
   ,er.page_id
   ,er.component_id
   ,er.column_name
+  ,er.item_name
   ,er.current_value
   ,er.valid_values
   ,er.created_by
@@ -29,11 +31,13 @@ from
    ) jt
 group by
   jt.result
+  ,er.eval_id
   ,er.eval_result_id
   ,er.application_id
   ,er.page_id
   ,er.component_id
   ,er.column_name
+  ,er.item_name
   ,er.current_value
   ,er.valid_values
   ,er.created_by

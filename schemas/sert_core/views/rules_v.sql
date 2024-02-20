@@ -35,6 +35,7 @@ select
   ,r.column_to_evaluate
   ,r.component_id
   ,r.column_name
+  ,r.item_name
   ,r.operand
   ,case
      when r.rule_type = 'CUSTOM_QUERY' then 'Custom Query'

@@ -9,12 +9,21 @@ function eval_criteria
   )
 return varchar2;
 
-procedure eval
+procedure process_rules
   (
    p_application_id in number
-  ,p_rule_set_key   in varchar2 default 'INTERNAL'
-  ,p_eval_by        in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
-  ,p_debug          in boolean  default false
+  ,p_page_id        in number default null
+  ,p_eval_id        in number
+  ,p_rule_set_id    in number
+  );
+
+procedure eval
+  (
+   p_application_id    in number
+  ,p_page_id           in number   default null
+  ,p_rule_set_key      in varchar2 default 'INTERNAL'
+  ,p_eval_by           in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
+  ,p_run_in_background in varchar2 default 'Y'
   );
 
 

@@ -4,9 +4,9 @@ as
   g_log_type varchar2(100) := 'EVAL';
 
 ----------------------------------------------------------------------------------------------------------------------------
--- FUNCTION: S Q L I
+-- FUNCTION: E V A L _ C R I T E R I A
 ----------------------------------------------------------------------------------------------------------------------------
--- Evaluates a column for a SQLi risk
+-- Evaluates a column for a specific criteria
 ----------------------------------------------------------------------------------------------------------------------------
 function eval_criteria
   (
@@ -74,9 +74,9 @@ end eval_criteria;
 procedure process_rules
   (
    p_application_id in number
+  ,p_page_id        in number default null
   ,p_eval_id        in number
   ,p_rule_set_id    in number
-  ,p_debug          in boolean
   )
 is
   cursor   l_cursor is select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
@@ -115,7 +115,16 @@ open l_cursor;
       -- include page_id if the impact is not Application or Shared Components
       || case when l_row.impact in ('APP', 'SC') then ',null as page_id' else ',page_id' end
       || ' ,' || nvl(l_row.component_id, 'null') || ' as component_id'
-      || ' ,null as column_name'
+
+      -- include column_name when selected
+      || case when l_row.impact in ('COLUMN') then ' ,' || l_row.column_name || ' as column_name' else ',null as column_name' end
+
+      -- include item_name
+      || case when l_row.impact = 'ITEM' or (l_row.impact = 'SC' and l_row.view_name = 'APEX_APPLICATION_ITEMS') then
+        ' ,' || l_row.item_name || ' as item_name '
+      else
+        ' ,null as item_name '
+      end
 
       -- display the current value of the column being investigated
       || ' ,' || l_row.column_to_evaluate || ' as current_value'
@@ -177,7 +186,8 @@ open l_cursor;
       l_sql := l_sql
         || ' from ' || l_row.view_name
         || ' where 1=1'
-        || ' and application_id = ' || p_application_id;
+        || ' and application_id = ' || p_application_id
+        || case when p_page_id is not null and l_row.impact not in ('APP', 'SC') then ' and page_id = ' || p_page_id else null end;
 
       -- add the optional where clause
       l_sql := l_sql || ' ' || l_row.additional_where;
@@ -199,7 +209,7 @@ open l_cursor;
     end case;
 
     -- add the insert statement
-    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, current_value, valid_values, result) ' || l_sql;
+    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, item_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
     log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
@@ -213,6 +223,9 @@ open l_cursor;
   end loop;
 
 close l_cursor;
+
+-- change the status
+update evals set job_status = 'COMPLETED' where eval_id = p_eval_id;
 
 -- end the evaluation
 log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type);
@@ -228,14 +241,16 @@ end process_rules;
 procedure eval
   (
    p_application_id in number
+  ,p_page_id           in number   default null
   ,p_rule_set_key   in varchar2 default 'INTERNAL'
   ,p_eval_by        in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
-  ,p_debug          in boolean default false
+  ,p_run_in_background in varchar2 default 'Y'
   )
 is
   l_rule_set_id  rule_sets.rule_set_id%type;
   l_eval_id      evals.eval_id%type;
   l_workspace_id number;
+  l_job_name     varchar2(250);
 begin
 
 -- set the log_key
@@ -255,6 +270,7 @@ insert into evals
   ,rule_set_id
   ,eval_on
   ,eval_by
+  ,job_name
   )
 values
   (
@@ -263,20 +279,49 @@ values
   ,l_rule_set_id
   ,systimestamp
   ,p_eval_by
+  ,l_job_name
   )
 returning eval_id into l_eval_id;
 
--- process all rules for the rule set
-process_rules
-  (
-   p_application_id => p_application_id
-  ,p_eval_id        => l_eval_id
-  ,p_rule_set_id    => l_rule_set_id
-  ,p_debug          => p_debug
-  );
+if p_run_in_background = 'Y' then
+  -- set the evaluation to run in the background
+  l_job_name := 'SERT_' || to_char(p_application_id) || '_' || to_char(l_eval_id);
+
+  dbms_scheduler.create_job
+    (
+    job_name        => l_job_name,
+    job_type        => 'PLSQL_BLOCK',
+    job_action      => 'BEGIN
+    eval_pkg.process_rules
+      (
+       p_application_id => ' || p_application_id || '
+      ,p_page_id        => ' || p_page_id || '
+      ,p_eval_id        => ' || l_eval_id || '
+      ,p_rule_set_id    => ' || l_rule_set_id || '
+      );
+    end;',
+    start_date      => systimestamp,
+    enabled         => true
+    );
+
+  -- update the evaluation record with the job_name and status
+  update evals set job_name = l_job_name, job_status = 'RUNNING' where eval_id = l_eval_id;
+
+else
+  -- process all rules for the rule set in real time
+  process_rules
+    (
+     p_application_id => p_application_id
+    ,p_page_id        => p_page_id
+    ,p_eval_id        => l_eval_id
+    ,p_rule_set_id    => l_rule_set_id
+    );
+
+end if;
 
 exception
   when others then
+    update evals set job_status = 'FAILED' where eval_id = l_eval_id;
     log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
     raise;
 

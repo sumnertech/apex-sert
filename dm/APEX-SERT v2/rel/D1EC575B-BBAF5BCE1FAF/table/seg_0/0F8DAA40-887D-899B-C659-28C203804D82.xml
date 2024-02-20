@@ -87,6 +87,30 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="CURRENT_VALUE" id="26E9B541-2466-C3B0-A347-790C77A5A610">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-12 20:05:49 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VALID_VALUES" id="57E6602A-899E-0437-2A1B-DDD2FF713C4C">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-12 20:05:49 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="CREATED_BY" id="8772ED7E-F834-014F-199F-9B17860FFC97">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 21:32:24 UTC</createdTime>
@@ -137,30 +161,6 @@
 <defaultValue>systimestamp</defaultValue>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <defaultOntNull>true</defaultOntNull>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="CURRENT_VALUE" id="26E9B541-2466-C3B0-A347-790C77A5A610">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:05:49 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="VALID_VALUES" id="57E6602A-899E-0437-2A1B-DDD2FF713C4C">
-<createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:05:49 UTC</createdTime>
-<ownerDesignName>APEX-SERT v2</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

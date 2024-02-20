@@ -15,11 +15,16 @@ alter session set current_schema = sert_core;
 -- install packages
 @@schemas/sert_core/pkg/_ins_pkg.sql
 
--- install seed data
-@@schemas/sert_core/seed/_ins_seed.sql
-
 -- install grants
 @@schemas/sert_core/grants/_ins_grants.sql
 
 -- SERT_PUB
-alter session set current_schema = sert_pub;
+
+-- install views
+@@schemas/sert_pub/views/_ins_views.sql
+
+-- install synonyms
+@@schemas/sert_pub/synonyms/_ins_synonyms.sql
+
+-- install seed data
+@@schemas/sert_core/seed/_ins_seed.sql

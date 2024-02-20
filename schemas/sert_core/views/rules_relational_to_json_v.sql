@@ -23,6 +23,7 @@ select
       ,'columnToEvaluate'   is column_to_evaluate
       ,'componentId'        is component_id
       ,'columnName'         is column_name
+      ,'itemName'           is item_name
       ,'operand'            is operand
       ,'valChar'            is val_char
       ,'valNumber'          is val_number

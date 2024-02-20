@@ -74,6 +74,7 @@ loop
       ,column_to_evaluate
       ,component_id
       ,column_name
+      ,item_name
       ,operand
       ,val_char
       ,val_number
@@ -102,6 +103,7 @@ loop
       ,x.column_to_evaluate
       ,x.component_id
       ,x.column_name
+      ,x.item_name
       ,x.operand
       ,x.val_char
       ,x.val_number
@@ -234,6 +236,7 @@ loop
     ,column_to_evaluate
     ,component_id
     ,column_name
+    ,item_name
     ,operand
     ,val_char
     ,val_number
@@ -262,6 +265,7 @@ loop
     ,x.column_to_evaluate
     ,x.component_id
     ,x.column_name
+    ,x.item_name
     ,x.operand
     ,x.val_char
     ,x.val_number
