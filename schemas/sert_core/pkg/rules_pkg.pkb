@@ -13,10 +13,11 @@ procedure import
   p_name in varchar2
   )
 is
-  l_category_id       categories.category_id%type;
-  l_rule_severity_id  rule_severity.rule_severity_id%type;
-  l_risk_id           risks.risk_id%type;
-  l_cnt               number;
+  l_category_id           categories.category_id%type;
+  l_rule_severity_id      rule_severity.rule_severity_id%type;
+  l_risk_id               risks.risk_id%type;
+  l_rule_criteria_type_id rule_criteria_types.rule_criteria_type_id%type;
+  l_cnt                   number;
 begin
 
 -- set the log_key
@@ -56,8 +57,19 @@ loop
         log_pkg.log(p_log_key => g_log_key, p_log => 'Created new Rule Severity: ' || x.rule_severity_name, p_log_type => g_log_type);
     end;
 
+    -- determine the rule criteria type
+    begin
+      select rule_criteria_type_id into l_rule_criteria_type_id from rule_criteria_types where rule_criteria_type_key = x.rule_criteria_type_key;
+    exception
+      -- rule criteria type does not exist; ignote
+      when no_data_found then
+        null;
+    end;
+
     -- get the risk; these should not be created on the fly, as they are based on OWASP Top 10
-    select risk_id into l_risk_id from risks where risk_code = x.risk_code;
+    if x.risk_code is not null then
+      select risk_id into l_risk_id from risks where risk_code = x.risk_code;
+    end if;
 
     -- all checks cleared - insert the rule
     insert into rules
@@ -79,6 +91,7 @@ loop
       ,val_char
       ,val_number
       ,case_sensitive_yn
+      ,rule_criteria_type_id
       ,additional_where
       ,custom_query
       ,active_yn
@@ -108,6 +121,7 @@ loop
       ,x.val_char
       ,x.val_number
       ,x.case_sensitive_yn
+      ,l_rule_criteria_type_id
       ,x.additional_where
       ,x.custom_query
       ,x.active_yn
@@ -240,6 +254,7 @@ loop
     ,operand
     ,val_char
     ,val_number
+    ,rule_criteria_type_id
     ,case_sensitive_yn
     ,additional_where
     ,custom_query
@@ -269,6 +284,7 @@ loop
     ,x.operand
     ,x.val_char
     ,x.val_number
+    ,x.rule_criteria_type_id
     ,x.case_sensitive_yn
     ,x.additional_where
     ,x.custom_query

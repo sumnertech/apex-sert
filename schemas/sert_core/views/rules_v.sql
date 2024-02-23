@@ -39,8 +39,7 @@ select
   ,r.operand
   ,case
      when r.rule_type = 'CUSTOM_QUERY' then 'Custom Query'
-     when r.operand = 'SQLI' then 'Valid SQL'
-     when r.operand = 'XSS' then 'Valid HTML'
+     when r.operand = 'CRITERIA' then ct.rule_criteria_type_name
      else initcap(replace(r.operand,'_', ' '))
    end
    || case
@@ -60,6 +59,8 @@ select
   ,rs.rule_severity_name
   ,rs.rule_severity_key
   ,rs.seq as rule_severity_seq
+  ,ct.rule_criteria_type_name
+  ,ct.rule_criteria_type_key
   ,case
     when rs.rule_severity_key = 'HIGH' then 'danger'
     when rs.rule_severity_key = 'MEDIUM' then 'warning'
@@ -76,8 +77,10 @@ from
   ,categories_v c
   ,rule_severity rs
   ,risks k
+  ,rule_criteria_types ct
 where
   r.category_id = c.category_id
+  and r.rule_criteria_type_id = ct.rule_criteria_type_id(+)
   and r.rule_severity_id = rs.rule_severity_id
-  and r.risk_id = k.risk_id
+  and r.risk_id = k.risk_id(+)
 /

@@ -64,6 +64,16 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="EVAL_ON_DATE" id="1BB0C79F-5BB2-1818-D805-E601604589BA">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 18:53:27 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="EVAL_BY" id="CB635A0B-553C-335D-C156-FAEB2417E7B9">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 20:47:15 UTC</createdTime>
@@ -87,28 +97,39 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CURRENT_VALUE" id="26E9B541-2466-C3B0-A347-790C77A5A610">
+<Column name="JOB_NAME" id="1F76E311-A59F-B31D-0247-817BFBD809E0">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:05:49 UTC</createdTime>
+<createdTime>2024-02-19 19:09:38 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="VALID_VALUES" id="57E6602A-899E-0437-2A1B-DDD2FF713C4C">
+<Column name="JOB_STATUS" id="E04AE5CA-649A-CDA8-19EF-6EEB84A4AB7D">
 <createdBy>scspend</createdBy>
-<createdTime>2024-02-12 20:05:49 UTC</createdTime>
+<createdTime>2024-02-19 19:09:38 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SCORE" id="A1BAFD36-9132-337A-DE2A-5160A02A3A4D">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-22 03:28:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="CREATED_BY" id="8772ED7E-F834-014F-199F-9B17860FFC97">
@@ -176,7 +197,7 @@
 <colUsage columnID="D7C6C09D-037C-3B73-B4D1-336459DA59F9"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D1188742-C781-239F-CCAC-C1076CAC29F0" name="EVALS_RULE_SETS_FK">
+<ind_PK_UK id="D1188742-C781-239F-CCAC-C1076CAC29F0" name="E_RULE_SETS_FK">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:53:57 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>

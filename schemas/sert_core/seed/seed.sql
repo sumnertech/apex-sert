@@ -58,17 +58,21 @@ insert into sert_core.reserved_strings (reserved_string, reserved_string_key, re
 insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&DEBUG.', 'DEBUG', 'SUBSTITUTION_STRING');
 insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_SECURITY_GROUP_ID.', 'APP_SECURITY_GROUP_ID', 'SUBSTITUTION_STRING');
 
+-- insert rule_criteria_types
+insert into sert_core.rule_criteria_types (rule_criteria_type_name, rule_criteria_type_key) values ('SQL Injection', 'SQLI');
+insert into sert_core.rule_criteria_types (rule_criteria_type_name, rule_criteria_type_key) values ('Cross-Site Scripting', 'XSS');
+
 -- insert rule_criteria
-insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
-  ('Incorrect Item Substitution Syntax', 'INCORRECT_ITEM_SUBSTITUTION_SYNTAX', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''&[[:alnum:]]+.'', ''ix'')','Incorrect item substitution syntax');
-insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
-  ('Usage of EXECUTE IMMEDIATE', 'USAGE_OF_EXECUTE_IMMEDIATE', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''EXECUTE+[ ]+IMMEDIATE'', ''i'')','EXECUTE IMMEDIATE found; please investigate');
-insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
-  ('Usage of DBMS_SQL', 'USAGE_OF_DBMS_SQL', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''dbms_sql'', ''i'')','DBMS_SQL found; please investigate');
-insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
-  ('Usage of HTP without SYS prefix', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX', 'SQLI', 'select count(*) from dual where REGEXP_LIKE((:l_source), ''[ ]htp.'', ''ix'')', 'Be sure to include the SYS prefix when making calls to HTP');
-insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type, rule_criteria_sql, reason) values
-  ('Usage of HTP without SYS prefix - First Character', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX_-_FIRST_CHARACTER', 'SQLI' , 'select count(*) from dual where lower(:l_source) like ''htp.%''', 'Be sure to include the SYS prefix when making calls to HTP');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
+  ('Incorrect Item Substitution Syntax', 'INCORRECT_ITEM_SUBSTITUTION_SYNTAX', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI'), 'select count(*) from dual where REGEXP_LIKE((:l_source), ''&[[:alnum:]]+.'', ''ix'')','Incorrect item substitution syntax');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
+  ('Usage of EXECUTE IMMEDIATE', 'USAGE_OF_EXECUTE_IMMEDIATE', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI'), 'select count(*) from dual where REGEXP_LIKE((:l_source), ''EXECUTE+[ ]+IMMEDIATE'', ''i'')','EXECUTE IMMEDIATE found; please investigate');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
+  ('Usage of DBMS_SQL', 'USAGE_OF_DBMS_SQL', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI'), 'select count(*) from dual where REGEXP_LIKE((:l_source), ''dbms_sql'', ''i'')','DBMS_SQL found; please investigate');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
+  ('Usage of HTP without SYS prefix', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI'), 'select count(*) from dual where REGEXP_LIKE((:l_source), ''[ ]htp.'', ''ix'')', 'Be sure to include the SYS prefix when making calls to HTP');
+insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
+  ('Usage of HTP without SYS prefix - First Character', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX_-_FIRST_CHARACTER', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI') , 'select count(*) from dual where lower(:l_source) like ''htp.%''', 'Be sure to include the SYS prefix when making calls to HTP');
 
 commit;
 end;

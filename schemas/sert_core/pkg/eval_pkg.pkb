@@ -10,9 +10,9 @@ as
 ----------------------------------------------------------------------------------------------------------------------------
 function eval_criteria
   (
-   p_column_to_evaluate in varchar2
-  ,p_return_details     in varchar2 default 'Y'
-  ,p_rule_criteria_type in varchar2
+   p_column_to_evaluate    in varchar2
+  ,p_return_details        in varchar2 default 'Y'
+  ,p_rule_criteria_type_id in number
   )
 return varchar2
 is
@@ -22,7 +22,7 @@ is
   l_cnt     number;
 begin
 
-log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
 
 -- initialize the JSON document
 apex_json.initialize_clob_output;
@@ -36,7 +36,7 @@ loop
 end loop;
 
 -- loop through all rule criteria
-for x in (select * from rule_criteria_v where rule_criteria_type = p_rule_criteria_type and active_yn = 'Y')
+for x in (select * from rule_criteria_v where rule_criteria_type_id = p_rule_criteria_type_id and active_yn = 'Y')
 loop
 
   log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type);
@@ -58,7 +58,7 @@ apex_json.close_array; -- ]
 apex_json.write('result', l_return); -- 1
 apex_json.close_object; -- }
 
-log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
 
 -- return the JSON
 return apex_json.get_clob_output;
@@ -79,7 +79,7 @@ procedure process_rules
   ,p_rule_set_id    in number
   )
 is
-  cursor   l_cursor is select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
+  cursor   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
   l_row    l_cursor%rowtype;
   l_result varchar2(1000);
   l_sql    varchar2(10000);
@@ -139,7 +139,7 @@ open l_cursor;
           if l_row.case_sensitive_yn = 'Y' then
             l_result := l_result || ', case when '|| l_row.column_to_evaluate || ' in (''' || l_row.val_char || ''') then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
           else
-            l_result := l_result || ', case when upper(' || l_row.column_to_evaluate || ') in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
+            l_result := l_result || ', case when upper(to_char(' || l_row.column_to_evaluate || ')) in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
           end if;
 
         -- NOT_EQUALS
@@ -147,7 +147,7 @@ open l_cursor;
           if l_row.case_sensitive_yn = 'Y' then
             l_result := l_result || ', case when '|| l_row.column_to_evaluate || ' not in (''' || l_row.val_char || ''') then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
           else
-            l_result := l_result || ', case when upper(' || l_row.column_to_evaluate || ') not in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
+            l_result := l_result || ', case when upper(to_char(' || l_row.column_to_evaluate || ')) not in (upper(''' || replace(l_row.val_char,':','''),upper(''') || ''')) then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
           end if;
 
         -- GREATER_THAN
@@ -166,13 +166,9 @@ open l_cursor;
         when l_row.operand = 'IS_NULL' then
           l_result := ', case when ' || l_row.column_to_evaluate || ' is null then ''{ "result":"PASS"}'' else ''{ "result":"FAIL"}'' end as result';
 
-        -- SQL
-        when l_row.operand = 'SQLI' then
-          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type => ''SQLI'') as result';
-
-        -- HTML
-        when l_row.operand = 'XSS' then
-          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type => ''XSS'') as result';
+        -- CRITERIA TYPE
+        when l_row.operand = 'CRITERIA' then
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type_id => ' || l_row.rule_criteria_type_id || ') as result';
 
         -- No match
         else null;
@@ -204,7 +200,8 @@ open l_cursor;
       l_sql := replace(l_sql, '#RULE_ID#', l_row.rule_id);
 
       -- select the application_id from a outer query in case it has an alias on it
-      l_sql := ' select * from (' || l_sql || ' ) where application_id = ' || p_application_id;
+      l_sql := ' select * from (' || l_sql || ' ) where application_id = ' || p_application_id
+        || case when p_page_id is not null and l_row.impact not in ('APP', 'SC') then ' and page_id = ' || p_page_id else null end;
 
     end case;
 
@@ -213,8 +210,16 @@ open l_cursor;
 
     -- run the sql, populating the eval_results table
     log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
-    -- log_pkg.log(p_log_key => g_log_key, p_log => 'SQL', p_log_type => 'EVAL', p_log_clob => l_result);
-    execute immediate l_sql;
+
+    -- if evaluating for a specific page only, ignore APP and SC rules as they do not have a page_id nad will create duplicate entries
+    case
+      when p_page_id is not null and l_row.impact not in ('APP','SC') then
+        execute immediate l_sql;
+      when p_page_id is null then
+        execute immediate l_sql;
+      else
+        null;
+    end case;
 
     -- reset the variables
     l_sql := null;
@@ -224,11 +229,27 @@ open l_cursor;
 
 close l_cursor;
 
--- change the status
-update evals set job_status = 'COMPLETED' where eval_id = p_eval_id;
+-- change the status and update the score
+update
+  evals
+set
+   job_status = 'COMPLETED'
+  ,score =
+  round
+    (
+      (select count(*) from eval_results_pub_v where eval_id = p_eval_id and result = 'PASS') /
+      (select count(*) from eval_results_pub_v where eval_id = p_eval_id) * 100
+    )
+where
+  eval_id = p_eval_id;
 
 -- end the evaluation
 log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type);
+
+exception
+  when others then
+  update evals set job_status = 'FAILED' where eval_id = p_eval_id;
+
 
 end process_rules;
 
@@ -240,10 +261,11 @@ end process_rules;
 ----------------------------------------------------------------------------------------------------------------------------
 procedure eval
   (
-   p_application_id in number
+   p_application_id    in number
   ,p_page_id           in number   default null
-  ,p_rule_set_key   in varchar2 default 'INTERNAL'
-  ,p_eval_by        in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
+  ,p_eval_id           in number   default null
+  ,p_rule_set_key      in varchar2 default 'INTERNAL'
+  ,p_eval_by           in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
   ,p_run_in_background in varchar2 default 'Y'
   )
 is
@@ -262,26 +284,46 @@ select rule_set_id into l_rule_set_id from rule_sets where rule_set_key = p_rule
 -- get the workspace_id
 select workspace_id into l_workspace_id from apex_applications where application_id = p_application_id;
 
--- create a new evaluation
-insert into evals
-  (
-   application_id
-  ,workspace_id
-  ,rule_set_id
-  ,eval_on
-  ,eval_by
-  ,job_name
-  )
-values
-  (
-   p_application_id
-  ,l_workspace_id
-  ,l_rule_set_id
-  ,systimestamp
-  ,p_eval_by
-  ,l_job_name
-  )
-returning eval_id into l_eval_id;
+-- create a new evaluation if eval_id is null
+if p_eval_id is null then
+
+  -- delete any older evals for that application
+  delete from evals where application_id = p_application_id;
+
+  insert into evals
+    (
+     application_id
+    ,workspace_id
+    ,rule_set_id
+    ,eval_on
+    ,eval_by
+    ,job_name
+    ,eval_on_date
+    )
+  values
+    (
+     p_application_id
+    ,l_workspace_id
+    ,l_rule_set_id
+    ,systimestamp
+    ,p_eval_by
+    ,l_job_name
+    ,sysdate
+    )
+  returning eval_id into l_eval_id;
+else
+
+  -- set the local variable to one that was passed in
+  l_eval_id := p_eval_id;
+
+  -- if evaluating for a page only, remove that page from the current eval; other wise remove the full eval
+  if p_page_id is not null then
+    delete from eval_results where eval_id = l_eval_id and page_id = p_page_id;
+  else
+    delete from eval_results where eval_id = l_eval_id;
+  end if;
+
+end if;
 
 if p_run_in_background = 'Y' then
   -- set the evaluation to run in the background
@@ -294,8 +336,10 @@ if p_run_in_background = 'Y' then
     job_action      => 'BEGIN
     eval_pkg.process_rules
       (
-       p_application_id => ' || p_application_id || '
-      ,p_page_id        => ' || p_page_id || '
+       p_application_id => ' || p_application_id ||
+    case when p_page_id is not null then '
+      ,p_page_id       => ' || p_page_id
+    else null end || '
       ,p_eval_id        => ' || l_eval_id || '
       ,p_rule_set_id    => ' || l_rule_set_id || '
       );

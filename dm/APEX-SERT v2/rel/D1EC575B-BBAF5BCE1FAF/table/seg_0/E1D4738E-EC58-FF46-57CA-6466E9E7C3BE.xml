@@ -188,7 +188,7 @@
 <colUsage columnID="ADE7610E-8BC4-8135-6C3B-963D1A005C5D"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="04FA8EBE-EFB4-55B9-C48E-8DA2FFFAEBD7" name="RULE_SETS_RULE_SET_TYPES_FK">
+<ind_PK_UK id="04FA8EBE-EFB4-55B9-C48E-8DA2FFFAEBD7" name="RS_RULE_SET_TYPES_FK">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 21:01:03 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>

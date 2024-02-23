@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="84A52A80-DB53-6FCC-E269-6294ECA53391" containerWithKeyObject="5099643C-87D5-C45A-1FD5-B82E95AF7866" localFKIndex="35CF5F58-219F-AE9B-0A8D-97C93A3DBD01" name="RULES_CATEGORIES_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="84A52A80-DB53-6FCC-E269-6294ECA53391" containerWithKeyObject="5099643C-87D5-C45A-1FD5-B82E95AF7866" localFKIndex="35CF5F58-219F-AE9B-0A8D-97C93A3DBD01" name="R_CATEGORIES_FK">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-10 21:07:10 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>

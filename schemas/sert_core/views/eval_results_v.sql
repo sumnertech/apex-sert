@@ -5,6 +5,7 @@ select
   ,listagg(jt.reason, ', ') as reason
   ,er.eval_id
   ,er.eval_result_id
+  ,e.workspace_id
   ,er.application_id
   ,er.page_id
   ,er.component_id
@@ -19,6 +20,7 @@ select
   ,er.rule_id
 from
    eval_results er
+  ,evals e
   ,json_table(result, '$' columns
      (
        nested path '$.reasons[*]'
@@ -29,10 +31,13 @@ from
          result varchar2(100) path '$.result'
      )
    ) jt
+where
+  e.eval_id = er.eval_id
 group by
   jt.result
   ,er.eval_id
   ,er.eval_result_id
+  ,e.workspace_id
   ,er.application_id
   ,er.page_id
   ,er.component_id

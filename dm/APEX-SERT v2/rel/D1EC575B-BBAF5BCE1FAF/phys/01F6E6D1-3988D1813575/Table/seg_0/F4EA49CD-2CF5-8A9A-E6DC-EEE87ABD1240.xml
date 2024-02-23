@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="COMMENTS" directorySegmentName="seg_0" id="F4EA49CD-2CF5-8A9A-E6DC-EEE87ABD1240">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 18:59:41 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="UPDATED_BY" id="03D579E3-2647-E6EE-1827-18F5B6BE9534">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:08:33 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="COMMENT_ID" id="3EB90B89-9622-9F05-0421-5F0655F9C9BB">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 19:00:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+<notnullConstraintnameChanged>true</notnullConstraintnameChanged>
+</ColumnProxy>
+<ColumnProxy name="EVAL_RESULTS_KEY" id="7D9C6526-4E51-F218-DAD4-2B381AF90BB5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:09:39 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COMMENT" id="9FFFD344-09EB-6BC9-BFEE-3CA2F03B91B7">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 19:00:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_BY" id="ACC42EB9-E6A5-DCFA-61F1-6456D3A1D2BC">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:08:33 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="CREATED_ON" id="AF5157BB-6BDD-D5FD-87DC-E0AAEF706E89">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:08:33 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_ON" id="EADA9C36-A50F-DB5F-2756-0D0E2CF44024">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:08:33 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="COMMENTS_PK" id="10BA188D-94E8-B6D8-FAB0-3526EBCDD826">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-21 20:08:33 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

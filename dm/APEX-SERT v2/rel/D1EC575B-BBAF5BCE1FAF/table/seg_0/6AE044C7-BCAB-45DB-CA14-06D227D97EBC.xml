@@ -80,6 +80,18 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ITEM_NAME" id="D058F720-C368-6140-2F99-1F23010C08FF">
+<createdBy>scspend</createdBy>
+<createdTime>2024-02-19 23:56:17 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="COLUMN_NAME" id="1B870A4C-16C6-A70A-4722-8649C651A5F0">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:53:17 UTC</createdTime>
@@ -191,7 +203,7 @@
 <colUsage columnID="653364A8-8F9F-2478-74CF-FDFDCFBDB7EF"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="CD8A232B-AEE3-1779-E838-59EC41AA740C" name="EVAL_RESULTS_EVALS_FK">
+<ind_PK_UK id="CD8A232B-AEE3-1779-E838-59EC41AA740C" name="ER_EVALS_FK">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:26:57 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
@@ -201,7 +213,7 @@
 <colUsage columnID="4ACA1C94-2F3D-0345-66A8-497D81D31D12"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D78BB8F2-F29B-E11E-F579-8DAD910F70C3" name="EVAL_RESULTS_RULES_FK">
+<ind_PK_UK id="D78BB8F2-F29B-E11E-F579-8DAD910F70C3" name="ER_RULES_FK">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-12 14:29:16 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>

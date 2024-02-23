@@ -5,6 +5,7 @@ select
   ,er.eval_id
   ,er.rule_id
   ,r.rule_name
+  ,er.workspace_id
   ,er.application_id
   ,er.page_id
   ,case when er.page_id is null then 'Shared Component' else ap.page_name end as page_name
