@@ -234,12 +234,12 @@ update
   evals
 set
    job_status = 'COMPLETED'
---  ,score =
---  round
---    (
---      (select count(*) from eval_results_pub_v where eval_id = p_eval_id and result = 'PASS') /
---      (select count(*) from eval_results_pub_v where eval_id = p_eval_id) * 100
---    )
+  ,score =
+  round
+    (
+      (select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') /
+      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+    )
 where
   eval_id = p_eval_id;
 
