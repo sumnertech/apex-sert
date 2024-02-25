@@ -1,10 +1,12 @@
 create or replace view sert_core.eval_results_v
 as
+with comment_cnt as (select * from comment_cnt_v)
 select
    jt.result
   ,listagg(jt.reason, ', ') as reason
   ,er.eval_id
   ,er.eval_result_id
+  ,e.rule_set_id
   ,e.workspace_id
   ,er.application_id
   ,er.page_id
@@ -18,9 +20,11 @@ select
   ,er.updated_by
   ,er.updated_on
   ,er.rule_id
+  ,comment_cnt.cnt as comment_cnt
 from
    eval_results er
   ,evals e
+  ,comment_cnt
   ,json_table(result, '$' columns
      (
        nested path '$.reasons[*]'
@@ -33,10 +37,12 @@ from
    ) jt
 where
   e.eval_id = er.eval_id
+  and er.eval_result_id = comment_cnt.eval_result_id(+)
 group by
   jt.result
   ,er.eval_id
   ,er.eval_result_id
+  ,e.rule_set_id
   ,e.workspace_id
   ,er.application_id
   ,er.page_id
@@ -50,4 +56,5 @@ group by
   ,er.updated_by
   ,er.updated_on
   ,er.rule_id
+  ,comment_cnt.cnt
 /

@@ -10,7 +10,10 @@
 @@apex-sert/schemas/sert_core/views/rule_criteria_types_v.sql
 @@apex-sert/schemas/sert_core/views/reserved_strings_v.sql
 @@apex-sert/schemas/sert_core/views/evals_v.sql
+@@apex-sert/schemas/sert_core/views/comments_v.sql
 @@apex-sert/schemas/sert_core/views/evals_pub_v.sql
 @@apex-sert/schemas/sert_core/views/rule_sets_pub_v.sql
 @@apex-sert/schemas/sert_core/views/rules_pub_v.sql
 @@apex-sert/schemas/sert_core/views/eval_results_pub_v.sql
+@@apex-sert/schemas/sert_core/views/comments_pub_v.sql
+@@apex-sert/schemas/sert_core/views/comment_cnt_v.sql

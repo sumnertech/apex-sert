@@ -234,12 +234,12 @@ update
   evals
 set
    job_status = 'COMPLETED'
-  ,score =
-  round
-    (
-      (select count(*) from eval_results_pub_v where eval_id = p_eval_id and result = 'PASS') /
-      (select count(*) from eval_results_pub_v where eval_id = p_eval_id) * 100
-    )
+--  ,score =
+--  round
+--    (
+--      (select count(*) from eval_results_pub_v where eval_id = p_eval_id and result = 'PASS') /
+--      (select count(*) from eval_results_pub_v where eval_id = p_eval_id) * 100
+--    )
 where
   eval_id = p_eval_id;
 
@@ -248,6 +248,7 @@ log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type 
 
 exception
   when others then
+  log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
   update evals set job_status = 'FAILED' where eval_id = p_eval_id;
 
 
@@ -267,6 +268,7 @@ procedure eval
   ,p_rule_set_key      in varchar2 default 'INTERNAL'
   ,p_eval_by           in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
   ,p_run_in_background in varchar2 default 'Y'
+  ,p_eval_id_out       out number
   )
 is
   l_rule_set_id  rule_sets.rule_set_id%type;
@@ -287,8 +289,8 @@ select workspace_id into l_workspace_id from apex_applications where application
 -- create a new evaluation if eval_id is null
 if p_eval_id is null then
 
-  -- delete any older evals for that application
-  delete from evals where application_id = p_application_id;
+  -- delete any older evals for that application / rule set combination
+  delete from evals where application_id = p_application_id and rule_set_id = l_rule_set_id;
 
   insert into evals
     (
@@ -310,37 +312,37 @@ if p_eval_id is null then
     ,l_job_name
     ,sysdate
     )
-  returning eval_id into l_eval_id;
+  returning eval_id into p_eval_id_out;
 else
 
   -- set the local variable to one that was passed in
-  l_eval_id := p_eval_id;
+  p_eval_id_out := p_eval_id;
 
   -- if evaluating for a page only, remove that page from the current eval; other wise remove the full eval
   if p_page_id is not null then
-    delete from eval_results where eval_id = l_eval_id and page_id = p_page_id;
+    delete from eval_results where eval_id = p_eval_id_out and page_id = p_page_id;
   else
-    delete from eval_results where eval_id = l_eval_id;
+    delete from eval_results where eval_id = p_eval_id_out;
   end if;
 
 end if;
 
 if p_run_in_background = 'Y' then
   -- set the evaluation to run in the background
-  l_job_name := 'SERT_' || to_char(p_application_id) || '_' || to_char(l_eval_id);
+  l_job_name := 'SERT_' || to_char(p_application_id) || '_' || to_char(p_eval_id_out);
 
   dbms_scheduler.create_job
     (
     job_name        => l_job_name,
     job_type        => 'PLSQL_BLOCK',
-    job_action      => 'BEGIN
+    job_action      => 'declare l_eval_id number; BEGIN
     eval_pkg.process_rules
       (
        p_application_id => ' || p_application_id ||
     case when p_page_id is not null then '
       ,p_page_id       => ' || p_page_id
     else null end || '
-      ,p_eval_id        => ' || l_eval_id || '
+      ,p_eval_id        => ' || p_eval_id_out || '
       ,p_rule_set_id    => ' || l_rule_set_id || '
       );
     end;',
@@ -349,7 +351,7 @@ if p_run_in_background = 'Y' then
     );
 
   -- update the evaluation record with the job_name and status
-  update evals set job_name = l_job_name, job_status = 'RUNNING' where eval_id = l_eval_id;
+  update evals set job_name = l_job_name, job_status = 'RUNNING' where eval_id = p_eval_id_out;
 
 else
   -- process all rules for the rule set in real time
@@ -357,7 +359,7 @@ else
     (
      p_application_id => p_application_id
     ,p_page_id        => p_page_id
-    ,p_eval_id        => l_eval_id
+    ,p_eval_id        => p_eval_id_out
     ,p_rule_set_id    => l_rule_set_id
     );
 
@@ -365,12 +367,38 @@ end if;
 
 exception
   when others then
-    update evals set job_status = 'FAILED' where eval_id = l_eval_id;
     log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
+    update evals set job_status = 'FAILED' where eval_id = p_eval_id_out;
     raise;
 
 end eval;
 
+
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: D E L E T E _ E V A L
+----------------------------------------------------------------------------------------------------------------------------
+-- Delete an evaluation
+----------------------------------------------------------------------------------------------------------------------------
+procedure delete_eval
+  (
+   p_eval_id in number
+  ,p_delete_comments in varchar2 default 'Y'
+  )
+is
+begin
+
+-- delete all comments, if selected
+if p_delete_comments = 'Y' then
+  for x in (select * from evals where eval_id = p_eval_id)
+  loop
+    delete from comments where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
+  end loop;
+end if;
+
+-- delete the evaluation
+delete from evals where eval_id = p_eval_id;
+
+end delete_eval;
 
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------

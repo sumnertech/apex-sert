@@ -6,3 +6,5 @@
 @@apex-sert/schemas/sert_core/grants/dbms_scheduler.sql
 @@apex-sert/schemas/sert_core/grants/eval_results_pub_v.sql
 @@apex-sert/schemas/sert_core/grants/rules_pub_v.sql
+@@apex-sert/schemas/sert_core/grants/comments_pub_v.sql
+@@apex-sert/schemas/sert_core/grants/comments_api.sql

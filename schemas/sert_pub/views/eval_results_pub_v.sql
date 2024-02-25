@@ -3,15 +3,13 @@ as
 select
    eval_result_id
   ,eval_id
+  ,rule_set_id
   ,workspace_id
   ,application_id
   ,page_id
   ,page_name
-  ,page_id || ': ' || page_name
-      || case when region_name is not null then ' / ' || region_name else null end
-      || case when column_name is not null then ' / ' || column_name else null end
-      || case when item_name   is not null then ' / ' || item_name   else null end
-   as description
+  ,full_page_name
+  ,description
   ,region_name
   ,component_id
   ,column_name
@@ -25,6 +23,12 @@ select
   ,reason
   ,rule_id
   ,rule_name
+  ,risk_name
+  ,risk_url
+  ,help_url
+  ,rule_criteria_type_name
+  ,comment_cnt
+  ,comment_icon
   ,created_by
   ,created_on
   ,updated_by

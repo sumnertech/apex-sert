@@ -5,8 +5,10 @@ select
   ,rule_name
   ,category_name
   ,category_key
+  ,risk_name
   ,risk
   ,risk_url
+  ,rule_criteria_type_name
   ,info
   ,fix
   ,help_url

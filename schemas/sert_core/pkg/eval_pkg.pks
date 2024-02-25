@@ -25,8 +25,14 @@ procedure eval
   ,p_rule_set_key      in varchar2 default 'INTERNAL'
   ,p_eval_by           in varchar2 default coalesce(sys_context('APEX$SESSION','APP_USER'),user)
   ,p_run_in_background in varchar2 default 'Y'
+  ,p_eval_id_out       out number
   );
 
+procedure delete_eval
+  (
+   p_eval_id in number
+  ,p_delete_comments in varchar2 default 'Y'
+  );
 
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
