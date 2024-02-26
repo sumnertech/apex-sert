@@ -33,7 +33,7 @@ prompt APPLICATION 2001 - APEX-SERT Administration
 -- Application Export:
 --   Application:     2001
 --   Name:            APEX-SERT Administration
---   Date and Time:   21:34 Sunday February 25, 2024
+--   Date and Time:   03:27 Monday February 26, 2024
 --   Exported By:     SCOTT@SUMNERTECH.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -123,7 +123,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'SERT v2'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240223043354'
+,p_last_upd_yyyymmddhh24miss=>'20240226030759'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>16
 ,p_print_server_type=>'NATIVE'
@@ -21121,7 +21121,7 @@ wwv_flow_imp_page.create_page(
 ,p_read_only_when=>'select 1 from rules_v where internal_yn = ''Y'' and rule_id = :P2010_RULE_ID'
 ,p_page_component_map=>'02'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240223043354'
+,p_last_upd_yyyymmddhh24miss=>'20240226030759'
 );
 wwv_flow_imp_page.create_report_region(
  p_id=>wwv_flow_imp.id(40186042929508645)
@@ -21607,7 +21607,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_imp.id(60725123366140326)
 ,p_item_source_plug_id=>wwv_flow_imp.id(81176412500267052)
-,p_prompt=>'Region ID'
+,p_prompt=>'Region / Component ID'
 ,p_source=>'COMPONENT_ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
 ,p_display_as=>'NATIVE_POPUP_LOV'

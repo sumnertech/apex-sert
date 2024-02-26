@@ -119,8 +119,8 @@ open l_cursor;
       -- include column_name when selected
       || case when l_row.impact in ('COLUMN') then ' ,' || l_row.column_name || ' as column_name' else ',null as column_name' end
 
-      -- include item_name
-      || case when l_row.impact = 'ITEM' or (l_row.impact = 'SC' and l_row.view_name = 'APEX_APPLICATION_ITEMS') then
+      -- include item_name when selected
+      || case when l_row.impact = 'ITEM' or (l_row.impact = 'SC' and l_row.item_name is not null) then
         ' ,' || l_row.item_name || ' as item_name '
       else
         ' ,null as item_name '
@@ -234,6 +234,7 @@ update
   evals
 set
    job_status = 'COMPLETED'
+  ,eval_on_date = sysdate
   ,score =
   round
     (
