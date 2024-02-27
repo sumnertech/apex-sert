@@ -11,6 +11,7 @@ procedure add_comment
   ,p_component_id     in varchar2 default null
   ,p_column_name      in varchar2 default null
   ,p_item_name        in varchar2 default null
+  ,p_shared_comp_name in varchar2 default null
   ,p_comments         in varchar2
   );
 

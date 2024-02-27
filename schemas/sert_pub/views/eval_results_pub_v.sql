@@ -14,6 +14,8 @@ select
   ,component_id
   ,column_name
   ,item_name
+  ,shared_comp_name
+  ,shared_comp_type
   ,category_name
   ,category_key
   ,current_value

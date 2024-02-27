@@ -87,6 +87,7 @@ loop
       ,component_id
       ,column_name
       ,item_name
+      ,shared_comp_name
       ,operand
       ,val_char
       ,val_number
@@ -101,6 +102,7 @@ loop
       ,info
       ,fix
       ,time_to_fix
+      ,description
       )
     values
       (
@@ -117,6 +119,7 @@ loop
       ,x.component_id
       ,x.column_name
       ,x.item_name
+      ,x.shared_comp_name
       ,x.operand
       ,x.val_char
       ,x.val_number
@@ -131,6 +134,7 @@ loop
       ,x.info
       ,x.fix
       ,x.time_to_fix
+      ,x.description
       );
 
     apex_collection.add_member(p_collection_name => 'RULES', p_c001 => 'SUCCESS', p_c002 => null, p_c003 => x.rule_name, p_c004 => x.rule_key, p_c005 => x.category_name, p_c006 => x.risk_code || '-' || x.risk_name);
@@ -142,6 +146,12 @@ loop
     log_pkg.log(p_log_key => g_log_key, p_log => 'Rule NOT Created because it already exists: ' || x.rule_name || ' / ' || x.rule_key, p_log_type => g_log_type);
 
   end if;
+
+  -- reset the variables
+  l_category_id           := null;
+  l_rule_severity_id      := null;
+  l_risk_id               := null;
+  l_rule_criteria_type_id := null;
 
 end loop;
 
@@ -251,6 +261,7 @@ loop
     ,component_id
     ,column_name
     ,item_name
+    ,shared_comp_name
     ,operand
     ,val_char
     ,val_number
@@ -265,6 +276,7 @@ loop
     ,info
     ,fix
     ,time_to_fix
+    ,description
   )
   values
   (
@@ -281,6 +293,7 @@ loop
     ,x.component_id
     ,x.column_name
     ,x.item_name
+    ,x.shared_comp_name
     ,x.operand
     ,x.val_char
     ,x.val_number
@@ -295,6 +308,7 @@ loop
     ,x.info
     ,x.fix
     ,x.time_to_fix
+    ,x.description
   )
   returning rule_id into p_rule_id;
 end loop;

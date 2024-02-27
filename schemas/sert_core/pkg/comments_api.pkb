@@ -11,6 +11,7 @@ procedure add_comment
   ,p_component_id     in varchar2 default null
   ,p_column_name      in varchar2 default null
   ,p_item_name        in varchar2 default null
+  ,p_shared_comp_name in varchar2 default null
   ,p_comments         in varchar2
   )
 is
@@ -26,6 +27,7 @@ insert into comments
   ,component_id
   ,column_name
   ,item_name
+  ,shared_comp_name
   ,comments
   )
 values
@@ -38,6 +40,7 @@ values
   ,p_component_id
   ,p_column_name
   ,p_item_name
+  ,p_shared_comp_name
   ,p_comments
   );
 

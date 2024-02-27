@@ -24,6 +24,7 @@ select
       ,'componentId'         is component_id
       ,'columnName'          is column_name
       ,'itemName'            is item_name
+      ,'sharedCompName'      is shared_comp_name
       ,'operand'             is operand
       ,'valChar'             is val_char
       ,'valNumber'           is val_number
@@ -36,6 +37,7 @@ select
       ,'timeToFix'           is time_to_fix
       ,'ruleSeverityName'    is rule_severity_name
       ,'ruleSeverityKey'     is rule_severity_key
+      ,'descriotion'         is description
       ,'createdBy'           is created_by
       ,'createdOn'           is created_on
       ,'updatedBy'           is updated_by

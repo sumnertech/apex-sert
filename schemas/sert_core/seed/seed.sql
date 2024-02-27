@@ -74,6 +74,13 @@ insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule
 insert into sert_core.rule_criteria (rule_criteria_name, rule_criteria_key, rule_criteria_type_id, rule_criteria_sql, reason) values
   ('Usage of HTP without SYS prefix - First Character', 'USAGE_OF_HTP_WITHOUT_SYS_PREFIX_-_FIRST_CHARACTER', (select rule_criteria_type_id from sert_core.rule_criteria_types where rule_criteria_type_key = 'SQLI') , 'select count(*) from dual where lower(:l_source) like ''htp.%''', 'Be sure to include the SYS prefix when making calls to HTP');
 
+-- insert shared_comp_views
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_ITEMS', 'Application Items');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_PROCESSES', 'Application Processes');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LISTS', 'Lists');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_COMPUTATIONS', 'Application Computations');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LOVS', 'Lists of Values');
+
 commit;
 end;
 /

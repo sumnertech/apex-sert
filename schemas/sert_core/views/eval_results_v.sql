@@ -13,6 +13,7 @@ select
   ,er.component_id
   ,er.column_name
   ,er.item_name
+  ,er.shared_comp_name
   ,er.current_value
   ,er.valid_values
   ,er.created_by
@@ -49,6 +50,7 @@ group by
   ,er.component_id
   ,er.column_name
   ,er.item_name
+  ,er.shared_comp_name
   ,er.current_value
   ,er.valid_values
   ,er.created_by

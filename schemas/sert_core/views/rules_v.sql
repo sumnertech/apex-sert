@@ -36,6 +36,7 @@ select
   ,r.component_id
   ,r.column_name
   ,r.item_name
+  ,r.shared_comp_name
   ,r.operand
   ,case
      when r.rule_type = 'CUSTOM_QUERY' then 'Custom Query'
@@ -67,6 +68,7 @@ select
     when rs.rule_severity_key = 'LOW' then 'success'
     else null
    end as rule_severity_badge
+  ,sc.shared_comp_type
   ,r.description
   ,r.created_by
   ,r.created_on
@@ -78,9 +80,11 @@ from
   ,rule_severity rs
   ,risks k
   ,rule_criteria_types ct
+  ,shared_comp_views sc
 where
   r.category_id = c.category_id
   and r.rule_criteria_type_id = ct.rule_criteria_type_id(+)
   and r.rule_severity_id = rs.rule_severity_id
   and r.risk_id = k.risk_id(+)
+  and r.view_name = sc.shared_comp_view(+)
 /

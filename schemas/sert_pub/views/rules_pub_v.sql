@@ -8,6 +8,8 @@ select
   ,risk_name
   ,risk
   ,risk_url
+  ,impact
+  ,shared_comp_type
   ,rule_criteria_type_name
   ,info
   ,fix

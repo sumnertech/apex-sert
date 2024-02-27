@@ -114,6 +114,8 @@ open l_cursor;
 
       -- include page_id if the impact is not Application or Shared Components
       || case when l_row.impact in ('APP', 'SC') then ',null as page_id' else ',page_id' end
+
+      -- include component_id
       || ' ,' || nvl(l_row.component_id, 'null') || ' as component_id'
 
       -- include column_name when selected
@@ -125,6 +127,9 @@ open l_cursor;
       else
         ' ,null as item_name '
       end
+
+      -- display the shared component name 
+      || ' ,' || case when l_row.impact = 'SC' then nvl(replace(l_row.shared_comp_name, ':', ' || '' / '' || '), ' null') || ' as shared_comp_name ' else ' null as shared_comp_name ' end
 
       -- display the current value of the column being investigated
       || ' ,' || l_row.column_to_evaluate || ' as current_value'
@@ -206,7 +211,7 @@ open l_cursor;
     end case;
 
     -- add the insert statement
-    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, item_name, current_value, valid_values, result) ' || l_sql;
+    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
     log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');

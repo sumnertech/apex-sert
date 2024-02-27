@@ -33,7 +33,7 @@ prompt APPLICATION 2002 - APEX-SERT Evaluation
 -- Application Export:
 --   Application:     2002
 --   Name:            APEX-SERT Evaluation
---   Date and Time:   03:27 Monday February 26, 2024
+--   Date and Time:   03:47 Tuesday February 27, 2024
 --   Exported By:     SCOTT@SUMNERTECH.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -122,7 +122,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'APEX_SERT Evaluation'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240226024456'
+,p_last_upd_yyyymmddhh24miss=>'20240227033328'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>11
 ,p_print_server_type=>'NATIVE'
@@ -310,7 +310,7 @@ wwv_flow_imp_shared.create_list_item(
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(19073110343722567)
 ,p_list_item_display_sequence=>100
-,p_list_item_link_text=>'Page Required Authentication'
+,p_list_item_link_text=>'Page Requires Authentication'
 ,p_list_item_link_target=>'f?p=&APP_ID.:103:&SESSION.::&DEBUG.::::'
 ,p_list_item_icon=>'fa-file-o'
 ,p_parent_list_item_id=>wwv_flow_imp.id(19308662919408180)
@@ -1460,8 +1460,8 @@ wwv_flow_imp_shared.create_menu_option(
 );
 wwv_flow_imp_shared.create_menu_option(
  p_id=>wwv_flow_imp.id(19074025974722569)
-,p_short_name=>'Page Required Authentication'
-,p_link=>'f?p=&APP_ID.:103:&APP_SESSION.::&DEBUG.:::'
+,p_short_name=>'Page Requires Authentication'
+,p_link=>'f?p=&APP_ID.:103:&SESSION.::&DEBUG.:::'
 ,p_page_id=>103
 );
 wwv_flow_imp_shared.create_menu_option(
@@ -19020,17 +19020,18 @@ prompt --application/pages/page_00103
 begin
 wwv_flow_imp_page.create_page(
  p_id=>103
-,p_name=>'Page Required Authentication'
-,p_alias=>'PAGE-REQUIRED-AUTHENTICATION'
-,p_step_title=>'Page Required Authentication'
+,p_name=>'Page Requires Authentication'
+,p_alias=>'PAGE-REQUIRES-AUTHENTICATION'
+,p_step_title=>'Page Requires Authentication'
 ,p_allow_duplicate_submissions=>'N'
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(19083389987823144)
 ,p_page_template_options=>'#DEFAULT#'
+,p_required_role=>'MUST_NOT_BE_PUBLIC_USER'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'11'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240220130906'
+,p_last_upd_yyyymmddhh24miss=>'20240227033258'
 );
 end;
 /

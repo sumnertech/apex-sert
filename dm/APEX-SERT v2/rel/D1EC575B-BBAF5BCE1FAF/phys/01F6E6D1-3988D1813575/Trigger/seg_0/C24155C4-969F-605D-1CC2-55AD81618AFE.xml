@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_COMMENTS" directorySegmentName="seg_0" id="C24155C4-969F-605D-1CC2-55AD81618AFE">
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BU_COMMENTS" directorySegmentName="seg_0" id="C24155C4-969F-605D-1CC2-55AD81618AFE">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-22 03:38:15 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>

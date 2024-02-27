@@ -13,6 +13,7 @@ select
   ,c.page_id
   ,c.component_id
   ,c.column_name
+  ,c.shared_comp_name
   ,c.item_name
   ,c.created_on
   ,c.created_by

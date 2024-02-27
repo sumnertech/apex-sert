@@ -10,6 +10,7 @@ select
   ,c.component_id
   ,c.column_name
   ,c.item_name
+  ,c.shared_comp_name
   ,c.comments
   ,c.created_on
   ,c.created_by

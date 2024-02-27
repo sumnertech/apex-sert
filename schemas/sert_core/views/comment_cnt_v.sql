@@ -12,7 +12,8 @@ select
    || er.page_id        || ':'
    || er.component_id   || ':'
    || er.item_name      || ':'
-   || er.column_name
+   || er.column_name    || ':'
+   || er.shared_comp_name 
       as key
 from
   eval_results er
@@ -31,7 +32,8 @@ select
    || page_id        || ':'
    || component_id   || ':'
    || item_name      || ':'
-   || column_name
+   || column_name    || ':'
+   || shared_comp_name 
       as key
 from
   comments
@@ -49,3 +51,4 @@ where
 group by
    er_key.eval_result_id
 /
+

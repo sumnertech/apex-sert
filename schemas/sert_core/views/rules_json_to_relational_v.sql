@@ -18,6 +18,7 @@ select
   ,j.component_id
   ,j.column_name
   ,j.item_name
+  ,j.shared_comp_name
   ,j.operand
   ,j.val_char
   ,j.val_number
@@ -30,6 +31,7 @@ select
   ,j.time_to_fix
   ,j.rule_severity_name
   ,j.rule_severity_key
+  ,j.description
   ,j.created_by
   ,j.created_on
   ,j.updated_by
@@ -61,6 +63,7 @@ from
       ,component_id           varchar path '$.componentId'
       ,column_name            varchar path '$.columnName'
       ,item_name              varchar path '$.itemName'
+      ,shared_comp_name       varchar path '$.sharedCompName'
       ,operand                varchar path '$.operand'
       ,val_char               varchar path '$.valChar'
       ,val_number             number  path '$.valNumber'
@@ -73,6 +76,7 @@ from
       ,time_to_fix            varchar path '$.timeToFix'
       ,rule_severity_name     varchar path '$.ruleSeverityName'
       ,rule_severity_key      varchar path '$.ruleSeverityKey'
+      ,description            varchar path '$.description'
       ,created_by             varchar path '$.createdBy'
       ,created_on             date    path '$.createdOn'
       ,updated_by             varchar path '$.updatedBy'

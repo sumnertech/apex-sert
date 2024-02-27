@@ -31,7 +31,7 @@ select
   ,case
     when score < 60 then 'danger'
     when score between 61 and 79 then 'warning'
-    when score > 80 then 'success'
+    when score >= 80 then 'success'
     else null
    end as score_css
   ,summary
