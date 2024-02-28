@@ -19,7 +19,6 @@ alter session set current_schema = sert_core;
 @@schemas/sert_core/grants/_ins_grants.sql
 
 -- SERT_PUB
-
 -- install views
 @@schemas/sert_pub/views/_ins_views.sql
 
