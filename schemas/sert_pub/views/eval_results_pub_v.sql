@@ -28,6 +28,7 @@ select
   ,risk_name
   ,risk_url
   ,help_url
+  ,impact
   ,rule_criteria_type_name
   ,comment_cnt
   ,comment_icon

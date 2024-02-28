@@ -39,6 +39,7 @@ select
   ,risk_name
   ,risk_url
   ,help_url
+  ,impact
   ,rule_criteria_type_name
 from
    eval_results_v er
