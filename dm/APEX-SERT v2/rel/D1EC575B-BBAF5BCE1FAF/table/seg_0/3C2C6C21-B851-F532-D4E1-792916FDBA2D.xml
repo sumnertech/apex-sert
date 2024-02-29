@@ -1,0 +1,225 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3C2C6C21-B851-F532-D4E1-792916FDBA2D" name="EXCEPTIONS">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<ordsAlias>table_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EXCEPTION_ID" id="1971AA40-7720-BC9F-F314-0FB871CA07FD">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RULE_SET_ID" id="9A5DFAF0-E797-432E-E196-CF6A51A9159C">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="676A104A-CCE9-48B2-854E-BF57603D06C0" referredColumn="ACD61910-048A-E289-86AC-B98DD8878140"/>
+</associations>
+</Column>
+<Column name="RULE_ID" id="D52C7541-5461-4A9E-A623-12AE4CB88E4C">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4B485252-BBB4-D3AC-59AD-1BF79BA6AEEA" referredColumn="A28A8E5C-98E9-1618-E143-7B1D9B8FD1F9"/>
+</associations>
+</Column>
+<Column name="EXCEPTION_REASON" id="7DCDC4B8-241B-E0D1-C4E4-3B4831E9AFF1">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WORKSPACE_ID" id="7ACE184D-9E32-D63C-65AA-6F346004770F">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APPLICATION_ID" id="A321DAFF-E1B0-6058-A881-70D89FE187F5">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAGE_ID" id="C057A8CD-D138-939B-60B5-EAF0956456AD">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMPONENT_ID" id="E60B3A7A-2F42-827A-1D23-3873382FBA46">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COLUMN_NAME" id="5F38D54F-0E65-6851-2C07-C6E58149CB8F">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ITEM_NAME" id="A4877B18-0CC2-BD84-0C4E-3C5CC887C9A0">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SHARED_COMP_NAME" id="71EFE560-4FFC-2085-06F3-913C26E663B0">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="569E49F7-7622-CC5A-3FA7-D77E3278EEE0">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_ON" id="D71F4DC5-9B35-F09F-7D17-02F6062A81D2">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<defaultValue>systimestamp</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_BY" id="70717325-333F-DE67-220C-BCE63C70AAF9">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_ON" id="1C926F25-197C-6E2E-F9E9-3128213EE7D4">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<defaultValue>systimestamp</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8E8A50BB-DCDD-37A0-29EC-A2711511FCE7" name="EXCEPTIONS_PK">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1971AA40-7720-BC9F-F314-0FB871CA07FD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4093F6F0-5D35-2F4D-B7C9-CC653376F956" name="E_RULE_SETS_FKv2">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9A5DFAF0-E797-432E-E196-CF6A51A9159C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5092912C-93E0-D883-571B-77F56A788327" name="E_RULES_FK">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D52C7541-5461-4A9E-A623-12AE4CB88E4C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
