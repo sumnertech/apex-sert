@@ -9,6 +9,7 @@ select
   ,er.workspace_id
   ,er.application_id
   ,er.page_id
+  ,case when er.page_id is not null then er.page_id || ': ' else null end || ap.page_name as page
   ,case when er.page_id is null then 'Shared Component' else ap.page_name end as page_name
   ,case when er.page_id is not null then er.page_id || ' - ' || ap.page_name else 'Shared Component' end as full_page_name
   ,case when r.impact = 'SC' then shared_comp_type || ' / '|| shared_comp_name else null end 
@@ -25,15 +26,15 @@ select
   ,er.item_name
   ,r.category_name
   ,r.category_key
-  ,er.current_value
-  ,er.valid_values
+  ,nvl(er.current_value, 'None') as current_value
+  ,case when er.valid_values = 'Criteria' then rule_criteria_type_name else er.valid_values end as valid_values
   ,er.result
   ,case 
     when er.result = 'PENDING' then 'warning'
     when er.result in ('APPROVED', 'PASS') then 'success' 
     else 'danger' 
     end as result_color
-  ,er.reason
+  ,nvl(er.reason, 'n/a')  as reason
   ,case when er.comment_cnt = 0 then null else er.comment_cnt end as comment_cnt
   ,case when er.comment_cnt > 0 then 'fa fa-comments-o' else null end comment_icon
   ,case when er.exception_cnt > 0 then null else er.exception_cnt end as exception_cnt
@@ -43,9 +44,13 @@ select
   ,er.updated_on
   ,risk_name
   ,risk_url
+  ,case
+    when risk_url is null then nvl(risk_name, 'n/a')
+    else '<a href="' || apex_escape.html(risk_url) || '">' || apex_escape.html(risk_name) || '</a>'
+    end as risk
   ,help_url
   ,impact
-  ,rule_criteria_type_name
+  ,nvl(rule_criteria_type_name, 'n/a') as rule_criteria_type_name
 from
    eval_results_v er
   ,rules_pub_v r

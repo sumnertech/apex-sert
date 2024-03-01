@@ -20,10 +20,12 @@ select
   ,e.workspace
   ,e.application_id
   ,e.application_name
+  ,e.application_id || ' : ' || e.application_name as title
   ,e.last_updated_on
   ,e.rule_set_id
   ,e.rule_set_name
   ,e.rule_set_key
+  ,'Rule Set: ' || rule_set_name as rule_set
   ,e.eval_on
   ,e.eval_on_date
   ,e.eval_by
@@ -41,7 +43,7 @@ select
     when upper(job_status) = 'FAILED' then 'danger'
     when upper(job_status) = 'RUNNING' then 'warning'
     else null end as job_status_css
-  ,nvl(to_char(score),'...') as score
+  ,case when score is null then '...' else score || '%' end as score
   ,case
     when score < 60 then 'danger'
     when score between 61 and 79 then 'warning'

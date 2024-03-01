@@ -11,17 +11,23 @@ function show_exception
   )
 return boolean
 is
+  l_result varchar2(100);
 begin
 
+select result into l_result from eval_results_pub_v where eval_result_id = p_eval_result_id;
+if l_result = 'PASS' then return false;
+  else return true;
+end if;
+
 -- inspect the specific evaluation result and determine whether or not to render it
-for x in (select * from eval_results_pub_v where eval_result_id = p_eval_result_id)
-loop
-  if x.result = 'PASS' then
-    return false;
-  else
-    return true;
-  end if;
-end loop;
+--for x in (select * from eval_results_pub_v where eval_result_id = p_eval_result_id)
+--loop
+---  if x.result = 'PASS' then
+ --   return false;
+ -- else
+ --   return true;
+ -- end if;
+--end loop;
 
 end show_exception;
 

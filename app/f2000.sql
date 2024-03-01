@@ -33,7 +33,7 @@ prompt APPLICATION 2000 - APEX-SERT
 -- Application Export:
 --   Application:     2000
 --   Name:            APEX-SERT
---   Date and Time:   04:25 Friday March 1, 2024
+--   Date and Time:   12:55 Friday March 1, 2024
 --   Exported By:     SCOTT@SUMNERTECH.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -42,7 +42,7 @@ prompt APPLICATION 2000 - APEX-SERT
 --       Computations:             3
 --       Validations:              1
 --       Processes:               18
---       Regions:                 32
+--       Regions:                 33
 --       Buttons:                 23
 --       Dynamic Actions:         15
 --     Shared Components:
@@ -122,7 +122,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'APEX-SERT'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240301042218'
+,p_last_upd_yyyymmddhh24miss=>'20240301124756'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>11
 ,p_print_server_type=>'NATIVE'
@@ -18047,7 +18047,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'13'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240301042218'
+,p_last_upd_yyyymmddhh24miss=>'20240301122421'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(20796971182143238)
@@ -18083,15 +18083,15 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ',
 '   eval_id',
-'  ,application_id || '' - '' || application_name as title',
+'  ,title',
 '  ,application_id',
-'  ,''Rule Set: '' || rule_set_name as rule_set',
-'  ,eval_by_long as description',
+'  ,rule_set',
+'  ,eval_by_long',
 '  ,null as actions',
 '  ,job_status',
 '  ,job_status_css ',
 '  ,app_image',
-'  ,score || ''%'' as score',
+'  ,score',
 '  ,score_css',
 '  ,exception_cnt',
 'from   ',
@@ -18108,7 +18108,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_attributes=>wwv_flow_string.join_clob(wwv_flow_t_varchar2('{',
   '"OVERLINE": "\u0026RULE_SET.",',
   '"TITLE": "\u0026TITLE.",',
-  '"DESCRIPTION": "\u0026DESCRIPTION.",',
+  '"DESCRIPTION": "\u0026EVAL_BY_LONG.",',
   '"MISC": "\u0026EXCEPTION_CNT. Exceptions \u003Cspan class=\"t-Badge t-Badge--\u0026JOB_STATUS_CSS.\"\u003E\n     \u003Cspan class=\"t-Badge-value\"\u003E\u0026JOB_STATUS.\u003C\/span\u003E\n\u003C\/span\u003E",',
   '"DISPLAY_AVATAR": "Y",',
   '"DISPLAY_BADGE": "Y",',
@@ -18145,17 +18145,6 @@ wwv_flow_imp_page.create_region_column(
 ,p_data_type=>'VARCHAR2'
 ,p_session_state_data_type=>'VARCHAR2'
 ,p_display_sequence=>20
-,p_use_as_row_header=>false
-,p_is_primary_key=>false
-);
-wwv_flow_imp_page.create_region_column(
- p_id=>wwv_flow_imp.id(22009892348641734)
-,p_name=>'DESCRIPTION'
-,p_source_type=>'DB_COLUMN'
-,p_source_expression=>'DESCRIPTION'
-,p_data_type=>'VARCHAR2'
-,p_session_state_data_type=>'VARCHAR2'
-,p_display_sequence=>40
 ,p_use_as_row_header=>false
 ,p_is_primary_key=>false
 );
@@ -18254,6 +18243,16 @@ wwv_flow_imp_page.create_region_column(
 ,p_source_expression=>'EXCEPTION_CNT'
 ,p_data_type=>'NUMBER'
 ,p_display_sequence=>200
+,p_use_as_row_header=>false
+,p_is_primary_key=>false
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(33377774269049324)
+,p_name=>'EVAL_BY_LONG'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'EVAL_BY_LONG'
+,p_data_type=>'VARCHAR2'
+,p_display_sequence=>210
 ,p_use_as_row_header=>false
 ,p_is_primary_key=>false
 );
@@ -18696,13 +18695,28 @@ wwv_flow_imp_page.create_page(
 '  setTimeout(function() {',
 '    apex.region("evaluationResults").refresh();',
 '  }, 500);',
-'}'))
+'}',
+'',
+'function setResult(pResultName)',
+'{ ',
+'  apex.item("P10_SEARCH").value = "";',
+'  apex.item("P10_CATEGORY_NAME").value = "";',
+'  apex.item("P10_RULE_NAME").value = "";',
+'  apex.item("P10_FULL_PAGE_NAME").value = "";',
+'  apex.item("P10_RESULT").value = pResultName;',
+'  // wait .5 sec and refresh, else data is stale',
+'  setTimeout(function() {',
+'    apex.region("evaluationResults").refresh();',
+'  }, 500);',
+'}',
+'',
+''))
 ,p_step_template=>wwv_flow_imp.id(20828060682277309)
 ,p_required_role=>'MUST_NOT_BE_PUBLIC_USER'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'24'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240301040426'
+,p_last_upd_yyyymmddhh24miss=>'20240301124756'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(21458263214752319)
@@ -18993,6 +19007,7 @@ wwv_flow_imp_page.create_page_plug(
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(21482767475857827)
 ,p_plug_name=>'Failures by Category'
+,p_region_css_classes=>'refreshMe'
 ,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--noBorder:t-Region--scrollBody'
 ,p_component_template_options=>'#DEFAULT#'
 ,p_escape_on_http_output=>'Y'
@@ -19005,7 +19020,7 @@ wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(21482858871857828)
 ,p_region_id=>wwv_flow_imp.id(21482767475857827)
 ,p_chart_type=>'bar'
-,p_height=>'400'
+,p_height=>'300'
 ,p_animation_on_display=>'auto'
 ,p_animation_on_data_change=>'auto'
 ,p_orientation=>'vertical'
@@ -19013,9 +19028,7 @@ wwv_flow_imp_page.create_jet_chart(
 ,p_data_cursor_behavior=>'auto'
 ,p_hover_behavior=>'dim'
 ,p_stack=>'off'
-,p_stack_label=>'off'
 ,p_connect_nulls=>'Y'
-,p_value_position=>'auto'
 ,p_sorting=>'label-asc'
 ,p_fill_multi_series_gaps=>true
 ,p_zoom_and_scroll=>'off'
@@ -19023,20 +19036,7 @@ wwv_flow_imp_page.create_jet_chart(
 ,p_show_series_name=>true
 ,p_show_group_name=>true
 ,p_show_value=>true
-,p_show_label=>true
-,p_show_row=>true
-,p_show_start=>true
-,p_show_end=>true
-,p_show_progress=>true
-,p_show_baseline=>true
 ,p_legend_rendered=>'off'
-,p_legend_position=>'auto'
-,p_overview_rendered=>'off'
-,p_horizontal_grid=>'auto'
-,p_vertical_grid=>'auto'
-,p_gauge_orientation=>'circular'
-,p_gauge_plot_area=>'on'
-,p_show_gauge_value=>true
 );
 wwv_flow_imp_page.create_jet_chart_series(
  p_id=>wwv_flow_imp.id(21482974956857829)
@@ -19619,6 +19619,94 @@ wwv_flow_imp_page.create_region_column(
 ,p_use_as_row_header=>false
 ,p_is_primary_key=>false
 );
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(33377870083049325)
+,p_plug_name=>'Results by Status'
+,p_region_css_classes=>'refreshMe'
+,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--noBorder:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_imp.id(20927691815277407)
+,p_plug_display_sequence=>40
+,p_plug_display_point=>'REGION_POSITION_02'
+,p_plug_source_type=>'NATIVE_JET_CHART'
+);
+wwv_flow_imp_page.create_jet_chart(
+ p_id=>wwv_flow_imp.id(33377968456049326)
+,p_region_id=>wwv_flow_imp.id(33377870083049325)
+,p_chart_type=>'bar'
+,p_height=>'250'
+,p_animation_on_display=>'auto'
+,p_animation_on_data_change=>'auto'
+,p_orientation=>'vertical'
+,p_data_cursor=>'auto'
+,p_data_cursor_behavior=>'auto'
+,p_hover_behavior=>'dim'
+,p_stack=>'off'
+,p_connect_nulls=>'Y'
+,p_sorting=>'label-asc'
+,p_fill_multi_series_gaps=>true
+,p_zoom_and_scroll=>'off'
+,p_tooltip_rendered=>'Y'
+,p_show_series_name=>true
+,p_show_group_name=>true
+,p_show_value=>true
+,p_legend_rendered=>'off'
+);
+wwv_flow_imp_page.create_jet_chart_series(
+ p_id=>wwv_flow_imp.id(33378094942049327)
+,p_chart_id=>wwv_flow_imp.id(33377968456049326)
+,p_seq=>10
+,p_name=>'Result Details'
+,p_data_source_type=>'SQL'
+,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select ',
+'   result',
+'  ,count(*) as val',
+'from ',
+'  EVAL_RESULTS_PUB_V',
+'where ',
+'  eval_id = :P10_EVAL_ID',
+'group by',
+'  result',
+'order by',
+'  2 desc   '))
+,p_items_value_column_name=>'VAL'
+,p_items_label_column_name=>'RESULT'
+,p_assigned_to_y2=>'off'
+,p_items_label_rendered=>false
+,p_link_target=>'javascript:setResult("&RESULT.");'
+,p_link_target_type=>'REDIRECT_URL'
+);
+wwv_flow_imp_page.create_jet_chart_axis(
+ p_id=>wwv_flow_imp.id(33378153758049328)
+,p_chart_id=>wwv_flow_imp.id(33377968456049326)
+,p_axis=>'x'
+,p_is_rendered=>'on'
+,p_format_scaling=>'auto'
+,p_scaling=>'linear'
+,p_baseline_scaling=>'zero'
+,p_major_tick_rendered=>'on'
+,p_minor_tick_rendered=>'off'
+,p_tick_label_rendered=>'on'
+,p_tick_label_rotation=>'auto'
+,p_tick_label_position=>'outside'
+);
+wwv_flow_imp_page.create_jet_chart_axis(
+ p_id=>wwv_flow_imp.id(33378282839049329)
+,p_chart_id=>wwv_flow_imp.id(33377968456049326)
+,p_axis=>'y'
+,p_is_rendered=>'on'
+,p_format_type=>'decimal'
+,p_decimal_places=>0
+,p_format_scaling=>'none'
+,p_scaling=>'linear'
+,p_baseline_scaling=>'zero'
+,p_position=>'auto'
+,p_major_tick_rendered=>'on'
+,p_minor_tick_rendered=>'off'
+,p_tick_label_rendered=>'on'
+);
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(21482625344857826)
 ,p_button_sequence=>20
@@ -19666,6 +19754,9 @@ wwv_flow_imp_page.create_page_branch(
 ,p_branch_condition_type=>'REQUEST_IN_CONDITION'
 ,p_branch_condition=>'DELETE_EVALUATION,RE-EVALUATE_BACKGROUND'
 );
+end;
+/
+begin
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(21458377629752320)
 ,p_name=>'P10_SEARCH'
@@ -19768,9 +19859,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_01=>'NONE'
 ,p_attribute_02=>'N'
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(21483793439857837)
 ,p_name=>'P10_FULL_PAGE_NAME'
@@ -21813,7 +21901,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'03'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240301041115'
+,p_last_upd_yyyymmddhh24miss=>'20240301123354'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(21891468750851746)
@@ -21859,21 +21947,18 @@ wwv_flow_imp_page.create_report_region(
 'select ',
 '  result',
 '  ,category_name',
-'  ,case when page_id is not null then page_id || '': '' else null end || page_name as page',
+'  ,page',
 '  ,region_name',
 '  ,column_name',
 '  ,item_name',
 '  ,result_color',
 '  ,description',
-'  ,nvl(current_value, ''None'') as current_value',
-'  ,case when valid_values = ''Criteria'' then rule_criteria_type_name else valid_values end as valid_values',
-'  ,nvl(rule_criteria_type_name, ''n/a'') as rule_criteria_type_name',
-'  ,nvl(reason, ''n/a'') as reason',
+'  ,current_value',
+'  ,valid_values',
+'  ,rule_criteria_type_name',
+'  ,reason',
 '  ,help_url',
-'  ,case',
-'    when risk_url is null then nvl(risk_name, ''n/a'')',
-'    else ''<a href="'' || apex_escape.html(risk_url) || ''">'' || apex_escape.html(risk_name) || ''</a>''',
-'    end as risk',
+'  ,risk',
 'from',
 '  eval_results_pub_v',
 'where ',
@@ -22109,7 +22194,7 @@ wwv_flow_imp_page.create_report_region(
 ,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ',
 '   rule_id',
-'  ,nvl(to_char(INFO), ''No data found'') as info',
+'  ,info',
 'from ',
 '  rules_pub_v',
 'where ',
@@ -22162,7 +22247,7 @@ wwv_flow_imp_page.create_report_region(
 ,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ',
 '   rule_id',
-'  ,nvl(to_char(fix), ''No data found'') as fix',
+'  ,fix',
 'from ',
 '  rules_pub_v',
 'where ',

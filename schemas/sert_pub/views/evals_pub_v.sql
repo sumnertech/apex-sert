@@ -6,10 +6,12 @@ select
   ,workspace
   ,application_id
   ,application_name
+  ,title
   ,last_updated_on
   ,rule_set_id
   ,rule_set_name
   ,rule_set_key
+  ,rule_set
   ,eval_on
   ,eval_on_date
   ,eval_by
