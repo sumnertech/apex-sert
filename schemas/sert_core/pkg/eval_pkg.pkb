@@ -393,11 +393,12 @@ procedure delete_eval
 is
 begin
 
--- delete all comments, if selected
+-- delete all comments and exceptions, if selected
 if p_delete_comments = 'Y' then
   for x in (select * from evals where eval_id = p_eval_id)
   loop
-    delete from comments where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
+    delete from comments   where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
+    delete from exceptions where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
   end loop;
 end if;
 

@@ -21,6 +21,7 @@ select
   ,job_status_css
   ,score
   ,score_css
+  ,exception_cnt
   ,created_by
   ,created_on
   ,updated_by

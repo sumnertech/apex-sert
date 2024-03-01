@@ -1,18 +1,32 @@
 create or replace view sert_core.evals_pub_v
 as
+with exception_cnt as
+(
 select
-   eval_id
-  ,workspace_id
-  ,workspace
-  ,application_id
-  ,application_name
-  ,last_updated_on
-  ,rule_set_id
-  ,rule_set_name
-  ,rule_set_key
-  ,eval_on
-  ,eval_on_date
-  ,eval_by
+  er.eval_id
+ ,sum(cnt) as cnt
+from 
+  exception_cnt_v ec, 
+  eval_results_v er 
+where
+  er.eval_result_id = ec.eval_result_id(+)
+  and er.result = 'PENDING'
+group by
+  er.eval_id
+)
+select
+   e.eval_id
+  ,e.workspace_id
+  ,e.workspace
+  ,e.application_id
+  ,e.application_name
+  ,e.last_updated_on
+  ,e.rule_set_id
+  ,e.rule_set_name
+  ,e.rule_set_key
+  ,e.eval_on
+  ,e.eval_on_date
+  ,e.eval_by
   ,'Evaluated ' || apex_util.get_since(eval_on) || ' by ' || eval_by
     || case when eval_on_date < last_updated_on then ' / Application updated ' || apex_util.get_since(eval_on_date + (last_updated_on - eval_on_date)) else null end
     as eval_by_long
@@ -34,14 +48,17 @@ select
     when score >= 80 then 'success'
     else null
    end as score_css
-  ,summary
-  ,job_name
-  ,created_by
-  ,created_on
-  ,updated_by
-  ,updated_on
+  ,e.summary
+  ,e.job_name
+  ,nvl(ec.cnt,0) as exception_cnt
+  ,e.created_by
+  ,e.created_on
+  ,e.updated_by
+  ,e.updated_on
 from
-  sert_core.evals_v
+  sert_core.evals_v e
+  ,exception_cnt ec
 where
   workspace_id = (select nv('WORKSPACE_ID') from dual)
+  and e.eval_id = ec.eval_id(+)
 /

@@ -46,7 +46,7 @@
 <colAssociation fkAssociation="4B485252-BBB4-D3AC-59AD-1BF79BA6AEEA" referredColumn="A28A8E5C-98E9-1618-E143-7B1D9B8FD1F9"/>
 </associations>
 </Column>
-<Column name="EXCEPTION_REASON" id="7DCDC4B8-241B-E0D1-C4E4-3B4831E9AFF1">
+<Column name="EXCEPTION" id="7DCDC4B8-241B-E0D1-C4E4-3B4831E9AFF1">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
@@ -136,6 +136,29 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="RESULT" id="51AE51B9-2220-67FA-2094-B6D0D03B8740">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-01 03:04:14 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REASON" id="304B32B5-5A6C-FD31-DF2B-01145FD6C588">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-01 03:04:34 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="CREATED_BY" id="569E49F7-7622-CC5A-3FA7-D77E3278EEE0">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
@@ -186,6 +209,29 @@
 <defaultValue>systimestamp</defaultValue>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIONED_BY" id="5FBB01AE-10D3-B08C-B53D-F8F7F5E57973">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-01 03:05:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIONED_ON" id="9089BBE6-947B-B908-9BA1-2DA879F00B22">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-01 03:05:23 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

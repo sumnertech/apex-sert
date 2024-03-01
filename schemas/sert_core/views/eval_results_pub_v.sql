@@ -28,10 +28,15 @@ select
   ,er.current_value
   ,er.valid_values
   ,er.result
-  ,case when er.result = 'PASS' then 'success' else 'danger' end as result_color
+  ,case 
+    when er.result = 'PENDING' then 'warning'
+    when er.result in ('APPROVED', 'PASS') then 'success' 
+    else 'danger' 
+    end as result_color
   ,er.reason
   ,case when er.comment_cnt = 0 then null else er.comment_cnt end as comment_cnt
   ,case when er.comment_cnt > 0 then 'fa fa-comments-o' else null end comment_icon
+  ,case when er.exception_cnt > 0 then null else er.exception_cnt end as exception_cnt
   ,er.created_by
   ,er.created_on
   ,er.updated_by
