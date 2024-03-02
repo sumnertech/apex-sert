@@ -12,6 +12,7 @@ select
   ,e.column_name
   ,e.shared_comp_name
   ,e.item_name
+  ,e.current_value
   ,e.rule_set_id || ':'
     || e.rule_id || ':'
     || e.workspace_id || ':'

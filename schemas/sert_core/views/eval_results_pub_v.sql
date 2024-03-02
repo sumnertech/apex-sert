@@ -27,6 +27,7 @@ select
   ,r.category_name
   ,r.category_key
   ,nvl(er.current_value, 'None') as current_value
+  ,er.exception_value
   ,case when er.valid_values = 'Criteria' then rule_criteria_type_name else er.valid_values end as valid_values
   ,er.result
   ,case 

@@ -32,6 +32,7 @@ procedure add_exception
   ,p_item_name        in varchar2 default null
   ,p_shared_comp_name in varchar2 default null
   ,p_exception        in varchar2
+  ,p_curernt_value    in varchar2
   );
 
 end exceptions_api;

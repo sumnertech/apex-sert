@@ -159,6 +159,18 @@
 <ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="CURRENT_VALUE" id="F736C1D1-6572-7C0D-864F-366DFFC44DD5">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-02 14:26:39 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="CREATED_BY" id="569E49F7-7622-CC5A-3FA7-D77E3278EEE0">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>

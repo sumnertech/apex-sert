@@ -234,6 +234,43 @@ open l_cursor;
 
 close l_cursor;
 
+-- check for stale exceptions and mark them as such
+update
+ exceptions
+set
+  result = 'STALE'
+where
+  exception_id in
+  (
+  select
+    e.exception_id
+  from
+    eval_results_v er
+    ,exceptions e
+  where
+     er.rule_set_id     || ':'
+  || er.rule_id         || ':'
+  || er.workspace_id    || ':'
+  || er.application_id  || ':'
+  || er.page_id         || ':'
+  || er.component_id    || ':'
+  || er.item_name       || ':'
+  || er.column_name     || ':'
+  || er.shared_comp_name 
+  = 
+     e.rule_set_id     || ':'
+  || e.rule_id         || ':'
+  || e.workspace_id    || ':'
+  || e.application_id  || ':'
+  || e.page_id         || ':'
+  || e.component_id    || ':'
+  || e.item_name       || ':'
+  || e.column_name     || ':'
+  || e.shared_comp_name 
+  and er.current_value != e.current_value
+  and er.eval_id = p_eval_id
+  );
+
 -- change the status and update the score
 update
   evals

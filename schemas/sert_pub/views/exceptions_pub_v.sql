@@ -12,6 +12,7 @@ select
   ,e.column_name
   ,e.shared_comp_name
   ,e.item_name
+  ,e.current_value
   ,e.exception_key
   ,e.result
   ,e.reason

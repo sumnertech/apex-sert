@@ -2,9 +2,12 @@ create or replace view sert_core.eval_results_v
 as
 with 
   comment_cnt   as (select * from comment_cnt_v)
- ,exception_cnt as (select result as result2, cnt, eval_result_id from exception_cnt_v)
+ ,exception_cnt as (select result as result2, cnt, current_value, eval_result_id from exception_cnt_v)
 select
-   nvl(exception_cnt.result2, jt.result) as result
+   case 
+     when jt.result = 'PASS' then jt.result 
+     else nvl(exception_cnt.result2, jt.result) 
+   end as result
   ,listagg(jt.reason, ', ') as reason
   ,er.eval_id
   ,er.eval_result_id
@@ -25,6 +28,7 @@ select
   ,er.rule_id
   ,comment_cnt.cnt as comment_cnt
   ,exception_cnt.cnt as exception_cnt
+  ,exception_cnt.current_value as exception_value
 from
    eval_results er
   ,evals e
@@ -45,7 +49,10 @@ where
   and er.eval_result_id = comment_cnt.eval_result_id(+)
   and er.eval_result_id = exception_cnt.eval_result_id(+)
 group by
-   nvl(exception_cnt.result2, jt.result)
+   case 
+     when jt.result = 'PASS' then jt.result 
+     else nvl(exception_cnt.result2, jt.result) 
+   end
   ,er.eval_id
   ,er.eval_result_id
   ,e.rule_set_id
@@ -65,4 +72,5 @@ group by
   ,er.rule_id
   ,comment_cnt.cnt
   ,exception_cnt.cnt
+  ,exception_cnt.current_value
 /

@@ -92,6 +92,7 @@ procedure add_exception
   ,p_item_name        in varchar2 default null
   ,p_shared_comp_name in varchar2 default null
   ,p_exception        in varchar2
+  ,p_curernt_value    in varchar2
   )
 is
 begin
@@ -109,6 +110,7 @@ insert into exceptions
   ,shared_comp_name
   ,exception
   ,result
+  ,current_value
   )
 values
   (
@@ -123,6 +125,7 @@ values
   ,p_shared_comp_name
   ,p_exception
   ,'PENDING'
+  ,p_curernt_value
   );
 
 

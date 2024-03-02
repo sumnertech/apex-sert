@@ -20,6 +20,7 @@ select
   ,category_name
   ,category_key
   ,current_value
+  ,exception_value
   ,valid_values
   ,result
   ,result_color

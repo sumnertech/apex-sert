@@ -25,6 +25,7 @@ e as
 select
    exception_id
    ,result
+   ,current_value
    ,  rule_set_id    || ':'
    || rule_id        || ':'
    || workspace_id   || ':'
@@ -41,6 +42,7 @@ from
 select
    er_key.eval_result_id
   ,e.result
+  ,e.current_value
   ,count(e.exception_id) as cnt
 from
    e
@@ -51,5 +53,6 @@ where
   and er.eval_result_id = er_key.eval_result_id
 group by
    er_key.eval_result_id
-   ,e.result
+  ,e.result
+  ,e.current_value
 /

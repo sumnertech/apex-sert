@@ -11,6 +11,7 @@ select
   ,e.column_name
   ,e.item_name
   ,e.shared_comp_name
+  ,e.current_value
   ,e.exception
   ,e.result
   ,e.reason
