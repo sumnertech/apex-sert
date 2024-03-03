@@ -394,7 +394,7 @@ if p_run_in_background = 'Y' then
     );
 
   -- update the evaluation record with the job_name and status
-  update evals set job_name = l_job_name, job_status = 'RUNNING' where eval_id = p_eval_id_out;
+  update evals set job_name = l_job_name, job_status = 'RUNNING', eval_on = systimestamp, eval_on_date = sysdate where eval_id = p_eval_id_out;
 
 else
   -- process all rules for the rule set in real time
