@@ -18,7 +18,7 @@
 --
 --    MODIFIED   
 --      dgault 02/28/2024  - Created   
---      
+-- 
 --  TERMOUT  - Set terminal output on. We went to see it. 
 set termout on
 --  feedback - Displays the number of records returned by a script ON=1
@@ -37,7 +37,7 @@ set verify on
 --Sets the number of lines on each page of output.
 SET PAGESIZE 50
 
-CLEAR SCREEN
+PROMPT  ==================================================================
 PROMPT .  
 PROMPT .            _____  ________   __     _____ ______ _____ _______ 
 PROMPT .      /\   |  __ \|  ____\ \ / /    / ____|  ____|  __ \__   __|
@@ -224,19 +224,19 @@ PROMPT =========================================================================
 PROMPT 
 alter session set current_schema = sert_core;
 --
--- - install tables
+PROMPT .. TABLES
 @schemas/sert_core/tables/_ins_tables.sql
 -- 
--- - install views
+PROMPT .. VIEWS
 @schemas/sert_core/views/_ins_views.sql
 -- 
--- - install packages
+PROMPT .. PACKAGES
 @schemas/sert_core/pkg/_ins_pkg.sql
 -- 
--- - install grants
+PROMPT .. GRANTS
 @schemas/sert_core/grants/_ins_grants.sql
 --
--- - install seed data
+PROMPT .. SEED DATA
 @schemas/sert_core/seed/_ins_seed.sql
 
 set termout on
@@ -246,17 +246,16 @@ PROMPT = Switching to SERT_PUB schema to install objects
 PROMPT ==================================================================================
 PROMPT 
 alter session set current_schema = sert_pub;
--- - install views
+PROMPT .. VIEWS 
 @schemas/sert_pub/views/_ins_views.sql
 -- 
--- - install synonyms
+PROMPT .. SYNONUMS 
 @schemas/sert_pub/synonyms/_ins_synonyms.sql
 
 
 -- reset the define variable
 set define '&'
 
-<<<<<<< HEAD
 --  =================
 --  =================  Reset all of the standard settings
 --  =================
@@ -278,17 +277,3 @@ PROMPT  ========================================================================
 PROMPT  ============================= C O M P L E T E ==============================
 PROMPT  ============================================================================
 spool off
-=======
--- install grants
-@@schemas/sert_core/grants/_ins_grants.sql
-
--- SERT_PUB
--- install views
-@@schemas/sert_pub/views/_ins_views.sql
-
--- install synonyms
-@@schemas/sert_pub/synonyms/_ins_synonyms.sql
-
--- install seed data
-@@schemas/sert_core/seed/_ins_seed.sql
->>>>>>> a4f19940135130129934d34baa71269c663a0ea0
