@@ -18,7 +18,7 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = CREATING TABLES  
+PROMPT = CREATING TABLES IN SERT_CORE
 PROMPT ==================================================================================
 PROMPT 
 @@schemas/sert_core/tables/tables.sql

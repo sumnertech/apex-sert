@@ -18,7 +18,7 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = CREATING VIEWS IN SERT CORE 
+PROMPT = CREATING VIEWS IN SERT_CORE 
 PROMPT ==================================================================================
 PROMPT 
 -- installs views
@@ -34,6 +34,7 @@ PROMPT
 @@schemas/sert_core/views/comment_cnt_v.sql
 @@schemas/sert_core/views/rules_relational_to_json_v.sql
 @@schemas/sert_core/views/rules_json_to_relational_v.sql
+@@schemas/sert_core/views/exception_cnt_v.sql
 @@schemas/sert_core/views/eval_results_v.sql
 @@schemas/sert_core/views/exceptions_v.sql
 

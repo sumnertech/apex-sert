@@ -49,6 +49,8 @@ PROMPT .
 PROMPT  ========================== APEX-SERT ============================
 PROMPT 
 PAUSE   Press Enter to continue installation or CTRL-C to EXIT
+
+
 --
 -- Terminate the script on Error during the beginning
 whenever sqlerror exit
@@ -62,11 +64,10 @@ define scheduling_grant_s          = 'ins/scheduling_grant.sql'
 define parse_as_grants_s           = 'ins/parse_as_grants.sql'
 define app_id_assign_script         ='app/id_prompts.sql'       -- Script to assign APP_ID
 
-PROMPT  ... Testing for prerequisites
---  =================
---  =================  PREREQUISITE TESTS
---  =================
---
+PROMPT   =================
+PROMPT   =================  P R E R E Q U I S I T E   T E S T S
+PROMPT   =================
+PROMPT 
 PROMPT  =================
 PROMPT  =================  Check Appropriate Privileges are present
 PROMPT  =================
@@ -166,17 +167,23 @@ begin
 
 end;
 /
---  =================
---  =================  END PREREQUISITE TESTS
---  =================
+PROMPT  =================
+PROMPT  =================  E N D   P R E R E Q U I S I T E   T E S T S
+PROMPT  =================
 PROMPT 
-PROMPT  ... Test for prerequisites succeeded
+
+-- House Keeping 
+-- Get the CURRENT USER for use later
+column logged_in_user new_val curr_user NOPRINT
+select sys_context('USERENV','CURRENT_USER') LOGGED_IN_USER
+from dual;
+--
+whenever sqlerror continue
+PROMPT  =================
+PROMPT  ================= Start The logging 
+PROMPT  ================= 
 PROMPT
 
-whenever sqlerror continue
---  =================
---  ================= Start The logging 
---  ================= 
 column log_name new_val logname NOPRINT
 select 'SERT_install_'||to_char(sysdate, 'YYYY-MM-DD_HH24-MI-SS')||'.log' log_name from dual;
 -- Spool the log
@@ -222,16 +229,16 @@ PROMPT =========================================================================
 PROMPT 
 alter session set current_schema = sert_core;
 --
-PROMPT .. TABLES
+-- .. TABLES
 @schemas/sert_core/tables/_ins_tables.sql
 -- 
-PROMPT .. VIEWS
+-- .. VIEWS
 @schemas/sert_core/views/_ins_views.sql
 -- 
-PROMPT .. PACKAGES
+-- .. PACKAGES
 @schemas/sert_core/pkg/_ins_pkg.sql
 -- 
-PROMPT .. GRANTS
+-- .. GRANTS
 @schemas/sert_core/grants/_ins_grants.sql
 --
 PROMPT .. SEED DATA
@@ -244,20 +251,31 @@ PROMPT = Switching to SERT_PUB schema to install objects
 PROMPT ==================================================================================
 PROMPT 
 alter session set current_schema = sert_pub;
-PROMPT .. VIEWS 
+-- .. VIEWS 
 @schemas/sert_pub/views/_ins_views.sql
 -- 
-PROMPT .. SYNONUMS 
+-- .. SYNONYMS 
 @schemas/sert_pub/synonyms/_ins_synonyms.sql
+
+PROMPT
+PROMPT ==================================================================================
+PROMPT = Switching back to  ^curr_user schema to install APEX objects 
+PROMPT ==================================================================================
+PROMPT 
+alter session set current_schema = ^curr_user;
 
 PROMPT  =============================================================================
 PROMPT  == WORKSPACE AND APPLICATIONS INSTALL 
 PROMPT  =============================================================================
 PROMPT 
-PROMPT  == Installing new SERT workspace 
-PROMPT 
 ACCEPT ws_password  CHAR DEFAULT '' PROMPT 'Please enter a password for the SERT Workspace ADMIN user: '
 ACCEPT ws_email     CHAR DEFAULT '' PROMPT 'Please enter an email address for the SERT Workspace ADMIN user: '
+PROMPT
+PROMPT  =================
+PROMPT  ================= CREATING WORKSPACE 
+PROMPT  ================= 
+PROMPT
+
  DECLARE
   l_workspace   varchar2(20)  := 'SERT';
   l_workspace_id  number;
@@ -283,7 +301,7 @@ BEGIN
   COMMIT;
 
   dbms_output.put_line('== Workspace Created');
-  dbms_output.put_line('== .. Workspace Name : '||l_workspace)
+  dbms_output.put_line('== .. Workspace Name : '||l_workspace);
 
   -- get the new ID so we can use the security grup
   select workspace_id
@@ -313,9 +331,10 @@ BEGIN
 
 END;
 /
-PROMPT 
-PROMPT  == Installing SERT Applications  
-PROMPT 
+PROMPT  =================
+PROMPT  ================= CREATING APPLICATIONS 
+PROMPT  ================= 
+PROMPT
 DECLARE 
   l_workspace     varchar2(20) := 'SERT';
   l_workspace_id  number;

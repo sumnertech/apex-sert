@@ -41,19 +41,58 @@ PROMPT .  /_/    \_\_|    |______/_/ \_\   |_____/|______|_|  \_\ |_|
 PROMPT .                            
 PROMPT  ========================== APEX-SERT ============================
 PROMPT 
-PAUSE   Press Enter to continue Un-Installation or CTRL-C to EXIT
-PROMPT .                            
-PROMPT . Dropping SERT_PUB user
-PROMPT .
+PROMPT This will remove the following: 
+PROMPT .. The SERT workspace and all applications associated in that workspace. 
+PROMPT .. The SERT_CORE database schema
+PROMPT .. The SERT_PUB database schema 
+PROMPT .. The SERT_REST database schema
+PROMPT .. 
+PAUSE  .. Press Enter to continue Un-Installation or CTRL-C to EXIT
+PROMPT 
+PROMPT  =============================================================================
+PROMPT  == REMOVE SERT WORKSPACE AND ALL APPLICATIONS 
+PROMPT  =============================================================================
+PROMPT 
+whenever sqlerror continue
+--  =================
+--  ================= Start The logging 
+--  ================= 
+column log_name new_val logname NOPRINT
+select 'SERT_uninstall_'||to_char(sysdate, 'YYYY-MM-DD_HH24-MI-SS')||'.log' log_name from dual;
+-- Spool the log
+spool ^logname
+
+begin 
+	APEX_INSTANCE_ADMIN.REMOVE_WORKSPACE('SERT','N','N');
+end;
+/
+PROMPT 
+PROMPT  =============================================================================
+PROMPT  == REMOVE SERT_PUB USER
+PROMPT  =============================================================================
+PROMPT 
 drop user sert_pub cascade
 /
-PROMPT . Dropping SERT_REST user
-PROMPT .
+PROMPT 
+PROMPT  =============================================================================
+PROMPT  == REMOVE SERT_REST USER 
+PROMPT  =============================================================================
+PROMPT 
 drop user sert_rest cascade
 /
-PROMPT . Dropping SERT_CORE user
-PROMPT .
+PROMPT 
+PROMPT  =============================================================================
+PROMPT  == REMOVE SERT_CORE USER
+PROMPT  =============================================================================
+PROMPT 
 drop user sert_core cascade
 /
-
---exit;
+PROMPT  =================================== SERT ==================================
+PROMPT
+PROMPT  Please check the log file for errors. 
+PROMPT  
+PROMPT
+PROMPT  ============================================================================
+PROMPT  ============================= C O M P L E T E ==============================
+PROMPT  ============================================================================
+spool off
