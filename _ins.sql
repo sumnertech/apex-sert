@@ -67,10 +67,9 @@ PROMPT  ... Testing for prerequisites
 --  =================  PREREQUISITE TESTS
 --  =================
 --
---  =================
---  =================  Check Appropriate Privileges are present
---  =================
-PROMPT  ...... Test for required privs
+PROMPT  =================
+PROMPT  =================  Check Appropriate Privileges are present
+PROMPT  =================
 declare
 l_privs varchar2(5) := 'FALSE';
 --
@@ -107,10 +106,9 @@ FROM dual;
     end if;
 end;
 /
---  =================
---  =================  Check for V12.1.0.2  and above of the databse
---  =================
-PROMPT  ...... Test for Oracle 12.1.0.2 or above
+PROMPT  =================
+PROMPT  =================  Check for V12.1.0.2  and above of the databse
+PROMPT  =================
 
 declare
     l_version number;
@@ -134,10 +132,9 @@ end;
 /
 
 
---  =================
---  =================  Check for APEX 23.2.0 or above
---  =================
-PROMPT  ...... Test for Valid Instance of APEX 23.2.0 or above
+PROMPT  =================
+PROMPT  =================  Check for APEX 23.2.0 or above
+PROMPT  =================
 declare
     l_version number;
     l_status dba_registry.status%TYPE := 'INVALID';
@@ -172,6 +169,7 @@ end;
 --  =================
 --  =================  END PREREQUISITE TESTS
 --  =================
+PROMPT 
 PROMPT  ... Test for prerequisites succeeded
 PROMPT
 
@@ -184,11 +182,11 @@ select 'SERT_install_'||to_char(sysdate, 'YYYY-MM-DD_HH24-MI-SS')||'.log' log_na
 -- Spool the log
 spool ^logname
 
-PROMPT 
+PROMPT =================
 PROMPT .. 
-PROMPT .. Checking to see if SERT User already exist. 
+PROMPT .. Checking to see if SERT Users already exist. 
 PROMPT .. 
-PROMPT 
+PROMPT =================
 
 -- Hide the output of the sql statement since NOPRINT doesn't work=
 set termout off 
@@ -204,8 +202,8 @@ with sert_users as (
  user_count as (
     select sum(ct) tot_ct from sert_users 
  )
-select  case when tot_ct = 3 then 'good_install.sql' 
-             when tot_ct > 0 and tot_ct < 3 then 'bad_install.sql' 
+select  case when tot_ct = 3 then 'scripts/good_install.sql' 
+             when tot_ct > 0 and tot_ct < 3 then 'scripts/bad_install.sql' 
              else 'schemas/_ins_schemas.sql'
         end create_user_script
  from user_count;
@@ -251,6 +249,139 @@ PROMPT .. VIEWS
 -- 
 PROMPT .. SYNONUMS 
 @schemas/sert_pub/synonyms/_ins_synonyms.sql
+
+PROMPT  =============================================================================
+PROMPT  == WORKSPACE AND APPLICATIONS INSTALL 
+PROMPT  =============================================================================
+PROMPT 
+PROMPT  == Installing new SERT workspace 
+PROMPT 
+ACCEPT ws_password  CHAR DEFAULT '' PROMPT 'Please enter a password for the SERT Workspace ADMIN user: '
+ACCEPT ws_email     CHAR DEFAULT '' PROMPT 'Please enter an email address for the SERT Workspace ADMIN user: '
+ DECLARE
+  l_workspace   varchar2(20)  := 'SERT';
+  l_workspace_id  number;
+BEGIN
+
+  -- Run the creation steps
+  dbms_output.put_line('== Creating Workspace: '|| l_workspace);
+
+  -- Set the APEX session
+  wwv_flow_api.set_security_group_id(10);
+
+  -- Create the workspace
+  APEX_INSTANCE_ADMIN.ADD_WORKSPACE(
+      p_workspace           => l_workspace,
+      p_primary_schema      => 'SERT_CORE',
+      p_additional_schemas  => 'SERT_PUB:SERT_REST'
+      );
+  
+  -- remove line to not enable the workspace
+  apex_instance_admin.enable_workspace(l_workspace);     
+  
+  -- Save the new workspace
+  COMMIT;
+
+  dbms_output.put_line('== Workspace Created');
+  dbms_output.put_line('== .. Workspace Name : '||l_workspace)
+
+  -- get the new ID so we can use the security grup
+  select workspace_id
+    into l_workspace_id
+    from apex_workspaces
+    where workspace = l_workspace;
+  
+  -- set the security group to add user to
+  apex_util.set_security_group_id(p_security_group_id => l_workspace_id);
+
+  -- add default user..
+  APEX_UTIL.CREATE_USER(
+          p_user_name                     => 'ADMIN'
+         ,p_web_password                  => '^ws_password'
+         ,p_email_address                 => '^ws_email'
+         ,p_developer_privs               => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL'
+         ,p_default_schema                => 'SERT_CORE'
+         ,p_change_password_on_first_use  => 'N');
+
+  -- be sure to save changes
+  COMMIT;
+
+  dbms_output.put_line('== ADMIN User Created');
+  dbms_output.put_line('== .. User Name : ADMIN');
+  dbms_output.put_line('== .. Password  : ^ws_password');
+  dbms_output.put_line('== .. Email Addr: ^ws_email');
+
+END;
+/
+PROMPT 
+PROMPT  == Installing SERT Applications  
+PROMPT 
+DECLARE 
+  l_workspace     varchar2(20) := 'SERT';
+  l_workspace_id  number;
+  l_app_id_check  number;
+BEGIN
+  --
+  select workspace_id 
+    into l_workspace_id 
+    from apex_workspaces
+   where workspace = l_workspace;
+  --
+  dbms_output.put_line('== Installing SERT application');
+  apex_application_install.set_application_alias('SERT');
+  --
+  apex_application_install.set_workspace_id( l_workspace_id );
+  apex_application_install.generate_offset;
+  apex_application_install.generate_application_id;
+  --
+
+  exception when no_data_found then 
+    dbms_output.put_line('*** ERROR *** SERT workspace does not exist.');
+    raise value_error;
+END;
+/
+
+@@app/f2000.sql
+
+-- Clear installation settings - Prevents collisions 
+exec APEX_APPLICATION_INSTALL.CLEAR_ALL;
+
+DECLARE 
+  l_workspace     varchar2(20) := 'SERT';
+  l_workspace_id  number;
+  l_app_id_check  number;
+BEGIN
+  --
+  select workspace_id 
+    into l_workspace_id 
+    from apex_workspaces
+   where workspace = l_workspace;
+  --
+  dbms_output.put_line('== Installing SERT_ADMIN application');
+  apex_application_install.set_application_alias('SERT_ADMIN');
+  --
+  apex_application_install.set_workspace_id( l_workspace_id );
+  apex_application_install.generate_offset;
+  apex_application_install.generate_application_id;
+  --
+
+  exception when no_data_found then 
+    dbms_output.put_line('*** ERROR *** SERT workspace does not exist.');
+    raise value_error;
+END;
+/
+
+@@app/f2001.sql
+
+-- Clear installation settings - Prevents collisions 
+exec APEX_APPLICATION_INSTALL.CLEAR_ALL;
+
+PROMPT == .. Applications have been installed 
+select WORKSPACE "Workspace"
+     , APPLICATION_ID "Application ID"
+     , ALIAS "Application Alias"
+  from apex_applications
+  where ALIAS in ('SERT','SERT_ADMIN');
 
 
 -- reset the define variable

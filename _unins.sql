@@ -31,9 +31,6 @@ set verify on
 --Sets the number of lines on each page of output.
 SET PAGESIZE 50
 
-CLEAR SCREEN
-
-
 PROMPT .  
 PROMPT .            _____  ________   __     _____ ______ _____ _______ 
 PROMPT .      /\   |  __ \|  ____\ \ / /    / ____|  ____|  __ \__   __|
@@ -59,4 +56,4 @@ PROMPT .
 drop user sert_core cascade
 /
 
-exit;
+--exit;
