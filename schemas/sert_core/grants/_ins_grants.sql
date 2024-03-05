@@ -8,3 +8,5 @@
 @@apex-sert/schemas/sert_core/grants/rules_pub_v.sql
 @@apex-sert/schemas/sert_core/grants/comments_pub_v.sql
 @@apex-sert/schemas/sert_core/grants/comments_api.sql
+@@apex-sert/schemas/sert_core/grants/exceptions_api.sql
+@@apex-sert/schemas/sert_core/grants/exceptions_pub_v.sql

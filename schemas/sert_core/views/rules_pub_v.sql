@@ -11,8 +11,8 @@ select
   ,impact
   ,shared_comp_type
   ,rule_criteria_type_name
-  ,info
-  ,fix
+  ,nvl(to_char(info), 'No data found') as info
+  ,nvl(to_char(fix), 'No data found')  as fix
   ,help_url
   ,builder_url
 from
