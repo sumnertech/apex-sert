@@ -1,17 +1,22 @@
-alter session set current_schema = admin;
+--alter session set current_schema = admin;
 set define off;
+set define '^';
 
-begin
+--begin
 
 -- delete tables
 delete from sert_core.rule_severity;
 delete from sert_core.rule_sets;
 delete from sert_core.rule_set_types;
+delete from sert_core.categories;
 delete from sert_core.risks;
 delete from sert_core.prefs;
 delete from sert_core.reserved_strings;
 delete from sert_core.rule_criteria;
+delete from sert_core.rule_criteria_types;
+delete from sert_core.shared_comp_views;
 
+commit;
 -- insert severities
 insert into sert_core.rule_severity (rule_severity_name, rule_severity_key, seq) values ('Low', 'LOW', 1);
 insert into sert_core.rule_severity (rule_severity_name, rule_severity_key, seq) values ('Medium', 'MEDIUM', 2);
@@ -82,5 +87,5 @@ insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) val
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LOVS', 'Lists of Values');
 
 commit;
-end;
-/
+--end;
+
