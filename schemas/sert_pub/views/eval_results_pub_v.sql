@@ -8,6 +8,7 @@ select
   ,application_id
   ,page_id
   ,page_name
+  ,page
   ,full_page_name
   ,description
   ,region_name
@@ -19,6 +20,7 @@ select
   ,category_name
   ,category_key
   ,current_value
+  ,exception_value
   ,valid_values
   ,result
   ,result_color
@@ -27,6 +29,7 @@ select
   ,rule_name
   ,risk_name
   ,risk_url
+  ,risk
   ,help_url
   ,impact
   ,rule_criteria_type_name

@@ -234,6 +234,43 @@ open l_cursor;
 
 close l_cursor;
 
+-- check for stale exceptions and mark them as such
+update
+ exceptions
+set
+  result = 'STALE'
+where
+  exception_id in
+  (
+  select
+    e.exception_id
+  from
+    eval_results_v er
+    ,exceptions e
+  where
+     er.rule_set_id     || ':'
+  || er.rule_id         || ':'
+  || er.workspace_id    || ':'
+  || er.application_id  || ':'
+  || er.page_id         || ':'
+  || er.component_id    || ':'
+  || er.item_name       || ':'
+  || er.column_name     || ':'
+  || er.shared_comp_name 
+  = 
+     e.rule_set_id     || ':'
+  || e.rule_id         || ':'
+  || e.workspace_id    || ':'
+  || e.application_id  || ':'
+  || e.page_id         || ':'
+  || e.component_id    || ':'
+  || e.item_name       || ':'
+  || e.column_name     || ':'
+  || e.shared_comp_name 
+  and er.current_value != e.current_value
+  and er.eval_id = p_eval_id
+  );
+
 -- change the status and update the score
 update
   evals
@@ -357,7 +394,7 @@ if p_run_in_background = 'Y' then
     );
 
   -- update the evaluation record with the job_name and status
-  update evals set job_name = l_job_name, job_status = 'RUNNING' where eval_id = p_eval_id_out;
+  update evals set job_name = l_job_name, job_status = 'RUNNING', eval_on = systimestamp, eval_on_date = sysdate where eval_id = p_eval_id_out;
 
 else
   -- process all rules for the rule set in real time
@@ -393,11 +430,12 @@ procedure delete_eval
 is
 begin
 
--- delete all comments, if selected
+-- delete all comments and exceptions, if selected
 if p_delete_comments = 'Y' then
   for x in (select * from evals where eval_id = p_eval_id)
   loop
-    delete from comments where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
+    delete from comments   where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
+    delete from exceptions where rule_set_id || workspace_id || application_id = x.rule_set_id || x.workspace_id || x.application_id;
   end loop;
 end if;
 

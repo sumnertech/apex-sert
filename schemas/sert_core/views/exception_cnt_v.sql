@@ -1,4 +1,4 @@
-create or replace view sert_core.comment_cnt_v
+create or replace view sert_core.exception_cnt_v
 as
 with er_key as
 (
@@ -15,15 +15,17 @@ select
    || er.shared_comp_name 
       as key
 from
-  eval_results er
+   eval_results er
   ,evals e
 where
   e.eval_id = er.eval_id
 ),
-c as
+e as
 (
 select
-   comment_id
+   exception_id
+   ,result
+   ,current_value
    ,  rule_set_id    || ':'
    || rule_id        || ':'
    || workspace_id   || ':'
@@ -35,19 +37,22 @@ select
    || shared_comp_name 
       as key
 from
-  comments
+  exceptions
 )
 select
    er_key.eval_result_id
-  ,count(c.comment_id) as cnt
+  ,e.result
+  ,e.current_value
+  ,count(e.exception_id) as cnt
 from
-   c
+   e
   ,er_key
   ,eval_results er
 where
-  er_key.key = c.key(+)
+  er_key.key = e.key(+)
   and er.eval_result_id = er_key.eval_result_id
 group by
    er_key.eval_result_id
+  ,e.result
+  ,e.current_value
 /
-

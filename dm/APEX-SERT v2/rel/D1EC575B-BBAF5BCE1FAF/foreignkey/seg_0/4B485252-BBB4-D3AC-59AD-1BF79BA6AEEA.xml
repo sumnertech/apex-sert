@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="4B485252-BBB4-D3AC-59AD-1BF79BA6AEEA" containerWithKeyObject="3C2C6C21-B851-F532-D4E1-792916FDBA2D" localFKIndex="5092912C-93E0-D883-571B-77F56A788327" name="E_RULES_FK">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<referredTableLongName>RULES</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>5099643C-87D5-C45A-1FD5-B82E95AF7866</referredTableID>
+<keyObject>B8C45063-9ECB-9269-308A-107CC24F9F38</keyObject>
+<referredKeyID>B8C45063-9ECB-9269-308A-107CC24F9F38</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>RULE_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
