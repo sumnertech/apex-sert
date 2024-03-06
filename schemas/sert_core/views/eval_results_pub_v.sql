@@ -19,6 +19,7 @@ select
     || case when item_name   is not null then ' / ' || item_name   else null end
    as description
   ,er.component_id
+  ,er.component_name
   ,apr.region_name
   ,er.column_name
   ,er.shared_comp_name

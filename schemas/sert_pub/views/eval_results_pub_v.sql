@@ -13,6 +13,7 @@ select
   ,description
   ,region_name
   ,component_id
+  ,component_name
   ,column_name
   ,item_name
   ,shared_comp_name

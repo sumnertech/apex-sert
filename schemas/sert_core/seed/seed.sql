@@ -85,6 +85,7 @@ insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) val
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LISTS', 'Lists');
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_COMPUTATIONS', 'Application Computations');
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LOVS', 'Lists of Values');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_AUTHORIZATION', 'Authorization Schemes');
 
 commit;
 --end;

@@ -118,6 +118,10 @@ open l_cursor;
       -- include component_id
       || ' ,' || nvl(l_row.component_id, 'null') || ' as component_id'
 
+      -- include the component_name
+--      || ' ,' || nvl(l_row.component_name, 'null') || ' as component_name'
+      || ' ,' || nvl(replace(l_row.component_name, ':', ' || '' / '' || '), ' null') || ' as component_name '
+
       -- include column_name when selected
       || case when l_row.impact in ('COLUMN') then ' ,' || l_row.column_name || ' as column_name' else ',null as column_name' end
 
@@ -211,7 +215,7 @@ open l_cursor;
     end case;
 
     -- add the insert statement
-    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
+    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, component_name, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
     log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
@@ -254,6 +258,7 @@ where
   || er.application_id  || ':'
   || er.page_id         || ':'
   || er.component_id    || ':'
+  || er.component_name  || ':'
   || er.item_name       || ':'
   || er.column_name     || ':'
   || er.shared_comp_name 
@@ -264,6 +269,7 @@ where
   || e.application_id  || ':'
   || e.page_id         || ':'
   || e.component_id    || ':'
+  || e.component_name  || ':'
   || e.item_name       || ':'
   || e.column_name     || ':'
   || e.shared_comp_name 

@@ -28,6 +28,7 @@ procedure add_exception
   ,p_application_id   in number
   ,p_page_id          in number   default null
   ,p_component_id     in varchar2 default null
+  ,p_component_name   in varchar2 default null 
   ,p_column_name      in varchar2 default null
   ,p_item_name        in varchar2 default null
   ,p_shared_comp_name in varchar2 default null
