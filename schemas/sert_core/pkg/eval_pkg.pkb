@@ -10,20 +10,24 @@ as
 ----------------------------------------------------------------------------------------------------------------------------
 function eval_criteria
   (
-   p_column_to_evaluate    in varchar2
-  ,p_return_details        in varchar2 default 'Y'
-  ,p_rule_criteria_type_id in number
-  ,p_application_id        in number
+   p_column_to_evaluate     in varchar2
+  ,p_return_details         in varchar2 default 'Y'
+  ,p_rule_criteria_type_key in varchar2
+  ,p_application_id         in number
   )
 return varchar2
 is
-  l_return  varchar2(100)  := 'PASS';
-  l_source  varchar2(4000) := upper(p_column_to_evaluate);
-  l_sql     varchar2(4000);
-  l_cnt     number;
+  l_return                varchar2(100)  := 'PASS';
+  l_source                varchar2(4000) := upper(p_column_to_evaluate);
+  l_sql                   varchar2(4000);
+  l_cnt                   number;
+  l_rule_criteria_type_id number;
 begin
 
-log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_key, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+
+-- get the rule_criteria_type_id
+select rule_criteria_type_id into l_rule_criteria_type_id from rule_criteria_types where rule_criteria_type_key = p_rule_criteria_type_key;
 
 -- initialize the JSON document
 apex_json.initialize_clob_output;
@@ -37,7 +41,7 @@ loop
 end loop;
 
 -- loop through all rule criteria
-for x in (select * from rule_criteria_v where rule_criteria_type_id = p_rule_criteria_type_id and active_yn = 'Y')
+for x in (select * from rule_criteria_v where rule_criteria_type_id = l_rule_criteria_type_id and active_yn = 'Y')
 loop
 
   log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
@@ -52,14 +56,12 @@ loop
 
 end loop;
 
--- //TODO: this is parity to existing APEX-SERT rules; consider adding more rules
-
 -- Close the JSON document
 apex_json.close_array; -- ]
 apex_json.write('result', l_return); -- 1
 apex_json.close_object; -- }
 
-log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_key, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- return the JSON
 return apex_json.get_clob_output;
@@ -80,10 +82,11 @@ procedure process_rules
   ,p_rule_set_id    in number
   )
 is
-  cursor   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
-  l_row    l_cursor%rowtype;
-  l_result varchar2(1000);
-  l_sql    varchar2(10000);
+  cursor                   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
+  l_row                    l_cursor%rowtype;
+  l_result                 varchar2(1000);
+  l_sql                    varchar2(10000);
+  l_rule_criteria_type_key varchar2(250);
 begin
 
 -- start the evaluation
@@ -178,8 +181,10 @@ open l_cursor;
 
         -- CRITERIA TYPE
         when l_row.operand = 'CRITERIA' then
-          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ''' || l_row.column_to_evaluate || ''', p_rule_criteria_type_id => ' || l_row.rule_criteria_type_id 
-            || ', p_application_id => ' || p_application_id || ') as result';
+          -- get the rule_criteria_type_id
+          select rule_criteria_type_key into l_rule_criteria_type_key from rule_criteria_types where rule_criteria_type_id = l_row.rule_criteria_type_id;
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type_key => ''' || l_rule_criteria_type_key
+            || ''', p_application_id => ' || p_application_id || ') as result';
 
         -- No match
         else null;
