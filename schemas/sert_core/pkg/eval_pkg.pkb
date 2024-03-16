@@ -13,6 +13,7 @@ function eval_criteria
    p_column_to_evaluate    in varchar2
   ,p_return_details        in varchar2 default 'Y'
   ,p_rule_criteria_type_id in number
+  ,p_application_id        in number
   )
 return varchar2
 is
@@ -22,7 +23,7 @@ is
   l_cnt     number;
 begin
 
-log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- initialize the JSON document
 apex_json.initialize_clob_output;
@@ -39,7 +40,7 @@ end loop;
 for x in (select * from rule_criteria_v where rule_criteria_type_id = p_rule_criteria_type_id and active_yn = 'Y')
 loop
 
-  log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type);
+  log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
   execute immediate x.rule_criteria_sql into l_cnt using l_source;
   if l_cnt > 0 then
@@ -58,7 +59,7 @@ apex_json.close_array; -- ]
 apex_json.write('result', l_return); -- 1
 apex_json.close_object; -- }
 
-log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- return the JSON
 return apex_json.get_clob_output;
@@ -86,7 +87,7 @@ is
 begin
 
 -- start the evaluation
-log_pkg.log(p_log => 'Evaluation started', p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Evaluation started', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- open the rules cursor
 open l_cursor;
@@ -95,7 +96,7 @@ open l_cursor;
     exit when l_cursor%notfound;
 
     -- record which rule is being evaluated
-    log_pkg.log(p_log => 'Evaluating rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_id => l_row.rule_id, p_id_col => 'rule_id', p_log_key => g_log_key, p_log_type => g_log_type);
+    log_pkg.log(p_log => 'Evaluating rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_id => l_row.rule_id, p_id_col => 'rule_id', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
     -- process each rule for the application
     case
@@ -177,7 +178,8 @@ open l_cursor;
 
         -- CRITERIA TYPE
         when l_row.operand = 'CRITERIA' then
-          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type_id => ' || l_row.rule_criteria_type_id || ') as result';
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ''' || l_row.column_to_evaluate || ''', p_rule_criteria_type_id => ' || l_row.rule_criteria_type_id 
+            || ', p_application_id => ' || p_application_id || ') as result';
 
         -- No match
         else null;
@@ -218,7 +220,7 @@ open l_cursor;
     l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, component_name, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
-    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
+    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id', p_application_id => p_application_id);
 
     -- if evaluating for a specific page only, ignore APP and SC rules as they do not have a page_id nad will create duplicate entries
     case
@@ -283,6 +285,7 @@ update
 set
    job_status = 'COMPLETED'
   ,eval_on_date = sysdate
+  ,eval_on = systimestamp
   ,score =
   round
     (
@@ -293,11 +296,11 @@ where
   eval_id = p_eval_id;
 
 -- end the evaluation
-log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 exception
   when others then
-  log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
+  log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED', p_application_id => p_application_id);
   update evals set job_status = 'FAILED' where eval_id = p_eval_id;
 
 

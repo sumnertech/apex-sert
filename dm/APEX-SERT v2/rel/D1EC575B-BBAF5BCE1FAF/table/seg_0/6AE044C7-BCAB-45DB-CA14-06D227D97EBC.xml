@@ -145,9 +145,8 @@
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="VALID_VALUES" id="6765D007-3366-B4B7-A292-F39E32FF4DDB">

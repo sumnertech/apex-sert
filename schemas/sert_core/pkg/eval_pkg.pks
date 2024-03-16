@@ -6,6 +6,7 @@ function eval_criteria
    p_column_to_evaluate    in varchar2
   ,p_return_details        in varchar2 default 'Y'
   ,p_rule_criteria_type_id in number
+  ,p_application_id        in number
   )
 return varchar2;
 

@@ -20,7 +20,7 @@ select
   ,er.column_name
   ,er.item_name
   ,er.shared_comp_name
-  ,er.current_value
+  ,to_char(er.current_value) as current_value
   ,er.valid_values
   ,er.created_by
   ,er.created_on
@@ -65,7 +65,7 @@ group by
   ,er.column_name
   ,er.item_name
   ,er.shared_comp_name
-  ,er.current_value
+  ,to_char(er.current_value)
   ,er.valid_values
   ,er.created_by
   ,er.created_on
