@@ -33,7 +33,7 @@ prompt APPLICATION 2000 - APEX-SERT
 -- Application Export:
 --   Application:     2000
 --   Name:            APEX-SERT
---   Date and Time:   03:52 Wednesday March 6, 2024
+--   Date and Time:   16:36 Saturday March 16, 2024
 --   Exported By:     SCOTT@SUMNERTECH.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -122,7 +122,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'APEX-SERT'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240306035152'
+,p_last_upd_yyyymmddhh24miss=>'20240310122824'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>11
 ,p_print_server_type=>'NATIVE'
@@ -18740,7 +18740,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'24'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240303230413'
+,p_last_upd_yyyymmddhh24miss=>'20240310122824'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(21458263214752319)
@@ -19686,6 +19686,12 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ',
 '   result',
+'  ,case',
+'      when result in (''FAIL'',''REJECTED'') then ''#D63B25''',
+'      when result in (''APPROVED'',''PASS'') then ''#508223''',
+'      when result = ''PENDING''            then ''#AC630C''',
+'      else null end',
+'   as color   ',
 '  ,count(*) as val',
 'from ',
 '  EVAL_RESULTS_PUB_V',
@@ -19694,13 +19700,29 @@ wwv_flow_imp_page.create_jet_chart_series(
 'group by',
 '  result',
 'order by',
-'  2 desc   '))
+'  3 desc'))
 ,p_items_value_column_name=>'VAL'
 ,p_items_label_column_name=>'RESULT'
+,p_custom_column_name=>'COLOR'
+,p_color=>'&COLOR.'
 ,p_assigned_to_y2=>'off'
 ,p_items_label_rendered=>false
 ,p_link_target=>'javascript:setResult("&RESULT.");'
 ,p_link_target_type=>'REDIRECT_URL'
+);
+wwv_flow_imp_page.create_jet_chart_axis(
+ p_id=>wwv_flow_imp.id(37494604926806324)
+,p_chart_id=>wwv_flow_imp.id(33377968456049326)
+,p_axis=>'y2'
+,p_is_rendered=>'on'
+,p_format_scaling=>'auto'
+,p_scaling=>'linear'
+,p_baseline_scaling=>'zero'
+,p_position=>'auto'
+,p_major_tick_rendered=>'on'
+,p_minor_tick_rendered=>'off'
+,p_tick_label_rendered=>'on'
+,p_split_dual_y=>'auto'
 );
 wwv_flow_imp_page.create_jet_chart_axis(
  p_id=>wwv_flow_imp.id(33378153758049328)
@@ -19768,6 +19790,9 @@ wwv_flow_imp_page.create_page_branch(
 ,p_branch_condition_type=>'REQUEST_IN_CONDITION'
 ,p_branch_condition=>'RE-EVALUATE,RE-EVALUATE_PAGE'
 );
+end;
+/
+begin
 wwv_flow_imp_page.create_page_branch(
  p_id=>wwv_flow_imp.id(27862184983525708)
 ,p_branch_name=>'Return to Home Page'
@@ -19778,9 +19803,6 @@ wwv_flow_imp_page.create_page_branch(
 ,p_branch_condition_type=>'REQUEST_IN_CONDITION'
 ,p_branch_condition=>'DELETE_EVALUATION,RE-EVALUATE_BACKGROUND'
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(21458377629752320)
 ,p_name=>'P10_SEARCH'
@@ -21995,7 +22017,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'03'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240306034702'
+,p_last_upd_yyyymmddhh24miss=>'20240309191707'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(21891468750851746)

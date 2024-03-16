@@ -5,7 +5,7 @@ declare
   p_eval_id_out number;
 begin
 delete from evals;
-for x in (select * from apex_applications where application_id < 120)
+for x in (select * from apex_applications where application_id < 101)
 loop
 eval_pkg.eval
   (
