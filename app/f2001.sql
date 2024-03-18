@@ -33,7 +33,7 @@ prompt APPLICATION 2001 - APEX-SERT Administration
 -- Application Export:
 --   Application:     2001
 --   Name:            APEX-SERT Administration
---   Date and Time:   19:25 Saturday March 16, 2024
+--   Date and Time:   02:44 Monday March 18, 2024
 --   Exported By:     SCOTT@SUMNERTECH.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -123,7 +123,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'SERT v2'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240316135119'
+,p_last_upd_yyyymmddhh24miss=>'20240317225018'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>16
 ,p_print_server_type=>'NATIVE'
@@ -28207,7 +28207,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'18'
 ,p_last_updated_by=>'SCOTT@SUMNERTECH.COM'
-,p_last_upd_yyyymmddhh24miss=>'20240316135119'
+,p_last_upd_yyyymmddhh24miss=>'20240317225018'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(61879987835906097)
@@ -28352,7 +28352,6 @@ wwv_flow_imp_page.create_worksheet_column(
 ,p_allow_group_by=>'N'
 ,p_allow_pivot=>'N'
 ,p_column_type=>'CLOB'
-,p_display_text_as=>'WITHOUT_MODIFICATION'
 ,p_heading_alignment=>'LEFT'
 ,p_rpt_show_filter_lov=>'N'
 ,p_use_as_row_header=>'N'
