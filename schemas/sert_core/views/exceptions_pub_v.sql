@@ -9,6 +9,7 @@ select
   ,e.application_id
   ,e.page_id
   ,e.component_id
+  ,e.component_name
   ,e.column_name
   ,e.shared_comp_name
   ,e.item_name
@@ -19,6 +20,7 @@ select
     || e.application_id || ':'
     || e.page_id || ':'
     || e.component_id || ':'
+    || e.component_name || ':'
     || e.item_name || ':'
     || e.column_name || ':'
     || e.shared_comp_name

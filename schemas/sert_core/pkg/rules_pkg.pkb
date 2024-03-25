@@ -85,6 +85,7 @@ loop
       ,view_name
       ,column_to_evaluate
       ,component_id
+      ,component_name
       ,column_name
       ,item_name
       ,shared_comp_name
@@ -117,6 +118,7 @@ loop
       ,x.view_name
       ,x.column_to_evaluate
       ,x.component_id
+      ,x.component_name
       ,x.column_name
       ,x.item_name
       ,x.shared_comp_name
@@ -259,6 +261,7 @@ loop
     ,view_name
     ,column_to_evaluate
     ,component_id
+    ,component_name
     ,column_name
     ,item_name
     ,shared_comp_name
@@ -291,6 +294,7 @@ loop
     ,x.view_name
     ,x.column_to_evaluate
     ,x.component_id
+    ,x.component_name
     ,x.column_name
     ,x.item_name
     ,x.shared_comp_name

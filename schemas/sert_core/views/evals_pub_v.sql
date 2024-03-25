@@ -32,7 +32,7 @@ select
   ,'Evaluated ' || apex_util.get_since(eval_on) || ' by ' || eval_by
     || case when eval_on_date < last_updated_on then ' / Application updated ' || apex_util.get_since(eval_on_date + (last_updated_on - eval_on_date)) else null end
     as eval_by_long
-  ,'r/sert/' || application_id || '/files/static/v16/icons/app-icon-512.png' as app_image
+  ,'r/wksp_sert/' || application_id || '/files/static/v16/icons/app-icon-512.png' as app_image
   ,case
     when eval_on_date < last_updated_on then 'Stale'
     else initcap(job_status)

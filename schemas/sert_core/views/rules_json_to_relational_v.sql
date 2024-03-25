@@ -16,6 +16,7 @@ select
   ,j.view_name
   ,j.column_to_evaluate
   ,j.component_id
+  ,j.component_name
   ,j.column_name
   ,j.item_name
   ,j.shared_comp_name
@@ -61,6 +62,7 @@ from
       ,view_name              varchar path '$.viewName'
       ,column_to_evaluate     varchar path '$.columnToEvaluate'
       ,component_id           varchar path '$.componentId'
+      ,component_name         varchar path '$.componentName'
       ,column_name            varchar path '$.columnName'
       ,item_name              varchar path '$.itemName'
       ,shared_comp_name       varchar path '$.sharedCompName'

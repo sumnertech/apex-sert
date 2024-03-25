@@ -23,12 +23,13 @@ end get_log_key;
 ----------------------------------------------------------------------------------------------------------------------------
 procedure log
   (
-   p_log      in varchar2 default null
-  ,p_log_type in varchar2 default 'GENERIC'
-  ,p_log_key  in varchar2 default null
-  ,p_log_clob in varchar2 default null
-  ,p_id       in varchar2 default null
-  ,p_id_col   in varchar2 default null
+   p_log            in varchar2 default null
+  ,p_application_id in number   default null
+  ,p_log_type       in varchar2 default 'GENERIC'
+  ,p_log_key        in varchar2 default null
+  ,p_log_clob       in varchar2 default null
+  ,p_id             in varchar2 default null
+  ,p_id_col         in varchar2 default null
   )
 is
   pragma autonomous_transaction;
@@ -42,6 +43,7 @@ insert into logs
   ,log_clob
   ,id
   ,id_col
+  ,application_id
   )
 values
   (
@@ -51,6 +53,7 @@ values
   ,dbms_utility.format_error_stack || dbms_utility.format_error_backtrace || p_log_clob
   ,p_id
   ,p_id_col
+  ,p_application_id
   );
 
 commit;

@@ -22,6 +22,7 @@ select
       ,'viewName'            is view_name
       ,'columnToEvaluate'    is column_to_evaluate
       ,'componentId'         is component_id
+      ,'componentName'       is component_name
       ,'columnName'          is column_name
       ,'itemName'            is item_name
       ,'sharedCompName'      is shared_comp_name

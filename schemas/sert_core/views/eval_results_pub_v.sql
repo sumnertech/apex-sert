@@ -12,13 +12,15 @@ select
   ,case when er.page_id is not null then er.page_id || ': ' else null end || ap.page_name as page
   ,case when er.page_id is null then 'Shared Component' else ap.page_name end as page_name
   ,case when er.page_id is not null then er.page_id || ' - ' || ap.page_name else 'Shared Component' end as full_page_name
-  ,case when r.impact = 'SC' then shared_comp_type || ' / '|| shared_comp_name else null end 
+  ,case when r.impact = 'SC' then shared_comp_type || case when shared_comp_type is not null then ' / ' else null end || shared_comp_name else null end 
     || case when er.page_id is not null then er.page_id || ': '  || ap.page_name else null end
-    || case when region_name is not null then ' / ' || region_name else null end
-    || case when column_name is not null then ' / ' || column_name else null end
-    || case when item_name   is not null then ' / ' || item_name   else null end
+    || case when region_name       is not null then ' / ' || region_name else null end
+    || case when er.component_name is not null then ' / ' || er.component_name else null end 
+    || case when column_name       is not null then ' / ' || column_name else null end
+    || case when item_name         is not null then ' / ' || item_name   else null end
    as description
   ,er.component_id
+  ,er.component_name
   ,apr.region_name
   ,er.column_name
   ,er.shared_comp_name

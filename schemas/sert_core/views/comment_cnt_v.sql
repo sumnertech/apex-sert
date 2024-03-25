@@ -10,6 +10,7 @@ select
    || er.application_id || ':'
    || er.page_id        || ':'
    || er.component_id   || ':'
+   || er.component_name || ':'
    || er.item_name      || ':'
    || er.column_name    || ':'
    || er.shared_comp_name 
@@ -30,6 +31,7 @@ select
    || application_id || ':'
    || page_id        || ':'
    || component_id   || ':'
+   || component_name || ':'
    || item_name      || ':'
    || column_name    || ':'
    || shared_comp_name 

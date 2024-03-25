@@ -80,6 +80,18 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="COMPONENT_NAME" id="B93C1BC4-732E-B796-8C8B-56F49365734D">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-06 02:31:20 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="ITEM_NAME" id="D058F720-C368-6140-2F99-1F23010C08FF">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-19 23:56:17 UTC</createdTime>
@@ -133,9 +145,8 @@
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="VALID_VALUES" id="6765D007-3366-B4B7-A292-F39E32FF4DDB">

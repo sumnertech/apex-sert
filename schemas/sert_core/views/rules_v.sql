@@ -34,6 +34,7 @@ select
   ,r.view_name
   ,r.column_to_evaluate
   ,r.component_id
+  ,r.component_name
   ,r.column_name
   ,r.item_name
   ,r.shared_comp_name

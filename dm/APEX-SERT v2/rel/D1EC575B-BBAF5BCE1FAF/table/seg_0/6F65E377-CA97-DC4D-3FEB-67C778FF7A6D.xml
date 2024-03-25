@@ -20,6 +20,28 @@
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="WORKSPACE_ID" id="8DA55398-814C-F5F5-69D6-C2D2A468A66F">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-15 20:56:42 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APPLICATION_ID" id="CDD0E7AE-5989-1C55-D5F6-E081BEB10D4F">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-15 20:56:42 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="LOG_TYPE" id="3DC01D7B-2465-1ACE-09CC-5F110C63E8C5">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-13 03:29:13 UTC</createdTime>

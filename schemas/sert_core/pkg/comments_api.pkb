@@ -9,6 +9,7 @@ procedure add_comment
   ,p_application_id   in number
   ,p_page_id          in number   default null
   ,p_component_id     in varchar2 default null
+  ,p_component_name   in varchar2 default null
   ,p_column_name      in varchar2 default null
   ,p_item_name        in varchar2 default null
   ,p_shared_comp_name in varchar2 default null
@@ -25,6 +26,7 @@ insert into comments
   ,application_id
   ,page_id
   ,component_id
+  ,component_name
   ,column_name
   ,item_name
   ,shared_comp_name
@@ -38,6 +40,7 @@ values
   ,p_application_id
   ,p_page_id
   ,p_component_id
+  ,p_component_name
   ,p_column_name
   ,p_item_name
   ,p_shared_comp_name

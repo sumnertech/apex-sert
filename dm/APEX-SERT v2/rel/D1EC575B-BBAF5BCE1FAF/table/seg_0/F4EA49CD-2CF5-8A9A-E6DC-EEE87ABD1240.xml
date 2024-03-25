@@ -100,6 +100,18 @@
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="COMPONENT_NAME" id="DFF476BD-656F-DA1C-DE60-B45D77471843">
+<createdBy>sspendol</createdBy>
+<createdTime>2024-03-06 02:50:36 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="COLUMN_NAME" id="277D830F-92E2-F876-9B94-97C6B3A98F5A">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-24 14:52:40 UTC</createdTime>

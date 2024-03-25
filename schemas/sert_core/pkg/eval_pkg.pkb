@@ -10,19 +10,24 @@ as
 ----------------------------------------------------------------------------------------------------------------------------
 function eval_criteria
   (
-   p_column_to_evaluate    in varchar2
-  ,p_return_details        in varchar2 default 'Y'
-  ,p_rule_criteria_type_id in number
+   p_column_to_evaluate     in varchar2
+  ,p_return_details         in varchar2 default 'Y'
+  ,p_rule_criteria_type_key in varchar2
+  ,p_application_id         in number
   )
 return varchar2
 is
-  l_return  varchar2(100)  := 'PASS';
-  l_source  varchar2(4000) := upper(p_column_to_evaluate);
-  l_sql     varchar2(4000);
-  l_cnt     number;
+  l_return                varchar2(100)  := 'PASS';
+  l_source                varchar2(4000) := upper(p_column_to_evaluate);
+  l_sql                   varchar2(4000);
+  l_cnt                   number;
+  l_rule_criteria_type_id number;
 begin
 
-log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_key, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+
+-- get the rule_criteria_type_id
+select rule_criteria_type_id into l_rule_criteria_type_id from rule_criteria_types where rule_criteria_type_key = p_rule_criteria_type_key;
 
 -- initialize the JSON document
 apex_json.initialize_clob_output;
@@ -36,10 +41,10 @@ loop
 end loop;
 
 -- loop through all rule criteria
-for x in (select * from rule_criteria_v where rule_criteria_type_id = p_rule_criteria_type_id and active_yn = 'Y')
+for x in (select * from rule_criteria_v where rule_criteria_type_id = l_rule_criteria_type_id and active_yn = 'Y')
 loop
 
-  log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type);
+  log_pkg.log(p_log => 'SQL for ' || x.rule_criteria_key, p_log_clob => x.rule_criteria_sql, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
   execute immediate x.rule_criteria_sql into l_cnt using l_source;
   if l_cnt > 0 then
@@ -51,14 +56,12 @@ loop
 
 end loop;
 
--- //TODO: this is parity to existing APEX-SERT rules; consider adding more rules
-
 -- Close the JSON document
 apex_json.close_array; -- ]
 apex_json.write('result', l_return); -- 1
 apex_json.close_object; -- }
 
-log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_id, p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Criteria ended for ' || p_rule_criteria_type_key, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- return the JSON
 return apex_json.get_clob_output;
@@ -79,14 +82,15 @@ procedure process_rules
   ,p_rule_set_id    in number
   )
 is
-  cursor   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
-  l_row    l_cursor%rowtype;
-  l_result varchar2(1000);
-  l_sql    varchar2(10000);
+  cursor                   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
+  l_row                    l_cursor%rowtype;
+  l_result                 varchar2(1000);
+  l_sql                    varchar2(10000);
+  l_rule_criteria_type_key varchar2(250);
 begin
 
 -- start the evaluation
-log_pkg.log(p_log => 'Evaluation started', p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Evaluation started', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- open the rules cursor
 open l_cursor;
@@ -95,7 +99,7 @@ open l_cursor;
     exit when l_cursor%notfound;
 
     -- record which rule is being evaluated
-    log_pkg.log(p_log => 'Evaluating rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_id => l_row.rule_id, p_id_col => 'rule_id', p_log_key => g_log_key, p_log_type => g_log_type);
+    log_pkg.log(p_log => 'Evaluating rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_id => l_row.rule_id, p_id_col => 'rule_id', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
     -- process each rule for the application
     case
@@ -117,6 +121,10 @@ open l_cursor;
 
       -- include component_id
       || ' ,' || nvl(l_row.component_id, 'null') || ' as component_id'
+
+      -- include the component_name
+--      || ' ,' || nvl(l_row.component_name, 'null') || ' as component_name'
+      || ' ,' || nvl(replace(l_row.component_name, ':', ' || '' / '' || '), ' null') || ' as component_name '
 
       -- include column_name when selected
       || case when l_row.impact in ('COLUMN') then ' ,' || l_row.column_name || ' as column_name' else ',null as column_name' end
@@ -173,7 +181,10 @@ open l_cursor;
 
         -- CRITERIA TYPE
         when l_row.operand = 'CRITERIA' then
-          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type_id => ' || l_row.rule_criteria_type_id || ') as result';
+          -- get the rule_criteria_type_id
+          select rule_criteria_type_key into l_rule_criteria_type_key from rule_criteria_types where rule_criteria_type_id = l_row.rule_criteria_type_id;
+          l_result := ', eval_pkg.eval_criteria(p_column_to_evaluate => ' || l_row.column_to_evaluate || ', p_rule_criteria_type_key => ''' || l_rule_criteria_type_key
+            || ''', p_application_id => ' || p_application_id || ') as result';
 
         -- No match
         else null;
@@ -211,10 +222,10 @@ open l_cursor;
     end case;
 
     -- add the insert statement
-    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
+    l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, component_name, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
-    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id');
+    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id', p_application_id => p_application_id);
 
     -- if evaluating for a specific page only, ignore APP and SC rules as they do not have a page_id nad will create duplicate entries
     case
@@ -254,6 +265,7 @@ where
   || er.application_id  || ':'
   || er.page_id         || ':'
   || er.component_id    || ':'
+  || er.component_name  || ':'
   || er.item_name       || ':'
   || er.column_name     || ':'
   || er.shared_comp_name 
@@ -264,6 +276,7 @@ where
   || e.application_id  || ':'
   || e.page_id         || ':'
   || e.component_id    || ':'
+  || e.component_name  || ':'
   || e.item_name       || ':'
   || e.column_name     || ':'
   || e.shared_comp_name 
@@ -277,6 +290,7 @@ update
 set
    job_status = 'COMPLETED'
   ,eval_on_date = sysdate
+  ,eval_on = systimestamp
   ,score =
   round
     (
@@ -287,11 +301,11 @@ where
   eval_id = p_eval_id;
 
 -- end the evaluation
-log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type);
+log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 exception
   when others then
-  log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED');
+  log_pkg.log(p_log => 'An unhandled error has occured', p_log_key => g_log_key, p_log_type => 'UNHANDLED', p_application_id => p_application_id);
   update evals set job_status = 'FAILED' where eval_id = p_eval_id;
 
 
