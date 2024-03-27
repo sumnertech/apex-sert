@@ -1,4 +1,4 @@
-create or replace view sert_core.exception_cnt_v
+create or replace force view sert_core.exception_cnt_v
 as
 with er_key as
 (

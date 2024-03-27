@@ -1,4 +1,4 @@
-create or replace view sert_core.rule_sets_v
+create or replace force view sert_core.rule_sets_v
 as
 with cnt as (select rule_set_id, sum(rule_hash) as rule_set_hash, count(*) cnt from rule_set_rules_v group by rule_set_id)
 select

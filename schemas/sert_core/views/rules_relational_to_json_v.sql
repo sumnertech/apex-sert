@@ -1,4 +1,4 @@
-create or replace view sert_core.rules_relational_to_json_v
+create or replace force view sert_core.rules_relational_to_json_v
 as
 select
    max (rownum) as num_rows

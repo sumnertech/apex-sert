@@ -1,4 +1,4 @@
-create or replace view sert_core.exceptions_v
+create or replace force view sert_core.exceptions_v
 as
 select
    e.exception_id

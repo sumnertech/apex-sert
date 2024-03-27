@@ -1,4 +1,4 @@
-create or replace view sert_core.eval_results_pub_v
+create or replace force view sert_core.eval_results_pub_v
 as
 select
    er.eval_result_id

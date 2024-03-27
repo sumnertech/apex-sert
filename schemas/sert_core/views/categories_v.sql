@@ -1,4 +1,4 @@
-create or replace view sert_core.categories_v
+create or replace force view sert_core.categories_v
 as
 select
    cat.category_id
