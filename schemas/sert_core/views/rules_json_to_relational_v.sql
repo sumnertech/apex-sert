@@ -1,4 +1,4 @@
-create or replace view sert_core.rules_json_to_relational_v as
+create or replace force view sert_core.rules_json_to_relational_v as
 select
    j.rule_name
   ,j.rule_key

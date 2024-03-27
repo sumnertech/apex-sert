@@ -1,4 +1,4 @@
-create or replace view sert_core.evals_v
+create or replace force view sert_core.evals_v
 as
 select
    e.eval_id

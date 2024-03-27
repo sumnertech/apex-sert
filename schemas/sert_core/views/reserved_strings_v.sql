@@ -1,4 +1,4 @@
-create or replace view sert_core.reserved_strings_v
+create or replace force view sert_core.reserved_strings_v
 as
 select
    reserved_string_id

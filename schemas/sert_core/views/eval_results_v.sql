@@ -1,4 +1,4 @@
-create or replace view sert_core.eval_results_v
+create or replace force view sert_core.eval_results_v
 as
 with 
   comment_cnt   as (select * from comment_cnt_v)

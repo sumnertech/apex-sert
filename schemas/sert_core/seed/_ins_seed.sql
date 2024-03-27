@@ -9,4 +9,4 @@ PROMPT
 PROMPT ==================================================================================
 PROMPT = INSTALLINT SEED DATA IN SERT_CORE
 PROMPT ==================================================================================
-PROMPT @@schemas/sert_core/seed/seed.sql
+@@schemas/sert_core/seed/seed.sql

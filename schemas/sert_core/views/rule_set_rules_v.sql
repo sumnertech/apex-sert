@@ -1,4 +1,4 @@
-create or replace view sert_core.rule_set_rules_v
+create or replace force view sert_core.rule_set_rules_v
 as
 select
    rs.rule_set_id

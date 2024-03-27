@@ -264,6 +264,29 @@ PROMPT =========================================================================
 PROMPT 
 alter session set current_schema = ^curr_user;
 
+PROMPT 
+PROMPT ==================================================================================
+PROMPT = Compile Invalid Objects in each Schema  
+PROMPT ==================================================================================
+PROMPT 
+PROMPT ... SERT_CORE
+exec dbms_utility.compile_schema(schema => 'SERT_CORE', compile_all => false);
+
+PROMPT ... SERT_PUB
+exec dbms_utility.compile_schema(schema => 'SERT_PUB', compile_all => false);
+
+PROMPT ... SERT_REST
+exec dbms_utility.compile_schema(schema => 'SERT_REST', compile_all => false);
+
+PROMPT --- LIST OF INVALID OBJECTS AFTER RECOMPILE ---
+
+select owner, object_type, object_name 
+from all_objects
+where status = 'INVALID'
+  and object_type in ('PACKAGE', 'PACKAGE BODY', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'VIEW', 'TYPE')
+  and owner in ('SERT_CORE','SERT_PUB','SERT_REST')
+order by 1,2;
+PROMPT
 PROMPT  =============================================================================
 PROMPT  == WORKSPACE AND APPLICATIONS INSTALL 
 PROMPT  =============================================================================

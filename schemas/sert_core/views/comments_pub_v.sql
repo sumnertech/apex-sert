@@ -1,4 +1,4 @@
-create or replace view sert_core.comments_pub_v
+create or replace force view sert_core.comments_pub_v
 as
 select
    c.comment_id

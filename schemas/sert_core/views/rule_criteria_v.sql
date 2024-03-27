@@ -1,4 +1,4 @@
-create or replace view sert_core.rule_criteria_v
+create or replace force view sert_core.rule_criteria_v
 as
 select
    rc.rule_criteria_id
