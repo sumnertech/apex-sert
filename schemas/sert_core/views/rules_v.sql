@@ -75,6 +75,26 @@ select
   ,r.created_on
   ,r.updated_by
   ,r.updated_on
+  ,ora_hash
+    (
+       r.rule_name
+    || r.rule_key
+    || r.apex_version
+    || r.view_name
+    || r.column_to_evaluate
+    || r.component_id
+    || r.column_name
+    || r.item_name
+    || r.shared_comp_name
+    || r.operand
+    || r.val_char
+    || r.val_number
+    || r.case_sensitive_yn
+    || r.rule_criteria_type_id
+    || r.additional_where
+    || r.custom_query
+    || r.component_name
+    ) as rule_hash
 from
   rules r
   ,categories_v c

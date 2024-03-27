@@ -5,9 +5,9 @@ with exception_cnt as
 select
   er.eval_id
  ,sum(cnt) as cnt
-from 
-  exception_cnt_v ec, 
-  eval_results_v er 
+from
+  exception_cnt_v ec,
+  eval_results_v er
 where
   er.eval_result_id = ec.eval_result_id(+)
   and er.result = 'PENDING'
@@ -60,7 +60,7 @@ select
 from
   sert_core.evals_v e
   ,exception_cnt ec
-where
-  workspace_id = (select nv('WORKSPACE_ID') from dual)
+where 1=1
+  and workspace_id = (select nv('G_WORKSPACE_ID') from dual)
   and e.eval_id = ec.eval_id(+)
 /

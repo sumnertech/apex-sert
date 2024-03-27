@@ -15,6 +15,7 @@ select
   ,fix
   ,help_url
   ,builder_url
+  ,rule_hash
 from
   sert_core.rules_pub_v
 /
