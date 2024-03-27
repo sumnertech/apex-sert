@@ -18,8 +18,7 @@ function eval_criteria
 return varchar2
 is
   l_return                varchar2(100)  := 'PASS';
-  l_source                varchar2(4000) := upper(p_column_to_evaluate);
-  l_sql                   varchar2(4000);
+  l_source                varchar2(10000) := upper(p_column_to_evaluate);
   l_cnt                   number;
   l_rule_criteria_type_id number;
 begin
@@ -85,7 +84,7 @@ is
   cursor                   l_cursor is      select r.* from rules r, rule_set_rules rsr where r.rule_id = rsr.rule_id and rsr.rule_set_id = p_rule_set_id and r.active_yn = 'Y';
   l_row                    l_cursor%rowtype;
   l_result                 varchar2(1000);
-  l_sql                    varchar2(10000);
+  l_sql                    varchar2(4000);
   l_rule_criteria_type_key varchar2(250);
 begin
 
@@ -136,7 +135,7 @@ open l_cursor;
         ' ,null as item_name '
       end
 
-      -- display the shared component name 
+      -- display the shared component name
       || ' ,' || case when l_row.impact = 'SC' then nvl(replace(l_row.shared_comp_name, ':', ' || '' / '' || '), ' null') || ' as shared_comp_name ' else ' null as shared_comp_name ' end
 
       -- display the current value of the column being investigated
@@ -268,8 +267,8 @@ where
   || er.component_name  || ':'
   || er.item_name       || ':'
   || er.column_name     || ':'
-  || er.shared_comp_name 
-  = 
+  || er.shared_comp_name
+  =
      e.rule_set_id     || ':'
   || e.rule_id         || ':'
   || e.workspace_id    || ':'
@@ -279,7 +278,7 @@ where
   || e.component_name  || ':'
   || e.item_name       || ':'
   || e.column_name     || ':'
-  || e.shared_comp_name 
+  || e.shared_comp_name
   and er.current_value != e.current_value
   and er.eval_id = p_eval_id
   );

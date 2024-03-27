@@ -1,6 +1,6 @@
 create or replace view sert_core.rule_sets_v
 as
-with cnt as (select rule_set_id, count(*) cnt from rule_set_rules group by rule_set_id)
+with cnt as (select rule_set_id, sum(rule_hash) as rule_set_hash, count(*) cnt from rule_set_rules_v group by rule_set_id)
 select
    rs.rule_set_id
   ,rs.rule_set_type_id
@@ -25,6 +25,7 @@ select
   ,rs.updated_by
   ,rs.updated_on
   ,nvl(cnt.cnt,0) as cnt
+  ,rule_set_hash
 from
    rule_sets rs
   ,rule_set_types rst

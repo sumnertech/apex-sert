@@ -7,7 +7,7 @@
 --    Arguments:
 --
 --    MODIFIED   (MM/DD/YYYY)
---      dgault    02/28/2024  - Created   
+--      dgault    02/28/2024  - Created
 
 set termout on
 set define '^'
@@ -18,10 +18,10 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = CREATING SERT SCHEMAS 
+PROMPT = CREATING SERT SCHEMAS
 PROMPT ==================================================================================
-PROMPT 
-PROMPT - Users being created will be 
+PROMPT
+PROMPT - Users being created will be
 PROMPT - SERT_CORE
 PROMPT - SERT_PUB
 PROMPT - SERT_REST
@@ -48,7 +48,11 @@ PROMPT Granting APEX_ADMINISTRATOR_ROLE to SERT_CORE
 PROMPT
 grant apex_administrator_read_role to sert_core;
 PROMPT
-PROMPT Schema Creation Complete... 
+PROMPT Granting APEX_ADMINISTRATOR_ROLE to SERT_PUB
+PROMPT
+grant apex_administrator_read_role to sert_pub;
+PROMPT
+PROMPT Schema Creation Complete...
 PROMPT
 set feedback off;
 set termout off;

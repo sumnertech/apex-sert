@@ -35,6 +35,7 @@ select
   ,rs.created_on
   ,rs.updated_by
   ,rs.updated_on
+  ,r.rule_hash
 from
    rule_sets rs
   ,rule_set_types rst
