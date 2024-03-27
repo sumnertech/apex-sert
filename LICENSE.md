@@ -1,3 +1,5 @@
+This software is released under the MIT License
+
 Copyright (c) 2024 The APEX-SERT Authors and Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
