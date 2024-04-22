@@ -24,6 +24,7 @@ is
 begin
 
 log_pkg.log(p_log => 'Criteria started for ' || p_rule_criteria_type_key, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+log_pkg.log(p_log => 'Column to Evaluate (l_source)', p_log_clob => p_column_to_evaluate, p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
 -- get the rule_criteria_type_id
 select rule_criteria_type_id into l_rule_criteria_type_id from rule_criteria_types where rule_criteria_type_key = p_rule_criteria_type_key;

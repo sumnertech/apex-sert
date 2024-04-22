@@ -4,6 +4,7 @@ select
    e.eval_id
   ,e.workspace_id
   ,a.workspace
+  ,w.path_prefix
   ,e.application_id
   ,a.application_name
   ,a.last_updated_on
@@ -24,8 +25,10 @@ select
 from
    evals e
   ,apex_applications a
+  ,apex_workspaces w
   ,rule_sets rs
 where
   e.application_id = a.application_id
   and e.rule_set_id = rs.rule_set_id
+  and a.workspace_id = w.workspace_id
 /
