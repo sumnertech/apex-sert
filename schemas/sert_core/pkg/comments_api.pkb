@@ -1,6 +1,7 @@
 create or replace package body comments_api
 as
 
+-- PROCEDURE: A D D _ C O M M E N T
 procedure add_comment
   (
    p_rule_set_id      in number
