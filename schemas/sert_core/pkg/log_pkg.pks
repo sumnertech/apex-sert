@@ -1,6 +1,8 @@
 create or replace package sert_core.log_pkg
 as
 
+g_log_evals varchar2(100);
+
 function get_log_key
 return varchar2;
 

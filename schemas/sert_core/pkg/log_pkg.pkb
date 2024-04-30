@@ -35,28 +35,33 @@ is
   pragma autonomous_transaction;
 begin
 
-insert into logs
-  (
-   log_key
-  ,log_type
-  ,log
-  ,log_clob
-  ,id
-  ,id_col
-  ,application_id
-  )
-values
-  (
-   nvl(p_log_key, apex_util.get_session_state('G_LOG_KEY'))
-  ,p_log_type
-  ,p_log
-  ,dbms_utility.format_error_stack || dbms_utility.format_error_backtrace || p_log_clob
-  ,p_id
-  ,p_id_col
-  ,p_application_id
-  );
+-- log the value if logging is enabled
+if g_log_evals = 'Y' then
 
-commit;
+  insert into logs
+    (
+     log_key
+    ,log_type
+    ,log
+    ,log_clob
+    ,id
+    ,id_col
+    ,application_id
+    )
+  values
+    (
+     nvl(p_log_key, apex_util.get_session_state('G_LOG_KEY'))
+    ,p_log_type
+    ,p_log
+    ,dbms_utility.format_error_stack || dbms_utility.format_error_backtrace || p_log_clob
+    ,p_id
+    ,p_id_col
+    ,p_application_id
+    );
+
+  commit;
+
+end if;
 
 end log;
 

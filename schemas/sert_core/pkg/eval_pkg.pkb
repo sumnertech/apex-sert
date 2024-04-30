@@ -334,6 +334,9 @@ is
   l_job_name     varchar2(250);
 begin
 
+-- set logging
+select pref_value into log_pkg.g_log_evals from prefs where pref_key = 'LOG_EVALUATIONS';
+
 -- set the log_key
 apex_util.set_session_state('G_LOG_KEY', g_log_key);
 
