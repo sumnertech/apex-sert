@@ -8,7 +8,7 @@ select
   ,j.risk_name
   ,j.apex_version
   ,j.help_url
-  ,j.builder_url
+  ,j.builder_url_key
   ,j.impact
   ,j.active_yn
   ,j.internal_yn
@@ -54,7 +54,7 @@ from
       ,risk_name              varchar path '$.riskName'
       ,apex_version           number  path '$.apexVersion'
       ,help_url               varchar path '$.helpUrl'
-      ,builder_url            varchar path '$.builderUrl'
+      ,builder_url_key        varchar path '$.builderUrlKey'
       ,impact                 varchar path '$.impact'
       ,active_yn              varchar path '$.activeYN'
       ,internal_yn            varchar path '$.internalYN'

@@ -225,7 +225,16 @@ open l_cursor;
     l_sql := 'insert into eval_results (eval_id, rule_id, application_id, page_id, component_id, component_name, column_name, item_name, shared_comp_name, current_value, valid_values, result) ' || l_sql;
 
     -- run the sql, populating the eval_results table
-    log_pkg.log(p_log_key => g_log_key, p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')', p_log_type => 'EVAL', p_log_clob => l_sql, p_id => l_row.rule_id, p_id_col => 'rule_id', p_application_id => p_application_id);
+    log_pkg.log
+      (
+      p_log_key => g_log_key,
+      p_log => 'SQL for Rule ' || l_row.rule_name || ' (' || l_row.rule_key || ')',
+      p_log_type => 'EVAL',
+      p_log_clob => l_sql,
+      p_id => l_row.rule_id,
+      p_id_col => 'rule_id',
+      p_application_id => p_application_id
+      );
 
     -- if evaluating for a specific page only, ignore APP and SC rules as they do not have a page_id nad will create duplicate entries
     case
@@ -460,6 +469,61 @@ end if;
 delete from evals where eval_id = p_eval_id;
 
 end delete_eval;
+
+----------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: A P E X _ L I N K
+----------------------------------------------------------------------------------------------------------------------------
+-- Generates the link to the APEX Builder
+----------------------------------------------------------------------------------------------------------------------------
+function apex_link
+  (
+   p_eval_result_id     in number
+  ,p_builder_session_id in number
+  )
+return varchar2
+is
+  l_data_link varchar2(1000);
+begin
+
+-- loop through a row to get the required link attributes
+for x in
+  (
+  select
+     er.application_id
+    ,er.page_id
+    ,er.component_id
+    ,er.view_name
+    ,bu.data_type_id
+    ,bu.data_link
+  from
+     eval_results_pub_v er
+    ,rules_pub_v r
+    ,builder_urls bu
+  where
+    er.eval_result_id = p_eval_result_id
+    and er.rule_id = r.rule_id
+    and r.builder_url_id = bu.builder_url_id(+)
+  )
+loop
+
+  if x.data_link is null then
+
+    return 'data-link=""'
+      || ' data-appid="'       || x.application_id || '" '
+      || ' data-pageid="'      || nvl(x.page_id,0) || '" '
+      || ' data-typeid="'      || x.data_type_id   || '" '
+      || ' data-componentid="' || x.component_id   || '" '
+      || ' data-designer="page>"';
+
+  else
+
+    return 'data-link="r/apex/app-builder/' || replace(x.data_link, '#COMPONENT_ID#', x.component_id) || '&fb_flow_id=' || x.application_id || '&session=' || p_builder_session_id || '"';
+
+  end if;
+
+end loop;
+
+end apex_link;
 
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------

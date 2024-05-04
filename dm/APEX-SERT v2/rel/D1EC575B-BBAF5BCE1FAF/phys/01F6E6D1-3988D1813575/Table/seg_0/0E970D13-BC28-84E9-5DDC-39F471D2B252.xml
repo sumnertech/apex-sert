@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="BUILDER_URLS" directorySegmentName="seg_0" id="0E970D13-BC28-84E9-5DDC-39F471D2B252">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="DATA_TYPE_ID" id="2D055925-E9DB-7160-EE2C-075B655FB4DE">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_ON" id="7BFDD98A-7188-F6EE-FCF2-426E80546DCF">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BUILDER_URL_ID" id="99DEF54C-746D-3CC8-E74C-6A4E70782741">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+<notnullConstraintnameChanged>true</notnullConstraintnameChanged>
+</ColumnProxy>
+<ColumnProxy name="CREATED_ON" id="9A8FEFBB-4BA2-F344-9A6C-4998A1E3C16A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BUILDER_URL_KEY" id="A68854ED-A5CB-B478-2A2F-CFC5B11B09A1">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-03 02:58:52 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCRIPTION" id="B46805AC-3F65-4F60-B37E-AD862B069BCD">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_BY" id="BEB0A5A3-13BA-6B4F-0F3F-9BE342BE11B3">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="DATA_LINK" id="C5654A3C-6C97-C0BB-5AAF-D6C434AB7927">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-03 00:37:27 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COMPONENT_NAME" id="D98EE90C-A9F7-98B4-20B9-F98B26542486">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-03 03:00:08 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UPDATED_BY" id="E5567BDC-0802-FBE6-95D5-4FE94C425136">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BUILDER_URLS_PK" id="9ED518F5-2A78-F9A7-5D83-B9DE18534734">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-02 11:37:19 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="BUILDER_URLS_UN" id="3F2B877B-4034-4B39-981C-56F8FBD2DDD9">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-03 11:46:29 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev20c>

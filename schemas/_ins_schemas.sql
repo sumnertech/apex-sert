@@ -25,10 +25,10 @@ PROMPT - Users being created will be
 PROMPT - SERT_CORE
 PROMPT - SERT_PUB
 PROMPT - SERT_REST
+PROMPT - SERT_ADMIN (for APEX)
 PROMPT
 PROMPT
-PROMPT
-ACCEPT schema_password     CHAR DEFAULT ''  PROMPT 'Please enter the password for the SERT Schemas: '
+ACCEPT schema_password     CHAR DEFAULT ''  PROMPT 'Please enter the password for the SERT Schemas: ' HIDE
 PROMPT
 PROMPT Listing all available tablespaces...
 PROMPT

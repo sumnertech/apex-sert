@@ -9,7 +9,7 @@ PROMPT
 PROMPT ==================================================================================
 PROMPT = CREATING SYNONYMS IN SERT_PUB
 PROMPT ==================================================================================
-PROMPT 
+PROMPT
 @@schemas/sert_pub/synonyms/eval_pkg.sql
 @@schemas/sert_pub/synonyms/comments_api.sql
 @@schemas/sert_pub/synonyms/exceptions_api.sql
