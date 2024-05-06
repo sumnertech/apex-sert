@@ -299,7 +299,7 @@ PROMPT  ================= CREATING WORKSPACE
 PROMPT  =================
 PROMPT
 
- DECLARE
+DECLARE
   l_workspace   varchar2(20)  := 'SERT';
   l_workspace_id  number;
 BEGIN
@@ -349,10 +349,12 @@ BEGIN
 
 -- determine if running on ADB and if so, create the SERT_ADMIN schema
 declare
-  l_clob clob;
+  l_count number;
 begin
-select cloud_identity into l_clob from v$pdbs;
-execute immediate 'create user sert_admin identified by "^ws_password"';
+select count(*) into l_count from dba_tab_columns where column_name = 'CLOUD_IDENTITY';
+if l_count >0 then 
+  execute immediate 'create user sert_admin identified by "^ws_password"';
+end if; 
 exception
   when others then null;
 end;
