@@ -339,17 +339,19 @@
 <ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="BUILDER_URL" id="774E3D41-ECD0-919C-69B2-0FCCE6A9138E">
+<Column name="BUILDER_URL_ID" id="774E3D41-ECD0-919C-69B2-0FCCE6A9138E">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-11 18:33:59 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>4000</dataTypeSize>
-<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2FEC7E32-6880-BEEF-D9AE-24C89FF7D478" referredColumn="99DEF54C-746D-3CC8-E74C-6A4E70782741"/>
+</associations>
 </Column>
 <Column name="INFO" id="21BAED26-0B0A-41EE-699B-4996AD347A31">
 <createdBy>scspend</createdBy>
@@ -510,6 +512,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="99CDF398-AB93-E316-ACFC-A4BAC602205F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C3A84438-88F8-9351-5EBA-9A52BBFF9146" name="RULES_BUILDER_URLS_FK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-05-03 02:53:11 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="774E3D41-ECD0-919C-69B2-0FCCE6A9138E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

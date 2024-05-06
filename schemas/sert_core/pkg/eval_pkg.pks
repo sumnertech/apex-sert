@@ -35,6 +35,13 @@ procedure delete_eval
   ,p_delete_comments in varchar2 default 'Y'
   );
 
+function apex_link
+  (
+   p_eval_result_id in number
+  ,p_builder_session_id in number
+  )
+return varchar2;
+
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 end eval_pkg;

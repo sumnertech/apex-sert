@@ -14,7 +14,8 @@ select
   ,c.category_key
   ,r.apex_version
   ,r.help_url
-  ,r.builder_url
+  ,r.builder_url_id
+  ,bu.builder_url_key
   ,r.impact
   ,r.active_yn
   ,case
@@ -102,10 +103,12 @@ from
   ,risks k
   ,rule_criteria_types ct
   ,shared_comp_views sc
+  ,builder_urls bu
 where
   r.category_id = c.category_id
   and r.rule_criteria_type_id = ct.rule_criteria_type_id(+)
   and r.rule_severity_id = rs.rule_severity_id
   and r.risk_id = k.risk_id(+)
   and r.view_name = sc.shared_comp_view(+)
+  and r.builder_url_id = bu.builder_url_id(+)
 /

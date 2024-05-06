@@ -17,6 +17,7 @@ is
   l_rule_severity_id      rule_severity.rule_severity_id%type;
   l_risk_id               risks.risk_id%type;
   l_rule_criteria_type_id rule_criteria_types.rule_criteria_type_id%type;
+  l_builder_url_id        builder_urls.builder_url_id%type;
   l_cnt                   number;
 begin
 
@@ -66,6 +67,14 @@ loop
         null;
     end;
 
+   -- determine the builder_url
+    begin
+      select builder_url_id into l_builder_url_id from builder_urls where builder_url_key = x.builder_url_key;
+    exception
+      when no_data_found then
+        null;
+    end;
+
     -- get the risk; these should not be created on the fly, as they are based on OWASP Top 10
     if x.risk_code is not null then
       select risk_id into l_risk_id from risks where risk_code = x.risk_code;
@@ -99,7 +108,7 @@ loop
       ,active_yn
       ,internal_yn
       ,help_url
-      ,builder_url
+      ,builder_url_id
       ,info
       ,fix
       ,time_to_fix
@@ -132,7 +141,7 @@ loop
       ,x.active_yn
       ,x.internal_yn
       ,x.help_url
-      ,x.builder_url
+      ,l_builder_url_id
       ,x.info
       ,x.fix
       ,x.time_to_fix
@@ -275,7 +284,7 @@ loop
     ,active_yn
     ,internal_yn
     ,help_url
-    ,builder_url
+    ,builder_url_id
     ,info
     ,fix
     ,time_to_fix
@@ -308,7 +317,7 @@ loop
     ,x.active_yn
     ,x.internal_yn
     ,x.help_url
-    ,x.builder_url
+    ,x.builder_url_id
     ,x.info
     ,x.fix
     ,x.time_to_fix

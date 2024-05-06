@@ -7,6 +7,6 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = INSTALLINT SEED DATA IN SERT_CORE
+PROMPT = INSTALLING SEED DATA IN SERT_CORE
 PROMPT ==================================================================================
 @@schemas/sert_core/seed/seed.sql

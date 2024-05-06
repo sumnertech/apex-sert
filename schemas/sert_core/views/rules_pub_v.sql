@@ -14,8 +14,10 @@ select
   ,nvl(to_char(info), 'No data found') as info
   ,nvl(to_char(fix), 'No data found')  as fix
   ,help_url
-  ,builder_url
+  ,builder_url_key
+  ,builder_url_id
   ,rule_hash
+  ,view_name
 from
   sert_core.rules_v r
 /

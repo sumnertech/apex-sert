@@ -14,7 +14,7 @@ select
       ,'riskName'            is risk_name
       ,'apexVersion'         is apex_version
       ,'helpUrl'             is help_url
-      ,'builderUrl'          is builder_url
+      ,'builderUrlKey'       is builder_url_key
       ,'impact'              is impact
       ,'activeYN'            is active_yn
       ,'internalYN'          is internal_yn
