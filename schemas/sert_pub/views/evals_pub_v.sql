@@ -23,6 +23,8 @@ select
   ,job_status_css
   ,score
   ,score_css
+  ,pending_score
+  ,approved_score
   ,exception_cnt
   ,created_by
   ,created_on

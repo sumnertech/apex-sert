@@ -45,8 +45,10 @@ insert into sert_core.categories (category_name, category_key) values ('Misconfi
 insert into sert_core.categories (category_name, category_key) values ('Misconfiguration',	   'SQL_INJECTION');
 
 -- insert preferences
-insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Evaluations', 'LOG_EVALUATIONS', 'Y');
-insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Imports', 'LOG_IMPORTS', 'Y');
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Evaluations',  'LOG_EVALUATIONS',  'Y');
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Imports',      'LOG_IMPORTS',      'Y');
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Low Score Value',  'LOW_SCORE_VALUE',  '70');
+insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('High Score Value', 'HIGH_SCORE_VALUE', '95');
 
 -- insert reserved_strings
 insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_ID.', 'APP_ID', 'SUBSTITUTION_STRING');

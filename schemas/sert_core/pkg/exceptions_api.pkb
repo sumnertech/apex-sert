@@ -7,7 +7,7 @@ as
 ----------------------------------------------------------------------------------------------------------------------------
 function show_exception
   (
-  p_eval_result_id in number    
+  p_eval_result_id in number
   )
 return boolean
 is
@@ -38,12 +38,16 @@ end show_exception;
 ----------------------------------------------------------------------------------------------------------------------------
 procedure withdraw_exception
   (
-  p_exception_id in number    
+   p_exception_id in number
+  ,p_eval_id      in number
   )
 is
 begin
 
 delete from exceptions where exception_id = p_exception_id;
+
+-- calculate the scores
+eval_pkg.calc_score(p_eval_id => p_eval_id);
 
 end withdraw_exception;
 
@@ -54,10 +58,11 @@ end withdraw_exception;
 ----------------------------------------------------------------------------------------------------------------------------
 procedure approve_or_reject_exception
   (
-   p_exception_id in number  
+   p_exception_id in number
   ,p_result       in varchar2
   ,p_reason       in varchar2
   ,p_app_user     in varchar2
+  ,p_eval_id      in number
   )
 is
 begin
@@ -70,7 +75,8 @@ update exceptions set
 where
   exception_id = p_exception_id;
 
-null;
+-- calculate the scores
+eval_pkg.calc_score(p_eval_id => p_eval_id);
 
 end approve_or_reject_exception;
 
@@ -94,6 +100,7 @@ procedure add_exception
   ,p_shared_comp_name in varchar2 default null
   ,p_exception        in varchar2
   ,p_curernt_value    in varchar2
+  ,p_eval_id          in number
   )
 is
 begin
@@ -131,7 +138,8 @@ values
   ,p_curernt_value
   );
 
-
+-- calculate the scores
+eval_pkg.calc_score(p_eval_id => p_eval_id);
 
 end add_exception;
 
