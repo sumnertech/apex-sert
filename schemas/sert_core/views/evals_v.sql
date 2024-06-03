@@ -18,6 +18,8 @@ select
   ,e.job_name
   ,e.job_status
   ,e.score
+  ,e.pending_score
+  ,e.approved_score
   ,e.created_by
   ,e.created_on
   ,e.updated_by

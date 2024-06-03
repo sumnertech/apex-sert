@@ -1,6 +1,17 @@
 create or replace package sert_core.eval_pkg
 as
 
+function get_score_range
+  (
+   p_range_key in varchar2
+  )
+return number;
+
+procedure calc_score
+  (
+   p_eval_id in number
+  );
+
 function eval_criteria
   (
    p_column_to_evaluate     in varchar2

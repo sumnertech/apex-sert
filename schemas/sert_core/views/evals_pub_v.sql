@@ -14,6 +14,8 @@ where
 group by
   er.eval_id
 )
+  ,low_score  as (select pref_value as val from prefs where pref_key = 'LOW_SCORE_VALUE')
+  ,high_score as (select pref_value as val from prefs where pref_key = 'HIGH_SCORE_VALUE')
 select
    e.eval_id
   ,e.workspace_id
@@ -43,11 +45,13 @@ select
     when upper(job_status) = 'FAILED' then 'danger'
     when upper(job_status) = 'RUNNING' then 'warning'
     else null end as job_status_css
-  ,case when score is null then '...' else score || '%' end as score
+  ,case when score is null then 0 else score end as score
+  ,e.pending_score
+  ,e.approved_score
   ,case
-    when score < 60 then 'danger'
-    when score between 61 and 79 then 'warning'
-    when score >= 80 then 'success'
+    when score < low_score.val then 'danger'
+    when score between low_score.val and high_score.val then 'warning'
+    when score >= high_score.val then 'success'
     else null
    end as score_css
   ,e.summary
@@ -60,6 +64,8 @@ select
 from
   sert_core.evals_v e
   ,exception_cnt ec
+  ,low_score
+  ,high_score
 where 1=1
   and workspace_id = (select nv('G_WORKSPACE_ID') from dual)
   and e.eval_id = ec.eval_id(+)

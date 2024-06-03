@@ -3,6 +3,67 @@ as
   g_log_key varchar2(10) := log_pkg.get_log_key;
   g_log_type varchar2(100) := 'EVAL';
 
+
+----------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: G E T _ S C O R E _ R A N G E
+----------------------------------------------------------------------------------------------------------------------------
+-- Returns the high and low score ranges
+----------------------------------------------------------------------------------------------------------------------------
+function get_score_range
+  (
+   p_range_key in varchar2
+  )
+return number
+is
+begin
+for x in (select pref_value as val from prefs where pref_key = p_range_key)
+loop
+  return x.val;
+end loop;
+
+return null;
+
+end get_score_range;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: C A L C _ S C O R E
+----------------------------------------------------------------------------------------------------------------------------
+-- Calculates the score for a specific evaluation
+----------------------------------------------------------------------------------------------------------------------------
+procedure calc_score
+  (
+    p_eval_id in number
+  )
+is
+begin
+
+update
+  evals
+set
+  score =
+    round
+    (
+      (select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') /
+      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+    )
+  ,pending_score =
+    round
+    (
+      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'PENDING')) /
+      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+    )
+  ,approved_score =
+    round
+    (
+      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'APPROVED')) /
+      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+    )
+where
+  eval_id = p_eval_id;
+
+end calc_score;
+
 ----------------------------------------------------------------------------------------------------------------------------
 -- FUNCTION: E V A L _ C R I T E R I A
 ----------------------------------------------------------------------------------------------------------------------------
@@ -300,14 +361,10 @@ set
    job_status = 'COMPLETED'
   ,eval_on_date = sysdate
   ,eval_on = systimestamp
-  ,score =
-  round
-    (
-      (select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') /
-      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
-    )
 where
   eval_id = p_eval_id;
+
+calc_score(p_eval_id => p_eval_id);
 
 -- end the evaluation
 log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
