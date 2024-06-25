@@ -7,7 +7,7 @@
 --    Arguments:
 --
 --    MODIFIED   (MM/DD/YYYY)
---      dgault    02/28/2024  - Created   
+--      dgault    02/28/2024  - Created
 
 set termout on
 set define '^'
@@ -18,10 +18,11 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = CREATING VIEWS IN SERT_CORE 
+PROMPT = CREATING VIEWS IN SERT_CORE
 PROMPT ==================================================================================
-PROMPT 
+PROMPT
 -- installs views
+@@schemas/sert_core/views/apex_version_v.sql
 @@schemas/sert_core/views/categories_v.sql
 @@schemas/sert_core/views/rule_sets_v.sql
 @@schemas/sert_core/views/rules_v.sql
@@ -38,7 +39,9 @@ PROMPT
 @@schemas/sert_core/views/eval_results_v.sql
 @@schemas/sert_core/views/exceptions_v.sql
 
+
 -- installs pub views
+@@schemas/sert_core/views/apex_version_pub_v.sql
 @@schemas/sert_core/views/evals_pub_v.sql
 @@schemas/sert_core/views/rule_sets_pub_v.sql
 @@schemas/sert_core/views/rules_pub_v.sql

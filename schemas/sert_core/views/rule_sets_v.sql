@@ -1,6 +1,7 @@
 create or replace force view sert_core.rule_sets_v
 as
 with cnt as (select rule_set_id, sum(rule_hash) as rule_set_hash, count(*) cnt from rule_set_rules_v group by rule_set_id)
+    ,av as (select apex_version_item as apex_version from apex_version_v)
 select
    rs.rule_set_id
   ,rs.rule_set_type_id
@@ -11,10 +12,12 @@ select
   ,rs.apex_version
   ,rs.active_yn
   ,case
+    when rs.apex_version != av.apex_version then 'warning'
     when rs.active_yn = 'Y' then 'success'
     else 'danger'
    end active_color
   ,case
+    when rs.apex_version != av.apex_version then 'Stale'
     when rs.active_yn = 'Y' then 'Active'
     else 'Inactive'
    end active_value
@@ -30,6 +33,7 @@ from
    rule_sets rs
   ,rule_set_types rst
   ,cnt
+  ,av
 where
   rs.rule_set_type_id = rst.rule_set_type_id
   and rs.rule_set_id = cnt.rule_set_id(+)

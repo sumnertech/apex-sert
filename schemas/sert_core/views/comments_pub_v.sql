@@ -2,10 +2,7 @@ create or replace force view sert_core.comments_pub_v
 as
 select
    c.comment_id
-  ,replace(apex_escape.html(c.comments), chr(10), '<br />') ||
-    case when c.created_by = (select v('APP_USER') from dual)
-      then '<br /><br /><a href="#" class="deleteComment" id="' || c.comment_id || '"">Delete Comment</a>'
-      else null end as comments
+  ,apex_escape.html(c.comments) as comments
   ,c.rule_set_id
   ,c.rule_id
   ,c.workspace_id

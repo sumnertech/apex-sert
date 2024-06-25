@@ -40,15 +40,16 @@ insert into sert_core.risks(risk_code, risk_name, url) values ('A10-2021', 'Serv
 
 -- insert categories
 insert into sert_core.categories (category_name, category_key) values ('Access Control',	     'ACCESS_CONTROL');
-insert into sert_core.categories (category_name, category_key) values ('Cross-Site Scripting', 'CROSS_SITE_SCRIPTING	');
-insert into sert_core.categories (category_name, category_key) values ('Misconfiguration',	   'MISCONFIGURATION');
-insert into sert_core.categories (category_name, category_key) values ('Misconfiguration',	   'SQL_INJECTION');
+insert into sert_core.categories (category_name, category_key) values ('Cross-Site Scripting', 'CROSS_SITE_SCRIPTING');
+insert into sert_core.categories (category_name, category_key) values ('Misconfiguration',     'MISCONFIGURATION');
+insert into sert_core.categories (category_name, category_key) values ('SQL Injection',        'SQL_INJECTION');
 
 -- insert preferences
 insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Evaluations',  'LOG_EVALUATIONS',  'Y');
 insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Log Imports',      'LOG_IMPORTS',      'Y');
 insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('Low Score Value',  'LOW_SCORE_VALUE',  '70');
 insert into sert_core.prefs(pref_name, pref_key, pref_value) values ('High Score Value', 'HIGH_SCORE_VALUE', '95');
+insert into sert_core.prefs(pref_name, pref_key, pref_value, internal_yn) values ('SERT APEX Version', 'SERT_APEX_VERSION', (select apex_version from apex_version_v), 'Y');
 
 -- insert reserved_strings
 insert into sert_core.reserved_strings (reserved_string, reserved_string_key, reserved_string_type) values ('&APP_ID.', 'APP_ID', 'SUBSTITUTION_STRING');

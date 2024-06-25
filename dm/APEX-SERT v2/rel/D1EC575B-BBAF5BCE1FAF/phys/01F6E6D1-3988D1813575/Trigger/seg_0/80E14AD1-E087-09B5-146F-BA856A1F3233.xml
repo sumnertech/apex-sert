@@ -5,8 +5,12 @@
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 <actions>UPDATE</actions>
 <body><![CDATA[begin
-:new.updated_by := coalesce(sys_context('APEX$SESSION','APP_USER'),user);
-:new.updated_on := systimestamp;
+if :new.updated_by is null then
+  :new.updated_by := coalesce(sys_context('APEX$SESSION','APP_USER'),user);
+end if;
+if :new.updated_on is null then
+  :new.updated_on := systimestamp;
+end if;
 end;
 ]]></body>
 <triggerTime>BEFORE</triggerTime>

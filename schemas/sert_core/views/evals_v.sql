@@ -20,6 +20,7 @@ select
   ,e.score
   ,e.pending_score
   ,e.approved_score
+  ,rs.apex_version
   ,e.created_by
   ,e.created_on
   ,e.updated_by
@@ -32,5 +33,5 @@ from
 where
   e.application_id = a.application_id
   and e.rule_set_id = rs.rule_set_id
-  and a.workspace_id = w.workspace_id
+  and a.workspace_id = w.workspace_id(+)
 /

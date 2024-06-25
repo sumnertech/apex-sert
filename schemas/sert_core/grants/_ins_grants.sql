@@ -7,7 +7,7 @@
 --    Arguments:
 --
 --    MODIFIED   (MM/DD/YYYY)
---      dgault    02/28/2024  - Created   
+--      dgault    02/28/2024  - Created
 
 set termout on
 set define '^'
@@ -18,10 +18,11 @@ set verify off
 --
 PROMPT
 PROMPT ==================================================================================
-PROMPT = CREATING GRANTS ON SERT_CORE OBJECTS  
+PROMPT = CREATING GRANTS ON SERT_CORE OBJECTS
 PROMPT ==================================================================================
-PROMPT 
+PROMPT
 -- installs grants
+@@schemas/sert_core/grants/apex_version_pub_v.sql
 @@schemas/sert_core/grants/evals_pub_v.sql
 @@schemas/sert_core/grants/rule_sets_pub_v.sql
 @@schemas/sert_core/grants/eval_pkg.sql

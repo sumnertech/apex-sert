@@ -1,5 +1,6 @@
 create or replace force view sert_core.rules_v
 as
+with av as (select apex_version_item as apex_version from apex_version_v)
 select
    r.rule_id
   ,r.rule_name
@@ -23,10 +24,12 @@ select
     else initcap(r.impact)
     end as impact_rpt
   ,case
+    when r.apex_version != av.apex_version then 'warning'
     when r.active_yn = 'Y' then 'success'
     else 'danger'
    end active_color
   ,case
+    when r.apex_version != av.apex_version then 'Stale'
     when r.active_yn = 'Y' then 'Active'
     else 'Inactive'
    end active_value
@@ -104,6 +107,7 @@ from
   ,rule_criteria_types ct
   ,shared_comp_views sc
   ,builder_urls bu
+  ,av
 where
   r.category_id = c.category_id
   and r.rule_criteria_type_id = ct.rule_criteria_type_id(+)
@@ -111,4 +115,5 @@ where
   and r.risk_id = k.risk_id(+)
   and r.view_name = sc.shared_comp_view(+)
   and r.builder_url_id = bu.builder_url_id(+)
+--  and r.apex_version = av.apex_version(+)
 /

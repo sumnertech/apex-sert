@@ -35,6 +35,4 @@ select
   ,e.actioned_on
 from
   exceptions_v e
-where
-  e.workspace_id = (select nv('WORKSPACE_ID') from dual)
 /

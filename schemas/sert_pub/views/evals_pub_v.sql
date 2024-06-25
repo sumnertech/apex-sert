@@ -26,6 +26,7 @@ select
   ,pending_score
   ,approved_score
   ,exception_cnt
+  ,apex_version
   ,created_by
   ,created_on
   ,updated_by

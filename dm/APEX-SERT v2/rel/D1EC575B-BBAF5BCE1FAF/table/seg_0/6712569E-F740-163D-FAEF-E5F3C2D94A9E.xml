@@ -53,6 +53,24 @@
 <ownDataTypeParameters>4000,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="INTERNAL_YN" id="4CB2EBA6-98F1-C1B3-520D-1DA5358A7A7A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 16:54:00 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<constraintName>PREFS_INTERNAL_YN</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<listOfValues>
+<valueDef value="N" description=""/>
+<valueDef value="Y" description=""/>
+</listOfValues>
+<defaultValue>N</defaultValue>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="DESCRIPTION" id="D1F3C422-C262-3786-3590-0ED365ECA00F">
 <createdBy>scspend</createdBy>
 <createdTime>2024-02-19 17:04:26 UTC</createdTime>

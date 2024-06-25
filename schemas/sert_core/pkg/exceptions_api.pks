@@ -7,6 +7,28 @@ function show_exception
   )
 return boolean;
 
+function show_exceptions_form
+  (
+   p_stale_eval    in varchar2
+  ,p_exception_key in varchar2
+  )
+return boolean;
+
+function show_add_exception_button
+  (
+  p_exception_key in varchar2
+  )
+return boolean;
+
+function show_withdraw_exception_button
+  (
+   p_stale_eval    in varchar2
+  ,p_exception_key in varchar2
+  ,p_exception_id  in number
+  ,p_app_user      in varchar2
+  )
+return boolean;
+
 procedure withdraw_exception
   (
    p_exception_id in number

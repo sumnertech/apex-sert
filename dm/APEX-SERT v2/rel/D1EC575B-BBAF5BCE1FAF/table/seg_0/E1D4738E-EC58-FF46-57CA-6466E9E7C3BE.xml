@@ -186,6 +186,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="ADE7610E-8BC4-8135-6C3B-963D1A005C5D"/>
+<colUsage columnID="FFC26C9D-F3C2-CD98-04AA-E5BD20A8BA41"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="04FA8EBE-EFB4-55B9-C48E-8DA2FFFAEBD7" name="RS_RULE_SET_TYPES_FK">

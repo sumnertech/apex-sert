@@ -407,7 +407,7 @@ select pref_value into log_pkg.g_log_evals from prefs where pref_key = 'LOG_EVAL
 apex_util.set_session_state('G_LOG_KEY', g_log_key);
 
 -- get the rule_set_id
-select rule_set_id into l_rule_set_id from rule_sets where rule_set_key = p_rule_set_key;
+select rule_set_id into l_rule_set_id from rule_sets where rule_set_key = p_rule_set_key and apex_version = (select apex_version from apex_version_v);
 
 -- get the workspace_id
 select workspace_id into l_workspace_id from apex_applications where application_id = p_application_id;
@@ -570,7 +570,7 @@ loop
       || ' data-pageid="'      || nvl(x.page_id,0) || '" '
       || ' data-typeid="'      || x.data_type_id   || '" '
       || ' data-componentid="' || x.component_id   || '" '
-      || ' data-designer="page>"';
+      || ' data-designer="page"';
 
   else
 

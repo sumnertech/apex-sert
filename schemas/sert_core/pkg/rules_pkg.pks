@@ -22,5 +22,7 @@ procedure copy_rule
   ,p_rule_sets in varchar2 default null
   );
 
+procedure upgrade_rules;
+
 end rules_pkg;
 /
