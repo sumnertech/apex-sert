@@ -31,6 +31,106 @@ end if;
 
 end show_exception;
 
+
+----------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: S H O W _ E X C E P T I O N S _ F O R M
+----------------------------------------------------------------------------------------------------------------------------
+-- Determines whether or not to show the Exceptions form
+----------------------------------------------------------------------------------------------------------------------------
+function show_exceptions_form
+  (
+   p_stale_eval    in varchar2
+  ,p_exception_key in varchar2
+  )
+return boolean
+is
+begin
+
+if p_stale_eval = 'Y' then
+  -- evaluation is on an older version of APEX; do not display the form
+  return false;
+else
+  -- check to see if an exception exists
+  for y in (select 1 from exceptions_pub_v where exception_key = p_exception_key)
+  loop
+    -- there is an exception; do not display the form
+    return false;
+  end loop;
+end if;
+-- no exception found; display the form
+return true;
+
+end show_exceptions_form;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: S H O W _ A D D _ E X C E P T I O N _ B U T T O N
+----------------------------------------------------------------------------------------------------------------------------
+-- Determines whether or not to show the Add Exception button
+----------------------------------------------------------------------------------------------------------------------------
+function show_add_exception_button
+  (
+  p_exception_key in varchar2
+  )
+return boolean
+is
+begin
+
+-- check to see if an exception exists
+for y in (select 1 from exceptions_pub_v where exception_key = p_exception_key)
+loop
+  -- there is an exception; do not display the button
+  return false;
+end loop;
+
+-- no exception found; display the button
+return true;
+
+end show_add_exception_button;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: S H O W _ W I T H D R A W _ E X C E P T I O N _ B U T T O N
+----------------------------------------------------------------------------------------------------------------------------
+-- Determines whether or not to show the Withdraw Exception button
+----------------------------------------------------------------------------------------------------------------------------
+function show_withdraw_exception_button
+  (
+   p_stale_eval    in varchar2
+  ,p_exception_key in varchar2
+  ,p_exception_id  in number
+  ,p_app_user      in varchar2
+  )
+return boolean
+is
+begin
+
+if p_stale_eval = 'Y' then
+  -- evaluation is on an older version of APEX; do not display the button
+  return false;
+else
+  -- check to see if an exception exists
+  for y in
+    (
+    select
+      1
+    from
+      exceptions_pub_v
+    where
+      exception_key = p_exception_key
+      and 1 = (select 1 from exceptions_pub_v where exception_id = p_exception_id and created_by = p_app_user)
+    )
+  loop
+    -- there is an exception by the current user; display the button
+    return true;
+  end loop;
+end if;
+-- no exception found from the current user or exception is from another user; do not display the button
+return false;
+
+end show_withdraw_exception_button;
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 -- FUNCTION: W I T H D R A W _ E X C E P T I O N
 ----------------------------------------------------------------------------------------------------------------------------

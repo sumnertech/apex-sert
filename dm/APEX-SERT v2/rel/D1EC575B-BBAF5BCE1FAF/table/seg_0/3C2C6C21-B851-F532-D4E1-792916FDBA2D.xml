@@ -179,9 +179,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>250</dataTypeSize>
-<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
-<defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="CREATED_ON" id="D71F4DC5-9B35-F09F-7D17-02F6062A81D2">
@@ -191,9 +189,7 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT047</logicalDatatype>
-<defaultValue>systimestamp</defaultValue>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="UPDATED_BY" id="70717325-333F-DE67-220C-BCE63C70AAF9">
@@ -205,9 +201,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>250</dataTypeSize>
-<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 <ownDataTypeParameters>250,,</ownDataTypeParameters>
-<defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="UPDATED_ON" id="1C926F25-197C-6E2E-F9E9-3128213EE7D4">
@@ -218,9 +212,7 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT047</logicalDatatype>
-<defaultValue>systimestamp</defaultValue>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<defaultOntNull>true</defaultOntNull>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ACTIONED_BY" id="5FBB01AE-10D3-B08C-B53D-F8F7F5E57973">

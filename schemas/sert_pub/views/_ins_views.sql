@@ -9,7 +9,8 @@ PROMPT
 PROMPT ==================================================================================
 PROMPT = CREATING VIEWS IN SERT_PUB
 PROMPT ==================================================================================
-PROMPT 
+PROMPT
+@@schemas/sert_pub/views/apex_version_pub_v.sql
 @@schemas/sert_pub/views/rule_sets_pub_v.sql
 @@schemas/sert_pub/views/evals_pub_v.sql
 @@schemas/sert_pub/views/rules_pub_v.sql

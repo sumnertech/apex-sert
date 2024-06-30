@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_EXCEPTIONS" directorySegmentName="seg_0" id="2EEA2146-BB75-12C7-B304-3496016BB59A">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:15:50 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<actions>INSERT</actions>
+<body><![CDATA[begin
+if :new.created_by is null then
+  :new.created_by := coalesce(sys_context('APEX$SESSION','APP_USER'),user);
+end if;
+if :new.created_on is null then
+  :new.created_on := systimestamp;
+end if;
+end;
+]]></body>
+<triggerTime>BEFORE</triggerTime>
+<table>3C2C6C21-B851-F532-D4E1-792916FDBA2D</table>
+</TriggerOraclev10g>

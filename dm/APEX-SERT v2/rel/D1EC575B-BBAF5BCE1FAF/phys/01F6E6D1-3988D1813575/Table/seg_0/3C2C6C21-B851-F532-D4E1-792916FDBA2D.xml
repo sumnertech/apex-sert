@@ -19,24 +19,41 @@
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<defaultValue>systimestamp</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="REASON" id="304B32B5-5A6C-FD31-DF2B-01145FD6C588">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RESULT" id="51AE51B9-2220-67FA-2094-B6D0D03B8740">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="CREATED_BY" id="569E49F7-7622-CC5A-3FA7-D77E3278EEE0">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 </ColumnProxy>
 <ColumnProxy name="COLUMN_NAME" id="5F38D54F-0E65-6851-2C07-C6E58149CB8F">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
+<ColumnProxy name="ACTIONED_BY" id="5FBB01AE-10D3-B08C-B53D-F8F7F5E57973">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COMPONENT_NAME" id="662BCDBF-E7BE-B072-1AC6-1C74ADAD895B">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
 <ColumnProxy name="UPDATED_BY" id="70717325-333F-DE67-220C-BCE63C70AAF9">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<defaultValue>coalesce(sys_context(&apos;APEX$SESSION&apos;,&apos;APP_USER&apos;),user)</defaultValue>
 </ColumnProxy>
 <ColumnProxy name="SHARED_COMP_NAME" id="71EFE560-4FFC-2085-06F3-913C26E663B0">
 <createdBy>sspendol</createdBy>
@@ -48,9 +65,14 @@
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
-<ColumnProxy name="EXCEPTION_REASON" id="7DCDC4B8-241B-E0D1-C4E4-3B4831E9AFF1">
+<ColumnProxy name="EXCEPTION" id="7DCDC4B8-241B-E0D1-C4E4-3B4831E9AFF1">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ACTIONED_ON" id="9089BBE6-947B-B908-9BA1-2DA879F00B22">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 <ColumnProxy name="RULE_SET_ID" id="9A5DFAF0-E797-432E-E196-CF6A51A9159C">
@@ -82,11 +104,15 @@
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
-<defaultValue>systimestamp</defaultValue>
 </ColumnProxy>
 <ColumnProxy name="COMPONENT_ID" id="E60B3A7A-2F42-827A-1D23-3873382FBA46">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CURRENT_VALUE" id="F736C1D1-6572-7C0D-864F-366DFFC44DD5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-19 23:09:48 UTC</createdTime>
 <ownerDesignName>APEX-SERT v2</ownerDesignName>
 </ColumnProxy>
 </columnProxies>

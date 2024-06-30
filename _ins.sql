@@ -134,7 +134,7 @@ end;
 
 
 PROMPT  =================
-PROMPT  =================  Check for APEX 23.2.0 or above
+PROMPT  =================  Check for APEX 24.1.0 or above
 PROMPT  =================
 declare
     l_version number;
@@ -146,7 +146,7 @@ begin
        into l_version, l_status;
     EXCEPTION
        when NO_DATA_FOUND then
-         dbms_output.put_line('SERT installation requires a VALID APEX installation of Version 23.2.0 or above.');
+         dbms_output.put_line('SERT installation requires a VALID APEX installation of Version 24.1.0 or above.');
           dbms_output.put_line('-- NO APEX INSTALLATION FOUND IN DBA_REGISTRY.');
           execute immediate 'bogus statement to force exit';
        when others then
@@ -155,8 +155,8 @@ begin
          execute immediate 'bogus statement to force exit';
     END;
 
-    if l_version < 2320 then
-        dbms_output.put_line('SERT installation requires APEX version 23.2.0 or later.');
+    if l_version < 2410 then
+        dbms_output.put_line('SERT installation requires APEX version 24.1.0 or later.');
         execute immediate 'bogus statement to force exit';
     elsif l_status = 'INVALID' then
         dbms_output.put_line('Current version of APEX is marked as INVALID.');
@@ -320,6 +320,9 @@ BEGIN
   -- remove line to not enable the workspace
   apex_instance_admin.enable_workspace(l_workspace);
 
+  -- enable this workspace to host builder extensions
+  -- apex_instance_admin.set_workspace_parameter('SERT', 'ALLOW_HOSTING_EXTENSIONS', 'Y');
+
   -- Save the new workspace
   COMMIT;
 
@@ -352,9 +355,9 @@ declare
   l_count number;
 begin
 select count(*) into l_count from dba_tab_columns where column_name = 'CLOUD_IDENTITY';
-if l_count >0 then 
+if l_count >0 then
   execute immediate 'create user sert_admin identified by "^ws_password"';
-end if; 
+end if;
 exception
   when others then null;
 end;

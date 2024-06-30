@@ -13,7 +13,8 @@ where
   and er.result = 'PENDING'
 group by
   er.eval_id
-)
+),
+  apex_version as (select v('G_APEX_VERSION') as version from dual)
   ,low_score  as (select pref_value as val from prefs where pref_key = 'LOW_SCORE_VALUE')
   ,high_score as (select pref_value as val from prefs where pref_key = 'HIGH_SCORE_VALUE')
 select
@@ -34,13 +35,15 @@ select
   ,'Evaluated ' || apex_util.get_since(eval_on) || ' by ' || eval_by
     || case when eval_on_date < last_updated_on then ' / Application updated ' || apex_util.get_since(eval_on_date + (last_updated_on - eval_on_date)) else null end
     as eval_by_long
-  ,'r/' || path_prefix || '/' || application_id || '/files/static/v6/icons/app-icon-512.png' as app_image
+  ,'r/' || workspace || '/' || application_id || '/files/static/v6/icons/app-icon-512.png' as app_image
   ,case
     when eval_on_date < last_updated_on then 'Stale'
+    when e.apex_version != apex_version.version then 'Stale Rules'
     else initcap(job_status)
    end as job_status
   ,case
     when eval_on_date < last_updated_on then 'danger'
+    when e.apex_version != apex_version.version then 'danger'
     when upper(job_status) = 'COMPLETED' then 'success'
     when upper(job_status) = 'FAILED' then 'danger'
     when upper(job_status) = 'RUNNING' then 'warning'
@@ -57,16 +60,17 @@ select
   ,e.summary
   ,e.job_name
   ,nvl(ec.cnt,0) as exception_cnt
+  ,e.apex_version
   ,e.created_by
   ,e.created_on
   ,e.updated_by
   ,e.updated_on
 from
-  sert_core.evals_v e
+   evals_v e
   ,exception_cnt ec
   ,low_score
   ,high_score
+  ,apex_version
 where 1=1
-  and workspace_id = (select nv('G_WORKSPACE_ID') from dual)
   and e.eval_id = ec.eval_id(+)
 /

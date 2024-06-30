@@ -33,10 +33,13 @@ procedure log
   )
 is
   pragma autonomous_transaction;
+  l_log_evals varchar2(1);
 begin
 
+select pref_value into l_log_evals from prefs where pref_key = 'LOG_EVALUATIONS';
+
 -- log the value if logging is enabled
-if g_log_evals = 'Y' then
+if l_log_evals = 'Y' then
 
   insert into logs
     (

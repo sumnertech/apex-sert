@@ -341,6 +341,192 @@ end copy_rule;
 
 
 ----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: U P G R A D E _ R U L E S
+----------------------------------------------------------------------------------------------------------------------------
+-- Upgrades a rule by creating a copy and disabling the old one
+----------------------------------------------------------------------------------------------------------------------------
+procedure upgrade_rules
+is
+  l_apex_version      number := nv('G_APEX_VERSION');
+  l_prev_apex_version number;
+  l_rule_set_id       number;
+begin
+
+-- get the latest version of APEX
+select pref_value into l_prev_apex_version from prefs where pref_key = 'SERT_APEX_VERSION';
+
+-- Copy the Rule Sets and associate them woth the new version of APEX
+insert into rule_sets
+  (
+   rule_set_type_id
+  ,rule_set_name
+  ,rule_set_key
+  ,apex_version
+  ,active_yn
+  ,internal_yn
+  )
+select
+   rule_set_type_id
+  ,rule_set_name
+  ,rule_set_key
+  ,l_apex_version
+  ,active_yn
+  ,internal_yn
+from
+  rule_sets
+where
+  apex_version = l_prev_apex_version;
+
+-- Copy all Rules and associate them woth the new version of APEX
+insert into rules
+  (
+   rule_name
+  ,rule_key
+  ,category_id
+  ,risk_id
+  ,rule_severity_id
+  ,rule_type
+  ,impact
+  ,apex_version
+  ,view_name
+  ,column_to_evaluate
+  ,component_id
+  ,component_name
+  ,column_name
+  ,item_name
+  ,shared_comp_name
+  ,operand
+  ,val_char
+  ,val_number
+  ,rule_criteria_type_id
+  ,case_sensitive_yn
+  ,additional_where
+  ,custom_query
+  ,active_yn
+  ,internal_yn
+  ,help_url
+  ,builder_url_id
+  ,info
+  ,fix
+  ,time_to_fix
+  ,description
+  )
+select
+   rule_name
+  ,rule_key
+  ,category_id
+  ,risk_id
+  ,rule_severity_id
+  ,rule_type
+  ,impact
+  ,l_apex_version
+  ,view_name
+  ,column_to_evaluate
+  ,component_id
+  ,component_name
+  ,column_name
+  ,item_name
+  ,shared_comp_name
+  ,operand
+  ,val_char
+  ,val_number
+  ,rule_criteria_type_id
+  ,case_sensitive_yn
+  ,additional_where
+  ,custom_query
+  ,active_yn
+  ,internal_yn
+  ,help_url
+  ,builder_url_id
+  ,info
+  ,fix
+  ,time_to_fix
+  ,description
+from
+  rules
+where
+  apex_version = l_prev_apex_version;
+
+-- Map new Rules to new Rule Sets based on Previous Mappings
+for x in (select * from rule_sets where apex_version = l_prev_apex_version)
+loop
+
+  -- get the new rule_set_id based on the key
+  select rule_set_id into l_rule_set_id from rule_sets where rule_set_key = x.rule_set_key and apex_version = l_apex_version;
+
+  -- Loop through and add the rules
+  for y in (select * from rule_set_rules where rule_set_id = x.rule_set_id)
+  loop
+    insert into rule_set_rules
+      (
+       rule_set_id
+      ,rule_id
+      )
+    values
+      (
+       l_rule_set_id
+      ,(select rule_id from rules where rule_key = (select rule_key from rules where rule_id = y.rule_id) and apex_version = l_apex_version)
+      );
+  end loop;
+
+  -- Loop through and copy Exceptions
+  for y in (select * from exceptions where rule_set_id = x.rule_set_id)
+  loop
+
+    -- Copy the exceptions
+    insert into exceptions
+      (
+       rule_set_id
+      ,rule_id
+      ,exception
+      ,workspace_id
+      ,application_id
+      ,page_id
+      ,component_id
+      ,column_name
+      ,item_name
+      ,shared_comp_name
+      ,result
+      ,reason
+      ,current_value
+      ,component_name
+      ,created_on
+      ,created_by
+      ,updated_on
+      ,updated_by
+      )
+    values
+      (
+       l_rule_set_id
+      ,(select rule_id from rules where rule_key = (select rule_key from rules where rule_id = y.rule_id) and apex_version = l_apex_version)
+      ,y.exception
+      ,y.workspace_id
+      ,y.application_id
+      ,y.page_id
+      ,y.component_id
+      ,y.column_name
+      ,y.item_name
+      ,y.shared_comp_name
+      ,y.result
+      ,y.reason
+      ,y.current_value
+      ,y.component_name
+      ,y.created_on
+      ,y.created_by
+      ,y.updated_on
+      ,y.updated_by
+      );
+
+  end loop;
+end loop;
+
+-- Update the prefernece to point to the latest version of APEX
+update prefs set pref_value = l_apex_version where pref_key = 'SERT_APEX_VERSION';
+
+end upgrade_rules;
+
+
+----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 end rules_pkg;
 /
