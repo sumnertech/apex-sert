@@ -37,8 +37,10 @@ PROMPT
 @@schemas/sert_core/views/rules_json_to_relational_v.sql
 @@schemas/sert_core/views/exception_cnt_v.sql
 @@schemas/sert_core/views/eval_results_v.sql
+@@schemas/sert_core/views/eval_results_history_v.sql
 @@schemas/sert_core/views/exceptions_v.sql
-
+@@schemas/sert_core/views/exceptions_json_to_rel_v.sql
+@@schemas/sert_core/views/exceptions_rel_to_json_v.sql
 
 -- installs pub views
 @@schemas/sert_core/views/apex_version_pub_v.sql
@@ -48,3 +50,4 @@ PROMPT
 @@schemas/sert_core/views/eval_results_pub_v.sql
 @@schemas/sert_core/views/comments_pub_v.sql
 @@schemas/sert_core/views/exceptions_pub_v.sql
+@@schemas/sert_core/views/eval_history_pub_v.sql

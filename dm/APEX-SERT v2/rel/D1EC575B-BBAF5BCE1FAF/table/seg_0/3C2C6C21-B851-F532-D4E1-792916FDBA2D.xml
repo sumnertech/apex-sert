@@ -263,6 +263,23 @@
 <colUsage columnID="1971AA40-7720-BC9F-F314-0FB871CA07FD"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="8FFD5B79-6D8D-9A85-0646-B2E5DE6D9168" name="EXCEPTIONS_UN">
+<createdBy>scspend</createdBy>
+<createdTime>2024-07-02 13:00:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9A5DFAF0-E797-432E-E196-CF6A51A9159C"/>
+<colUsage columnID="D52C7541-5461-4A9E-A623-12AE4CB88E4C"/>
+<colUsage columnID="7ACE184D-9E32-D63C-65AA-6F346004770F"/>
+<colUsage columnID="A321DAFF-E1B0-6058-A881-70D89FE187F5"/>
+<colUsage columnID="C057A8CD-D138-939B-60B5-EAF0956456AD"/>
+<colUsage columnID="E60B3A7A-2F42-827A-1D23-3873382FBA46"/>
+<colUsage columnID="5F38D54F-0E65-6851-2C07-C6E58149CB8F"/>
+<colUsage columnID="A4877B18-0CC2-BD84-0C4E-3C5CC887C9A0"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="4093F6F0-5D35-2F4D-B7C9-CC653376F956" name="E_RULE_SETS_FKv2">
 <createdBy>sspendol</createdBy>
 <createdTime>2024-02-29 13:18:12 UTC</createdTime>

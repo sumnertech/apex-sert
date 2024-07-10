@@ -36,7 +36,23 @@ procedure calc_score
     p_eval_id in number
   )
 is
+  l_denominator number;
 begin
+
+select count(*) into l_denominator from eval_results_v where eval_id = p_eval_id;
+if l_denominator = 0 then
+
+update
+  evals
+set
+  score = 100
+  ,pending_score = 100
+  ,approved_score = 100
+where
+  eval_id = p_eval_id;
+
+
+else
 
 update
   evals
@@ -44,23 +60,21 @@ set
   score =
     round
     (
-      (select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') /
-      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+      (select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') / l_denominator * 100
     )
   ,pending_score =
     round
     (
-      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'PENDING')) /
-      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'PENDING')) / l_denominator * 100
     )
   ,approved_score =
     round
     (
-      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'APPROVED')) /
-      (select count(*) from eval_results_v where eval_id = p_eval_id) * 100
+      ((select count(*) from eval_results_v where eval_id = p_eval_id and result = 'PASS') + (select count(*) as total from eval_results_pub_v where eval_id = p_eval_id and result = 'APPROVED')) / l_denominator * 100
     )
 where
   eval_id = p_eval_id;
+end if;
 
 end calc_score;
 
@@ -148,6 +162,7 @@ is
   l_result                 varchar2(1000);
   l_sql                    varchar2(4000);
   l_rule_criteria_type_key varchar2(250);
+  l_eval_history_id        number;
 begin
 
 -- start the evaluation
@@ -366,6 +381,87 @@ where
 
 calc_score(p_eval_id => p_eval_id);
 
+-- capture the evaluation in the _HISTORY tables
+log_pkg.log(p_log => 'Capturing evaluation history', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
+
+for x in (select e.*, rs.rule_set_name, rs.rule_set_key, rs.apex_version from evals e, rule_sets rs where e.rule_set_id = rs.rule_set_id and rs.rule_set_id = p_rule_set_id and e.eval_id = p_eval_id)
+loop
+  -- first, insert the evaluation history
+  insert into eval_history
+    (
+     workspace_id
+    ,application_id
+    ,rule_set_name
+    ,rule_set_key
+    ,apex_version
+    ,eval_on
+    ,eval_on_date
+    ,eval_by
+    ,summary
+    ,score
+    ,pending_score
+    ,approved_score
+    )
+  values
+    (
+     x.workspace_id
+    ,x.application_id
+    ,x.rule_set_name
+    ,x.rule_set_key
+    ,x.apex_version
+    ,x.eval_on
+    ,x.eval_on_date
+    ,x.eval_by
+    ,x.summary
+    ,x.score
+    ,x.pending_score
+    ,x.approved_score
+    )
+  returning
+    eval_history_id into l_eval_history_id;
+
+  -- next, insert all of the results
+  insert into eval_results_history
+    (
+     eval_history_id
+    ,rule_name
+    ,rule_key
+    ,category_name
+    ,category_key
+    ,page_id
+    ,component_name
+    ,item_name
+    ,column_name
+    ,shared_comp_name
+    ,result
+    ,current_value
+    ,valid_values
+    )
+  select
+    l_eval_history_id
+    ,r.rule_name
+    ,r.rule_key
+    ,c.category_name
+    ,c.category_key
+    ,er.page_id
+    ,er.component_name
+    ,er.item_name
+    ,er.column_name
+    ,er.shared_comp_name
+    ,er.result
+    ,er.current_value
+    ,er.valid_values
+  from
+     eval_results er
+    ,rules r
+    ,categories c
+  where
+    er.eval_id = p_eval_id
+    and er.rule_id = r.rule_id
+    and r.category_id = c.category_id;
+
+end loop;
+
 -- end the evaluation
 log_pkg.log(p_log => 'Evaluation completed', p_log_key => g_log_key, p_log_type => g_log_type, p_application_id => p_application_id);
 
@@ -570,11 +666,11 @@ loop
       || ' data-pageid="'      || nvl(x.page_id,0) || '" '
       || ' data-typeid="'      || x.data_type_id   || '" '
       || ' data-componentid="' || x.component_id   || '" '
-      || ' data-designer="page"';
+      || ' data-designer="'    || case when x.data_type_id in (8820,8830,8840,8850,8860) then 'workflow' else 'page' end || '"';
 
   else
 
-    return 'data-link="r/apex/app-builder/' || replace(x.data_link, '#COMPONENT_ID#', x.component_id) || '&fb_flow_id=' || x.application_id || '&session=' || p_builder_session_id || '"';
+    return 'data-link="' || 'r/apex/app-builder/' || replace(x.data_link, '#COMPONENT_ID#', x.component_id) || '&fb_flow_id=' || x.application_id || '&session=' || p_builder_session_id || '"';
 
   end if;
 

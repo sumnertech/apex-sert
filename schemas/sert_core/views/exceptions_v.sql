@@ -3,7 +3,10 @@ as
 select
    e.exception_id
   ,e.rule_set_id
+  ,rs.rule_set_key
   ,e.rule_id
+  ,r.rule_key
+  ,rs.apex_version
   ,e.workspace_id
   ,e.application_id
   ,e.page_id
@@ -22,6 +25,32 @@ select
   ,e.updated_by
   ,e.actioned_by
   ,e.actioned_on
+  ,ora_hash
+    (
+       rs.rule_set_key
+    || r.rule_key
+    || rs.apex_version
+    || e.workspace_id
+    || e.application_id
+    || e.page_id
+    || e.component_id
+    || e.component_name
+    || e.column_name
+    || e.item_name
+    || e.shared_comp_name
+    || e.current_value
+    || e.exception
+    || e.result
+    || e.reason
+    || e.created_by
+    || e.updated_by
+    || e.actioned_by
+    ) as checksum
 from
-  exceptions e
+   exceptions e
+  ,rules r
+  ,rule_sets rs
+where
+  e.rule_id = r.rule_id
+  and e.rule_set_id = rs.rule_set_id
 /

@@ -1,0 +1,19 @@
+create or replace view sert_pub.eval_history_pub_v
+as
+select
+   eval_history_id
+  ,workspace_id
+  ,application_id
+  ,rule_set_name
+  ,rule_set_key
+  ,apex_version
+  ,eval_on
+  ,eval_on_date
+  ,eval_by
+  ,summary
+  ,score
+  ,pending_score
+  ,approved_score
+from
+  sert_core.eval_history_pub_v
+/

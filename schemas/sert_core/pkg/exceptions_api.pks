@@ -61,5 +61,17 @@ procedure add_exception
   ,p_eval_id          in number
   );
 
+procedure download_exceptions
+  (
+   p_application_id in number
+  ,p_eval_id        in number
+  );
+
+procedure upload_exceptions
+  (
+   p_name      in varchar2
+  ,p_eval_id   in number
+  );
+
 end exceptions_api;
 /

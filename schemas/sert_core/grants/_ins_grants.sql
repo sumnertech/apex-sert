@@ -34,3 +34,5 @@ PROMPT
 @@schemas/sert_core/grants/comments_api.sql
 @@schemas/sert_core/grants/exceptions_api.sql
 @@schemas/sert_core/grants/exceptions_pub_v.sql
+@@schemas/sert_core/grants/eval_history_pub_v.sql
+@@schemas/sert_core/grants/schedule_api.sql

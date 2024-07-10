@@ -1,0 +1,164 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DE6D101A-39A1-844C-AAFF-E8A921AD9B69" name="EVAL_HISTORY">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EVAL_HISTORY_ID" id="CDBF1A22-79D0-7CB8-F61C-4E3E8462EB48">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:20:30 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WORKSPACE_ID" id="55DA1D97-985A-5B86-5FF5-3BDAD11F70D9">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APPLICATION_ID" id="91A39DE0-6B62-4EFB-860B-A6A7D2D33443">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RULE_SET_NAME" id="53BA123A-D583-A434-F2A1-6D03C7AA2014">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:33:03 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RULE_SET_KEY" id="9FCDD408-A355-3147-E257-9EF2C7A2BFEC">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:22:09 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APEX_VERSION" id="3ECE642F-13EF-5669-F608-926BBD3175D3">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:22:09 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EVAL_ON" id="0C404C3E-2B9F-ECA5-7D86-C15D19A61609">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT047</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EVAL_ON_DATE" id="E868D3D9-9368-620B-B05E-B8BF12D243E5">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EVAL_BY" id="2B96399A-B589-EECE-70B5-D5DE713A26EA">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SUMMARY" id="BF4D46BA-03DA-B244-0805-304E3DB68226">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SCORE" id="14CDDFF8-8538-F4D3-CD6E-BB9C73491B64">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PENDING_SCORE" id="670C91BB-F101-CDD3-C841-BD51B3E9A0C4">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APPROVED_SCORE" id="BD74CAF1-941C-E068-9DB0-89C45F913FF0">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="29283BCC-FAB3-4A34-EB17-D6A31BCF0F30" name="EVAL_HISTORY_PK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 14:18:56 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CDBF1A22-79D0-7CB8-F61C-4E3E8462EB48"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

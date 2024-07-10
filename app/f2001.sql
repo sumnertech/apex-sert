@@ -33,7 +33,7 @@ prompt APPLICATION 2001 - APEX-SERT Administration
 -- Application Export:
 --   Application:     2001
 --   Name:            APEX-SERT Administration
---   Date and Time:   01:46 Tuesday June 25, 2024
+--   Date and Time:   12:35 Wednesday July 10, 2024
 --   Exported By:     SERT_ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -28632,7 +28632,7 @@ wwv_flow_imp_page.create_page_item(
 'from ',
 '  all_views ',
 'where ',
-'  view_name like ''APEX_APPL%'' and owner = (select username from all_users where username like ''APEX_%'' order by username desc fetch first 1 row only)',
+'  view_name like ''APEX_APPL%'' and owner = (select username from all_users where username like ''APEX_%'' and username != ''APEX_PUBLIC_ROUTER'' order by username desc fetch first 1 row only)',
 ''))
 ,p_cSize=>32
 ,p_cMaxlength=>250
@@ -28776,6 +28776,7 @@ wwv_flow_imp_page.create_report_region(
 ,p_query_row_template=>wwv_flow_imp.id(340116822905919480)
 ,p_query_num_rows=>15
 ,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'No data found'
 ,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
 ,p_pagination_display_position=>'BOTTOM_RIGHT'
 ,p_csv_output=>'N'
@@ -28962,6 +28963,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(139296286878619075)
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(139664809398033672)

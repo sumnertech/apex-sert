@@ -13,3 +13,4 @@ PROMPT
 @@schemas/sert_pub/synonyms/eval_pkg.sql
 @@schemas/sert_pub/synonyms/comments_api.sql
 @@schemas/sert_pub/synonyms/exceptions_api.sql
+@@schemas/sert_pub/synonyms/schedule_api.sql
