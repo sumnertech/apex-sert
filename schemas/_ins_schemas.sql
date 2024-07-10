@@ -47,6 +47,7 @@ PROMPT
 PROMPT Granting APEX_ADMINISTRATOR_ROLE to SERT_CORE
 PROMPT
 grant apex_administrator_read_role to sert_core;
+grant execute on dbms_scheduler to sert_core;
 PROMPT
 PROMPT Schema Creation Complete...
 PROMPT
