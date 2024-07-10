@@ -23,6 +23,7 @@ PROMPT =========================================================================
 PROMPT
 -- installs views
 @@schemas/sert_core/views/apex_version_v.sql
+@@schemas/sert_core/views/apex_version_pub_v.sql
 @@schemas/sert_core/views/categories_v.sql
 @@schemas/sert_core/views/rule_sets_v.sql
 @@schemas/sert_core/views/rules_v.sql

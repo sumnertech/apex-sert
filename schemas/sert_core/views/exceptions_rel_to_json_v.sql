@@ -55,3 +55,4 @@ create or replace view sert_core.exceptions_rel_to_json_v as
         ,checksum               number path  '$.checksum'
         )
       ) j
+/
