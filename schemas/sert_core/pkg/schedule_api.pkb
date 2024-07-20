@@ -27,13 +27,18 @@ select to_char(cast(to_timestamp(p_hour || '.' || p_min || ' ' || p_ampm,'HH:MI 
 dbms_scheduler.create_job(
    job_name        => 'SERT_EVAL_' || p_app_id || '_' || p_rule_set_key
   ,job_type        => 'PLSQL_BLOCK'
+  ,start_date      => systimestamp
   ,job_action      => 'declare l_eval_id number; begin eval_pkg.eval(p_application_id => ' || p_app_id || ', p_rule_set_key => ''' || p_rule_set_key || ''', p_eval_id_out => l_eval_id); end;'
   ,repeat_interval => 'FREQ=daily;BYDAY=' || p_frequency || ';BYHOUR=' || l_hour || ';BYMINUTE=' || p_min || '; bysecond=0;'
   ,enabled         => true
   ,auto_drop       => false
   );
 
+-- finally, allow sert_core to manage this job
+execute immediate 'grant alter on sert_pub.sert_eval_' || p_app_id || '_' || p_rule_set_key || ' to sert_core';
+
 end add_schedule_job;
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 -- PROCEDURE: R E M O V E _ S C H E D U L E _ J O B
