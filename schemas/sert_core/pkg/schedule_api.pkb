@@ -25,7 +25,7 @@ select to_char(cast(to_timestamp(p_hour || '.' || p_min || ' ' || p_ampm,'HH:MI 
 
 -- then schedule the job
 dbms_scheduler.create_job(
-   job_name        => 'SERT_EVAL_' || p_app_id || '_' || p_rule_set_key
+   job_name        => 'SERT_SCHEDULED_EVAL_' || p_app_id || '_' || p_rule_set_key
   ,job_type        => 'PLSQL_BLOCK'
   ,start_date      => systimestamp
   ,job_action      => 'declare l_eval_id number; begin eval_pkg.eval(p_application_id => ' || p_app_id || ', p_rule_set_key => ''' || p_rule_set_key || ''', p_eval_id_out => l_eval_id); end;'
@@ -35,7 +35,7 @@ dbms_scheduler.create_job(
   );
 
 -- finally, allow sert_core to manage this job
-execute immediate 'grant alter on sert_pub.sert_eval_' || p_app_id || '_' || p_rule_set_key || ' to sert_core';
+execute immediate 'grant alter on sert_pub.sert_scheduled_eval_' || p_app_id || '_' || p_rule_set_key || ' to sert_core';
 
 end add_schedule_job;
 
@@ -53,7 +53,7 @@ procedure remove_schedule_job
 is
 begin
 
-dbms_scheduler.drop_job(job_name => 'SERT_EVAL_' || p_app_id || '_' || p_rule_set_key);
+dbms_scheduler.drop_job(job_name => 'SERT_SCHEDULED_EVAL_' || p_app_id || '_' || p_rule_set_key);
 
 end remove_schedule_job;
 

@@ -33,7 +33,7 @@ prompt APPLICATION 2000 - APEX-SERT
 -- Application Export:
 --   Application:     2000
 --   Name:            APEX-SERT
---   Date and Time:   12:35 Wednesday July 10, 2024
+--   Date and Time:   15:35 Saturday July 20, 2024
 --   Exported By:     SERT_ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -19749,7 +19749,7 @@ wwv_flow_imp_page.create_report_region(
 '    FROM ',
 '      user_scheduler_jobs j',
 '    where ',
-'      job_name = ''SERT_EVAL_'' || application_id || ''_'' || rule_set_key ',
+'      job_name = ''SERT_SCHEDULED_EVAL_'' || application_id || ''_'' || rule_set_key ',
 '    ) as schedule',
 'from ',
 '  evals_pub_v',
@@ -23173,7 +23173,7 @@ wwv_flow_imp_page.create_page_plug(
 'from ',
 '  user_scheduler_jobs ',
 'where ',
-'  job_name = ''SERT_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
+'  job_name = ''SERT_SCHEDULED_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
   'expand_shortcuts', 'N',
   'output_as', 'HTML')).to_clob
@@ -23204,7 +23204,7 @@ wwv_flow_imp_page.create_page_plug(
 'from ',
 '  user_scheduler_jobs ',
 'where ',
-'  job_name = ''SERT_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
+'  job_name = ''SERT_SCHEDULED_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
   'expand_shortcuts', 'N',
   'output_as', 'HTML')).to_clob
@@ -23233,7 +23233,7 @@ wwv_flow_imp_page.create_report_region(
 'FROM ',
 '  user_scheduler_jobs j',
 'where ',
-'  job_name = ''SERT_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY ',
+'  job_name = ''SERT_SCHEDULED_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY ',
 ''))
 ,p_ajax_enabled=>'Y'
 ,p_lazy_loading=>false
@@ -23300,7 +23300,7 @@ wwv_flow_imp_page.create_page_button(
 'from ',
 '  user_scheduler_jobs ',
 'where ',
-'  job_name = ''SERT_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
+'  job_name = ''SERT_SCHEDULED_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
 ,p_button_condition_type=>'NOT_EXISTS'
 );
 wwv_flow_imp_page.create_page_button(
@@ -23321,7 +23321,7 @@ wwv_flow_imp_page.create_page_button(
 'from ',
 '  user_scheduler_jobs ',
 'where ',
-'  job_name = ''SERT_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
+'  job_name = ''SERT_SCHEDULED_EVAL_'' || :P50_APP_ID || ''_'' || :P50_RULE_SET_KEY'))
 ,p_button_condition_type=>'EXISTS'
 );
 wwv_flow_imp_page.create_page_item(

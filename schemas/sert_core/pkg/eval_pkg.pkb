@@ -551,7 +551,7 @@ end if;
 
 if p_run_in_background = 'Y' then
   -- set the evaluation to run in the background
-  l_job_name := 'SERT_' || to_char(p_application_id) || '_' || to_char(p_eval_id_out);
+  l_job_name := 'SERT_BACKGROUND_' || to_char(p_application_id) || '_' || p_rule_set_key || '_' || to_char(p_eval_id_out);
 
   dbms_scheduler.create_job
     (
