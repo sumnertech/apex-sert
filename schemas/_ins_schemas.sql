@@ -47,6 +47,8 @@ PROMPT
 PROMPT Granting APEX_ADMINISTRATOR_ROLE to SERT_CORE
 PROMPT
 grant apex_administrator_read_role to sert_core;
+grant create job to sert_core;
+grant create job to sert_pub;
 PROMPT
 PROMPT Schema Creation Complete...
 PROMPT

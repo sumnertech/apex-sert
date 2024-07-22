@@ -17,3 +17,4 @@ PROMPT
 @@schemas/sert_pub/views/eval_results_pub_v.sql
 @@schemas/sert_pub/views/comments_pub_v.sql
 @@schemas/sert_pub/views/exceptions_pub_v.sql
+@@schemas/sert_pub/views/eval_history_pub_v.sql

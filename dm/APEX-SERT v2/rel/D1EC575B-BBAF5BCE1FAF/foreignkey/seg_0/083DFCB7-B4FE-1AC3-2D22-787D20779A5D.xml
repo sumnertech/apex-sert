@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="083DFCB7-B4FE-1AC3-2D22-787D20779A5D" containerWithKeyObject="BB31C48C-E8CA-6AA5-179A-3B77B592587C" localFKIndex="11E31FA5-626D-3356-4F26-4E55305C66DA" name="ERH_EVAL_HISTORY_FK">
+<createdBy>scspend</createdBy>
+<createdTime>2024-06-30 15:22:40 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<referredTableLongName>EVAL_HISTORY</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>DE6D101A-39A1-844C-AAFF-E8A921AD9B69</referredTableID>
+<keyObject>29283BCC-FAB3-4A34-EB17-D6A31BCF0F30</keyObject>
+<referredKeyID>29283BCC-FAB3-4A34-EB17-D6A31BCF0F30</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>EVAL_HISTORY_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,4 +1,4 @@
-create or replace package comments_api
+create or replace package sert_core.comments_api
 as
 
 procedure add_comment

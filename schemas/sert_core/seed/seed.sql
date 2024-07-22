@@ -163,6 +163,7 @@ insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) val
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_AUTHORIZATION', 'Authorization Schemes');
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_BREADCRUMBS',   'Breadcrumbs');
 insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPLICATION_LIST_ENTRIES',  'List Entries');
+insert into sert_core.shared_comp_views (shared_comp_view, shared_comp_type) values ('APEX_APPL_TASKDEFS',             'Task Definitions');
 
 -- insert component keys
 insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Application',                     'APPLICATION',                     1000, '');
@@ -203,5 +204,11 @@ insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id
 insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Validation',                      'VALIDATION',                      5510, '');
 insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Page Computation',                'PAGE_COMPUTATION',                5520, '');
 insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Page Process',                    'PAGE_PROCESS',                    5530, '');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Task Definition',                 'TASK_DEFINITION',                 3700, 'edit-task-definition?p9502_id=#COMPONENT_ID#&clear=RP,9502');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Workflow Version',                'WORKFLOW_VERSION',                8820, '');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Workflow Activity',               'WORKFLOW_ACTIVITY',               8830, '');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Workflow Variable',               'WORKFLOW_VARIABLE',               8840, '');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Workflow Participant',            'WORKFLOW_PARTICIPANT',            8860, '');
+insert into sert_core.builder_urls(component_name, builder_url_key, data_type_id, data_link) values ('Workflow Activity Variable',      'WORKFLOW_ACTIVITY_VARIABLE',      8850, '');
 
 commit;

@@ -243,5 +243,204 @@ eval_pkg.calc_score(p_eval_id => p_eval_id);
 
 end add_exception;
 
+
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: D O W N L O A D  _ E X C E P T I O N S
+----------------------------------------------------------------------------------------------------------------------------
+-- Downloads an applications exceptions as a JSON file
+----------------------------------------------------------------------------------------------------------------------------
+procedure download_exceptions
+  (
+   p_application_id in number
+  ,p_eval_id        in number
+  )
+is
+  l_log_key varchar2(10) := log_pkg.get_log_key;
+begin
+
+log_pkg.log(p_log => 'Downloading Exceptions for Application ' || p_application_id, p_log_key => l_log_key, p_log_type => 'EXCEPTION_EXPORT', p_application_id => p_application_id);
+
+-- loop through the current evaluation to get the rule_set_id
+for x in (select * from evals_pub_v where eval_id = p_eval_id)
+loop
+  -- loop through all exceptions that match on application_id and rule_set_id
+  for y in (select * from exceptions_json_to_rel_v where application_id = p_application_id and rule_set_id = x.rule_set_id)
+  loop
+
+    -- download the JSON file
+    apex_http.download
+      (
+       p_clob => y.json_doc
+      ,p_content_type => 'application/json'
+      ,p_filename => 'Exceptions for App ' || p_application_id || ' - ' || to_char(localtimestamp, 'DD-MON-YYYY HH.MI.SS PM') || '.json'
+      );
+
+  end loop;
+end loop;
+
+log_pkg.log(p_log => 'Downloading Exceptions Completed for Application ' || p_application_id, p_log_key => l_log_key, p_log_type => 'EXCEPTION_EXPORT', p_application_id => p_application_id);
+
+end download_exceptions;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+-- PROCEDURE: U P L O A D  _ E X C E P T I O N S
+----------------------------------------------------------------------------------------------------------------------------
+-- Uploads and applies an Exceptions JSON file
+----------------------------------------------------------------------------------------------------------------------------
+procedure upload_exceptions
+  (
+   p_name      in varchar2
+  ,p_eval_id   in number
+  )
+is
+  l_fail           number := 0;
+  l_pass           number := 0;
+  l_application_id number;
+  l_rule_set_key   varchar2(250);
+  l_apex_version   number;
+  l_log_key        varchar2(10) := log_pkg.get_log_key;
+  l_checksum       number;
+begin
+
+-- get the application_id for the specific evaluation
+select application_id, rule_set_key, apex_version into l_application_id, l_rule_set_key, l_apex_version from evals_v where eval_id = p_eval_id;
+
+log_pkg.log(p_log => 'Uploading Exceptions for Application ' || l_application_id || ' - Rule Set ' || l_rule_set_key, p_log_key => l_log_key, p_log_type => 'EXCEPTION_IMPORT', p_application_id => l_application_id);
+
+-- find the file that was just uploaded
+for x in
+  (
+  select
+    *
+  from
+    exceptions_rel_to_json_v
+  where
+    name = p_name
+  )
+loop
+  -- check to make sure that the user can see the application and if so, try to insert the row
+  if l_application_id = x.application_id and l_rule_set_key = x.rule_set_key and l_apex_version = x.apex_version then
+
+    -- generate a checksum based on the data uploaded
+    select ora_hash
+      (
+           x.rule_set_key
+        || x.rule_key
+        || x.apex_version
+        || x.workspace_id
+        || x.application_id
+        || x.page_id
+        || x.component_id
+        || x.component_name
+        || x.column_name
+        || x.item_name
+        || x.shared_comp_name
+        || x.current_value
+        || x.exception
+        || x.result
+        || x.reason
+        || x.created_by
+        || x.updated_by
+        || x.actioned_by
+      )
+    into
+      l_checksum
+    from
+      dual;
+
+    -- verify that the checksums match
+    if x.checksum = l_checksum then
+
+      -- checksums match; insert the exception
+      begin
+      insert into exceptions
+        (
+         rule_set_id
+        ,rule_id
+        ,exception
+        ,workspace_id
+        ,application_id
+        ,page_id
+        ,component_id
+        ,column_name
+        ,item_name
+        ,shared_comp_name
+        ,result
+        ,reason
+        ,current_value
+        ,created_by
+        ,created_on
+        ,updated_by
+        ,updated_on
+        ,actioned_by
+        ,actioned_on
+        ,component_name
+        )
+      values
+        (
+         (select rule_set_id from rule_sets where rule_set_key = x.rule_set_key and apex_version = x.apex_version)
+        ,(select rule_id from rules where rule_key = x.rule_key and apex_version = x.apex_version)
+        ,x.exception
+        ,x.workspace_id
+        ,x.application_id
+        ,x.page_id
+        ,x.component_id
+        ,x.column_name
+        ,x.item_name
+        ,x.shared_comp_name
+        ,x.result
+        ,x.reason
+        ,x.current_value
+        ,x.created_by
+        ,to_timestamp_tz(x.created_on, 'YYYY-MM-DD"T"HH24:MI:SS.FF6TZH:TZM')
+        ,x.updated_by
+        ,x.updated_on
+        ,x.actioned_by
+        ,x.actioned_on
+        ,x.component_name
+        );
+
+      -- increment the pass counter
+      l_pass := l_pass + 1;
+
+      log_pkg.log(p_log => 'Exception Uploaded - Application: ' || x.application_id || ' - Rule Set: ' || l_rule_set_key || ' - Rule Key: ' || x.rule_key,
+        p_log_key => l_log_key, p_log_type => 'EXCEPTION_IMPORT', p_application_id => l_application_id);
+
+      exception
+        when others then
+        -- exception already exists, do not insert another one; increment the fail counter
+        l_fail := l_fail + 1;
+        log_pkg.log(p_log => 'Exception Failed (already exists) - Application: ' || x.application_id || ' - Rule Set: ' || l_rule_set_key || ' - Rule Key: ' || x.rule_key,
+          p_log_key => l_log_key, p_log_type => 'EXCEPTION_IMPORT', p_application_id => l_application_id);
+      end;
+
+    else
+      -- checksum does not match; increment the fail counter
+      l_fail := l_fail + 1;
+      log_pkg.log(p_log => 'Exception Failed (checksum mismatch) - Application: ' || x.application_id || ' - Rule Set: ' || l_rule_set_key || ' - Rule Key: ' || x.rule_key,
+        p_log_key => l_log_key, p_log_type => 'EXCEPTION_IMPORT', p_application_id => l_application_id);
+    end if;
+
+  else
+    -- exception is for another app/rule set combination; increment the fail counter
+    l_fail := l_fail + 1;
+    log_pkg.log(p_log => 'Exception Failed (other) - Application: ' || x.application_id || ' - Rule Set: ' || l_rule_set_key || ' - Rule Key: ' || x.rule_key,
+      p_log_key => l_log_key, p_log_type => 'EXCEPTION_IMPORT', p_application_id => l_application_id);
+  end if;
+
+end loop;
+
+-- set the message to be displayed
+apex_util.set_session_state('P40_MSG', l_pass || ' exceptions imported' || case when l_fail > 0 then ', ' || l_fail || ' ignored' else null end);
+
+log_pkg.log(p_log => 'Uploading Exceptions for Application ' || l_application_id || ' - Rule Set ' || l_rule_set_key || ' Completed',
+  p_log_key => l_log_key, p_log_type => 'EXCEPTION_EXPORT', p_application_id => l_application_id);
+
+end upload_exceptions;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
 end exceptions_api;
 /

@@ -136,4 +136,12 @@
 <indexSort>SORTED</indexSort>
 </PrimaryKey>
 </primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="EXCEPTIONS_UN" id="8FFD5B79-6D8D-9A85-0646-B2E5DE6D9168">
+<createdBy>scspend</createdBy>
+<createdTime>2024-07-02 13:00:10 UTC</createdTime>
+<ownerDesignName>APEX-SERT v2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
 </TableProxyOraclev20c>

@@ -1,4 +1,4 @@
-create or replace package body comments_api
+create or replace package body sert_core.comments_api
 as
 
 -- PROCEDURE: A D D _ C O M M E N T
